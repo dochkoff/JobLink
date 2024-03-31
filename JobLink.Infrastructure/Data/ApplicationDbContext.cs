@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobLink.Data
+namespace JobLink.Infrastructure.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
