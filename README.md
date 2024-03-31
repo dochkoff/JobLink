@@ -1,6 +1,4 @@
-# JobLink
-
-# JobLink: Connecting Job Seekers with Employment Opportunities
+# JobLink: Your Gateway to Professional Success
 
 JobLink is a comprehensive job board and recruitment platform designed to streamline the job search process and connect job seekers with employers. Built using ASP.NET Core and Entity Framework Core, JobLink provides a user-friendly interface for both job seekers and employers to post, search, and apply for jobs.
 
