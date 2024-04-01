@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JobLink.Infrastructure\JobLink.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
