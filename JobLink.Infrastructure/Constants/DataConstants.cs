@@ -24,6 +24,10 @@
 
         public const int JobDescriptionMinLength = 50;
 
+        public const string SalaryMinimum = "0";
+
+        public const string SalaryMaximum = "1000000";
+
         //Employer
         public const int EmployerCompanyNameMaxLength = 30;
 

@@ -1,4 +1,7 @@
+using JobLink.Core.Contracts;
+using JobLink.Core.Services;
 using JobLink.Infrastructure.Data;
+using JobLink.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<JobLinkDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IJobService, JobService>();
+builder.Services.AddScoped<IRepository, Repository>(); ///////////////////////////////???????
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
