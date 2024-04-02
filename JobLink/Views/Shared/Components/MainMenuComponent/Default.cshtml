@@ -5,10 +5,10 @@
     @if (User?.Identity?.IsAuthenticated ?? false)
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="Main">My Job Applications</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="MyApplications">My Job Applications</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="Main">My Company Jobs</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="MyJobPosts">My Job Posts</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="Add">Add Job</a>
