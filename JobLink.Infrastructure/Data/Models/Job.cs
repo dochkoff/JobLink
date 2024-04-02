@@ -40,7 +40,7 @@ namespace JobLink.Infrastructure.Data.Models
         public int EmployerId { get; set; }
 
         [Comment("A list with applicants for the job")]
-        public IEnumerable<Applicant> Applicants { get; set; } = new List<Applicant>();
+        public List<Applicant> Applicants { get; set; } = new List<Applicant>();
 
         [ForeignKey(nameof(CategoryId))]
         public JobCategory JobCategory { get; set; } = null!;

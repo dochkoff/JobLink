@@ -34,7 +34,7 @@ namespace JobLink.Infrastructure.Migrations
 
                     b.HasIndex("JobsId");
 
-                    b.ToTable("ApplicantJob");
+                    b.ToTable("ApplicantJob", (string)null);
                 });
 
             modelBuilder.Entity("JobLink.Infrastructure.Data.Models.Applicant", b =>
@@ -76,7 +76,7 @@ namespace JobLink.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Applicants");
+                    b.ToTable("Applicants", (string)null);
 
                     b.HasComment("Applicant for a job");
 
@@ -114,7 +114,7 @@ namespace JobLink.Infrastructure.Migrations
 
                     b.HasIndex("JobId");
 
-                    b.ToTable("Applications");
+                    b.ToTable("Applications", (string)null);
 
                     b.HasComment("Application for a job");
 
@@ -184,7 +184,7 @@ namespace JobLink.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Employers");
+                    b.ToTable("Employers", (string)null);
 
                     b.HasComment("Employer of a job");
 
@@ -246,7 +246,7 @@ namespace JobLink.Infrastructure.Migrations
 
                     b.HasIndex("EmployerId");
 
-                    b.ToTable("Jobs");
+                    b.ToTable("Jobs", (string)null);
 
                     b.HasComment("A job posting");
 
@@ -300,7 +300,7 @@ namespace JobLink.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JobCategories");
+                    b.ToTable("JobCategories", (string)null);
 
                     b.HasComment("Job category");
 

@@ -1,5 +1,6 @@
 ﻿using JobLink.Core.Contracts;
 using JobLink.Core.Enumerations;
+using JobLink.Core.Exceptions;
 using JobLink.Core.Models.Home;
 using JobLink.Core.Models.Job;
 using JobLink.Infrastructure.Data.Common;
@@ -108,69 +109,178 @@ namespace JobLink.Core.Services
                 .AnyAsync(c => c.Id == categoryId);
         }
 
-        public Task<IEnumerable<JobIndexServiceModel>> LastestJobsAsync()
+        public async Task<int> CreateAsync(JobFormModel model, int employerId)
         {
-            throw new NotImplementedException();
+            Job job = new Job()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Location = model.Location,
+                Salary = model.Salary,
+                CategoryId = model.CategoryId,
+                EmployerId = employerId
+            };
+
+            await repository.AddAsync(job);
+            await repository.SaveChangesAsync();
+
+            return job.Id;
         }
 
-        public Task<int> CreateAsync(JobFormModel model, int employerId)
+        public async Task DeleteAsync(int jobId)
         {
-            throw new NotImplementedException();
+            await repository.DeleteAsync<Job>(jobId);
+            await repository.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<JobServiceModel>> AllJobsByApplicantId(string applicantId)
+        public async Task EditAsync(int jobId, JobFormModel model)
         {
-            throw new NotImplementedException();
+            var job = await repository.GetByIdAsync<Job>(jobId);
+
+            if (job != null)
+            {
+                job.Title = model.Title;
+                job.Description = model.Description;
+                job.Location = model.Location;
+                job.Salary = model.Salary;
+                job.CategoryId = model.CategoryId;
+
+                await repository.SaveChangesAsync();
+            }
         }
 
-        public Task<bool> ExistsAsync(int id)
+        public async Task<bool> ExistsAsync(int jobId)
         {
-            throw new NotImplementedException();
+            return await repository.AllReadOnly<Job>()
+                .AnyAsync(j => j.Id == jobId);
         }
 
-        public Task<JobDetailsServiceModel> JobDetailsByIdAsync(int id)
+        public async Task<JobFormModel?> GetJobFormModelByIdAsync(int jobId)
         {
-            throw new NotImplementedException();
+            var job = await repository.AllReadOnly<Job>()
+                .Where(j => j.Id == jobId)
+                .Select(j => new JobFormModel()
+                {
+                    Title = j.Title,
+                    Description = j.Description,
+                    Location = j.Location,
+                    Salary = j.Salary,
+                    CategoryId = j.CategoryId
+                })
+                .FirstOrDefaultAsync();
+
+            if (job != null)
+            {
+                job.Categories = await AllCategoriesAsync();
+            }
+
+            return job;
         }
 
-        public Task EditAsync(int jobId, JobFormModel model)
+        public async Task<bool> HasEmployerWithIdAsync(int jobId, string userId)
         {
-            throw new NotImplementedException();
+            return await repository.AllReadOnly<Job>()
+                .AnyAsync(j => j.Id == jobId && j.Employer.UserId == userId);
         }
 
-        public Task<bool> HasEmployerWithIdAsync(int jobId, string employerId)
+        public async Task<JobDetailsServiceModel> JobDetailsByIdAsync(int jobId)
         {
-            throw new NotImplementedException();
+            return await repository.AllReadOnly<Job>()
+                .Where(j => j.Id == jobId)
+                .Select(j => new JobDetailsServiceModel()
+                {
+                    Id = j.Id,
+                    Title = j.Title,
+                    Description = j.Description,
+                    Location = j.Location,
+                    Salary = j.Salary,
+                    Employer = new Models.Employer.EmployerServiceModel()
+                    {
+                        Email = j.Employer.User.Email,
+                        PhoneNumber = j.Employer.PhoneNumber
+                    },
+                    Category = j.JobCategory.Name,
+                    IsApplied = j.Applicants != null,
+                })
+                .FirstAsync();
         }
 
-        public Task<JobFormModel?> GetJobFormModelByIdAsync(int id)
+        public async Task<bool> IsAppliedAsync(int jobId)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            var job = await repository.GetByIdAsync<Job>(jobId);
+
+            if (job != null)
+            {
+                result = job.Applicants != null;
+            }
+
+            return result;
         }
 
-        public Task DeleteAsync(int jobId)
+        public async Task<bool> IsAppliedByApplicantWithIdAsync(int jobId, int applicantId)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            var job = await repository.GetByIdAsync<Job>(jobId);
+
+            if (job != null)
+            {
+                result = job.Applicants.Any(a=>a.Id==applicantId);
+            }
+
+            return result;
         }
 
-        public Task<bool> IsAppliedAsync(int jobId)
+        public async Task<IEnumerable<JobIndexServiceModel>> LatestJobsAsync()
         {
-            throw new NotImplementedException();
+            return await repository
+                .AllReadOnly<Job>()
+                .OrderByDescending(j => j.Id)
+                .Take(3)
+                .Select(j => new JobIndexServiceModel()
+                {
+                    Id = j.Id,
+                    Title = j.Title,
+                    Location = j.Location,
+                    ImageUrl = j.Employer.LogoUrl
+                })
+                .ToListAsync();
         }
 
-        public Task<bool> IsAppliedByApplicantWithIdAsync(int jobId, string applicantId)
+        public async Task LeaveAsync(int jobId, int applicantId)
         {
-            throw new NotImplementedException();
+            var job = await repository.GetByIdAsync<Job>(jobId);
+
+            if (job != null)
+            {
+                if (job.Applicants.Any(a => a.Id == applicantId))
+                {
+                    var applicant = job.Applicants.First(a => a.Id == applicantId);
+                    job.Applicants.Remove(applicant);
+                    await repository.SaveChangesAsync();
+                }
+                else
+                {
+                    throw new UnauthorizedActionException("The user is not an applicant");
+                }
+            }
         }
 
-        public Task ApplyAsync(int id, string applicantId)
+        public async Task ApplyAsync(int id, int applicantId)
         {
-            throw new NotImplementedException();
-        }
+            var job = await repository.GetByIdAsync<Job>(id);
+            var applicant = await repository.GetByIdAsync<Applicant>(applicantId);
 
-        public Task CancelAsync(int jobId, string applicantId)
-        {
-            throw new NotImplementedException();
+            if (job != null && applicant != null)
+            {
+                if (job.Applicants.Any(a => a.Id == applicantId))
+                {
+                    throw new ApplicantAlreadyExistException("The applicant is already applied for this job");
+                }
+
+                job.Applicants.Add(applicant);
+                await repository.SaveChangesAsync();
+            }
         }
     }
 }

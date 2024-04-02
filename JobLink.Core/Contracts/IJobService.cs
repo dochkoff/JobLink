@@ -6,7 +6,7 @@ namespace JobLink.Core.Contracts
 {
     public interface IJobService
     {
-        Task<IEnumerable<JobIndexServiceModel>> LastestJobsAsync();
+        Task<IEnumerable<JobIndexServiceModel>> LatestJobsAsync();
 
         Task<IEnumerable<JobCategoryServiceModel>> AllCategoriesAsync();
 
@@ -25,7 +25,7 @@ namespace JobLink.Core.Contracts
 
         Task<IEnumerable<JobServiceModel>> AllJobsByEmployerIdAsync(int employerId);
 
-        Task<IEnumerable<JobServiceModel>> AllJobsByApplicantId(string applicantId);
+        Task<IEnumerable<JobServiceModel>> AllJobsByApplicantId(int applicantId);
 
         Task<bool> ExistsAsync(int id);
 
@@ -41,10 +41,10 @@ namespace JobLink.Core.Contracts
 
         Task<bool> IsAppliedAsync(int jobId);
 
-        Task<bool> IsAppliedByApplicantWithIdAsync(int jobId, string applicantId);
+        Task<bool> IsAppliedByApplicantWithIdAsync(int jobId, int applicantId);
 
-        Task ApplyAsync(int id, string applicantId);
+        Task ApplyAsync(int id, int applicantId);
 
-        Task CancelAsync(int jobId, string applicantId);
+        Task LeaveAsync(int jobId, int applicantId);
     }
 }
