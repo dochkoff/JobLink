@@ -1,9 +1,80 @@
-﻿@model IndexViewModel
+﻿@model IEnumerable<JobIndexServiceModel>
+@inject IEmployerService employerService
+
 @{
     ViewData["Title"] = "JobLink";
+    var jobs = Model.ToList();
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@if (!jobs.Any())
+{
+    <div class="mt-4 p-5 bg-light">
+        <h1 class="display-4">Find Your Dream Job</h1>
+        <p class="lead">
+            There are no published jobs at the moment
+            so if you are an employer why don't just add the first one?
+        </p>
+        <hr class="my-4">
+        <p class="lead">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="Job" asp-action="Add" class="btn btn-primary btn-lg"
+                   role="button">Add Job</a>
+            }
+        </p>
+    </div>
+}
+
+<div class="mb-5"></div>
+
+<div class="container">
+    <h2>Latest Jobs</h2>
+    <div class="row">
+        @foreach (var job in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="@job.ImageUrl" alt="@job.Title">
+                    <div class="card-body">
+                        <h5 class="card-title">@job.Title</h5>
+                        <p class="card-text">Employer: @job.Employer</p>
+                        <p class="card-text">Location: @job.Location</p>
+                        <a class="btn btn-primary" asp-controller="Job" asp-action="Details"
+                           asp-route-id="@job.Id" asp-route-information="@job.get"> Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-12 text-center">
+        <a class="btn btn-primary" asp-controller="Job" asp-action="Board"> View Jobs Board</a>
+    </div>
 </div>
+
+<div class="mb-5"></div>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <button class="btn btn-primary" id="statistics-button">Show Statistics</button>
+    </div>
+</div>
+
+<div class="mt-4 p-5 bg-light d-none" id="statistics">
+    <div class="row">
+        <h2 class="col-md-2 text-center" id="total-houses"></h2>
+        <h2 class="col-md-2 text-center" id="total-rents"></h2>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('#statistics-button').on('click', ev => {
+            $.get('/api/statistic', data => {
+                $('#total-houses').text(data.totalHouses + ' Houses');
+                $('#total-rents').text(data.totalRents + ' Rents');
+                $('#statistics').removeClass('d-none');
+                $('#statistics-button').hide();
+            });
+        });
+    </script>
+}
