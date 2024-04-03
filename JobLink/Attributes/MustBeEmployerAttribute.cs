@@ -8,22 +8,22 @@ namespace JobLink.Attributes
 {
     public class MustBeEmployerAttribute : ActionFilterAttribute
     {
-        //public override void OnActionExecuting(ActionExecutingContext context)
-        //{
-        //    base.OnActionExecuting(context);
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            base.OnActionExecuting(context);
 
-        //    IEmployerService? employerService = context.HttpContext.RequestServices.GetService<IEmployerService>();
+            IEmployerService? employerService = context.HttpContext.RequestServices.GetService<IEmployerService>();
 
-        //    if (employerService == null)
-        //    {
-        //        context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
-        //    }
+            if (employerService == null)
+            {
+                context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
 
-        //    if (employerService != null
-        //        && employerService.ExistsByIdAsync(context.HttpContext.User.Id()).Result == false)
-        //    {
-        //        context.Result = new RedirectToActionResult(nameof(EmployerController.Become), "Employer", null);
-        //    }
-        //}
+            if (employerService != null
+                && employerService.ExistsByIdAsync(context.HttpContext.User.Id()).Result == false)
+            {
+                context.Result = new RedirectToActionResult(nameof(EmployerController.Become), "Employer", null);
+            }
+        }
     }
 }
