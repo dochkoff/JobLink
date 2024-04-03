@@ -153,7 +153,7 @@ namespace JobLink.Infrastructure.Data
                 Address = "Sofia, Bulgaria",
                 PhoneNumber = "+359880000000",
                 Website = "https://sirma.com",
-                LogoUrl = "https://github.com/dochkoff/JobLink/blob/8aba84771b5cfe445466c3f415c45dc612a359d7/JobLink/wwwroot/images/SirmaGroupLogo.jpg",
+                LogoUrl = "https://3e-news.net/web/files/articles/37670/main_image/thumb_850x480_sirma-group-logo.jpg",
                 UserId = EmployerUser.Id
             };
         }
