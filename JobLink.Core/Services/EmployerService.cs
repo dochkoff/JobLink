@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobLink.Core.Services
 {
-    internal class EmployerService : IEmployerService
+    public class EmployerService : IEmployerService
     {
         private readonly IRepository repository;
 
