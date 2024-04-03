@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobLink.Controllers
 {
     [Authorize]
-    public class JobController : Controller
+    public class JobController : BaseController
     {
         [AllowAnonymous]
         [HttpGet]

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobLink.Controllers
 {
-    public class ApplicantController : Controller
+    public class ApplicantController : BaseController
     {
         [HttpGet]
         public async Task<IActionResult> Become()

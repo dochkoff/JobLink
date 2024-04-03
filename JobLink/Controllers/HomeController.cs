@@ -1,26 +1,33 @@
-﻿using JobLink.Core.Models.Home;
+﻿using JobLink.Core.Contracts;
 using JobLink.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace JobLink.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
+        private readonly IJobService jobService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> _logger,
+            IJobService _jobService)
         {
-            _logger = logger;
+            logger = _logger;
+            jobService = _jobService;
         }
 
-        public IActionResult Index()
+        [AllowAnonymous]
+        public async Task<IActionResult> Index()
         {
-            var model = new IndexViewModel();
+            var model = await jobService.LatestJobsAsync();
 
             return View(model);
         }
 
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

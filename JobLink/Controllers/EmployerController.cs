@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobLink.Controllers
 {
     [Authorize]
-    public class EmployerController : Controller
+    public class EmployerController : BaseController
     {
         [HttpGet]
         public async Task<IActionResult> Become()
