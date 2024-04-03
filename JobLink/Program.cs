@@ -12,6 +12,8 @@ builder.Services.AddDbContext<JobLinkDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IJobService, JobService>();
+builder.Services.AddScoped<IEmployerService, EmployerService>();
+builder.Services.AddScoped<IStatisticService, StatisticService>();
 builder.Services.AddScoped<IRepository, Repository>(); ///////////////////////////////???????
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
