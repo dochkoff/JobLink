@@ -43,7 +43,7 @@ namespace JobLink.Core.Contracts
 
         Task<bool> IsAppliedByApplicantWithIdAsync(int jobId, int applicantId);
 
-        Task ApplyAsync(int id, int applicantId);
+        Task CancelAsync(int id, int applicantId);
 
         Task LeaveAsync(int jobId, int applicantId);
     }

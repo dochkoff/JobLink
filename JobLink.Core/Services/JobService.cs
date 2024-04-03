@@ -241,13 +241,14 @@ namespace JobLink.Core.Services
                 {
                     Id = j.Id,
                     Title = j.Title,
+                    Employer = j.Employer.CompanyName,
                     Location = j.Location,
                     ImageUrl = j.Employer.LogoUrl
                 })
                 .ToListAsync();
         }
 
-        public async Task LeaveAsync(int jobId, int applicantId)
+        public async Task CancelAsync(int jobId, int applicantId)
         {
             var job = await repository.GetByIdAsync<Job>(jobId);
 
