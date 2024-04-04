@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobLink.Infrastructure.Migrations
 {
     [DbContext(typeof(JobLinkDbContext))]
-    [Migration("20240401041005_AllEntitiesAdded")]
-    partial class AllEntitiesAdded
+    [Migration("20240404171500_EntitiesAndSeedAdded")]
+    partial class EntitiesAndSeedAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -81,6 +81,16 @@ namespace JobLink.Infrastructure.Migrations
                     b.ToTable("Applicants");
 
                     b.HasComment("Applicant for a job");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Pavel Dochkov",
+                            PhoneNumber = "+359887654321",
+                            ResumeUrl = "https://drive.google.com/file/d/1UeDWXN60iwk-iVav4_Wj0aekCdWn2BuE/view?usp=sharing",
+                            UserId = "d52c4853-4d5e-4be0-9639-80e17a54b87f"
+                        });
                 });
 
             modelBuilder.Entity("JobLink.Infrastructure.Data.Models.Application", b =>
@@ -109,6 +119,89 @@ namespace JobLink.Infrastructure.Migrations
                     b.ToTable("Applications");
 
                     b.HasComment("Application for a job");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ApplicantId = 1,
+                            JobId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ApplicantId = 1,
+                            JobId = 2
+                        });
+                });
+
+            modelBuilder.Entity("JobLink.Infrastructure.Data.Models.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("Company identifier");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)")
+                        .HasComment("Company address");
+
+                    b.Property<string>("LogoUrl")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasComment("Company's logo");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasComment("Company name");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)")
+                        .HasComment("Company's phone number");
+
+                    b.Property<string>("Website")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Company's website");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
+
+                    b.ToTable("Companies");
+
+                    b.HasComment("Company");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Sofia, Bulgaria",
+                            LogoUrl = "https://3e-news.net/web/files/articles/37670/main_image/thumb_850x480_sirma-group-logo.jpg",
+                            Name = "Sirma Solutions",
+                            PhoneNumber = "+359 2 976 8310",
+                            Website = "https://sirma.com"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Boston, MA",
+                            LogoUrl = "https://fontmeme.com/images/DraftKings-logo-font.png",
+                            Name = "DraftKings",
+                            PhoneNumber = "+16175551212",
+                            Website = "https://draftkings.com"
+                        });
                 });
 
             modelBuilder.Entity("JobLink.Infrastructure.Data.Models.Employer", b =>
@@ -120,23 +213,9 @@ namespace JobLink.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)")
-                        .HasComment("Company address");
-
-                    b.Property<string>("CompanyName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
-                        .HasComment("Employer's company name");
-
-                    b.Property<string>("LogoUrl")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
-                        .HasComment("Employer's logo");
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int")
+                        .HasComment("Company Identifier");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -149,13 +228,9 @@ namespace JobLink.Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasComment("User Identifier");
 
-                    b.Property<string>("Website")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasComment("Employer's website");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("PhoneNumber")
                         .IsUnique();
@@ -164,7 +239,16 @@ namespace JobLink.Infrastructure.Migrations
 
                     b.ToTable("Employers");
 
-                    b.HasComment("Employer of a job");
+                    b.HasComment("Jobs Employer");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CompanyId = 1,
+                            PhoneNumber = "+359880000000",
+                            UserId = "7172d444-1cbb-4856-a0ec-6f47634693bc"
+                        });
                 });
 
             modelBuilder.Entity("JobLink.Infrastructure.Data.Models.Job", b =>
@@ -215,6 +299,38 @@ namespace JobLink.Infrastructure.Migrations
                     b.ToTable("Jobs");
 
                     b.HasComment("A job posting");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Description = "Develop software with ASP.NET Core with C#",
+                            EmployerId = 1,
+                            Location = "Remote",
+                            Salary = 5000m,
+                            Title = "Software Developer"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 2,
+                            Description = "Sell our software platform internationaly",
+                            EmployerId = 1,
+                            Location = "Sofia, Bulgaria",
+                            Salary = 3000m,
+                            Title = "Sales Representative"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 3,
+                            Description = "Do accounting for Sirma Solutions staff",
+                            EmployerId = 1,
+                            Location = "Kazanlak, Bulgaria",
+                            Salary = 2500m,
+                            Title = "Accountant"
+                        });
                 });
 
             modelBuilder.Entity("JobLink.Infrastructure.Data.Models.JobCategory", b =>
@@ -237,6 +353,23 @@ namespace JobLink.Infrastructure.Migrations
                     b.ToTable("JobCategories");
 
                     b.HasComment("Job category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Software Development"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Sales"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Finance"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -354,6 +487,56 @@ namespace JobLink.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7172d444-1cbb-4856-a0ec-6f47634693bc",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "020325be-305a-496a-ad53-faf66903300c",
+                            Email = "sirmarecruit@sirma.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "sirmarecruit@sirma.com",
+                            NormalizedUserName = "sirmarecruit@sirma.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAENEwxazEaM1PalbCsdbkxev7IJPNfR2JaymarRhnfQEEPd23w/Vvqdj2OR3AOXEDuQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f050978d-d0f8-44c8-86bd-5d86c923b893",
+                            TwoFactorEnabled = false,
+                            UserName = "sirmarecruit@sirma.com"
+                        },
+                        new
+                        {
+                            Id = "d52c4853-4d5e-4be0-9639-80e17a54b87f",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e3df3f02-d7e3-4dc2-aef5-8cab8fc5ddab",
+                            Email = "needajob@abv.bg",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "needajob@abv.bg",
+                            NormalizedUserName = "needajob@abv.bg",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFfXu32lZScTJq6OT0K13PAf4/wfyDYHq4XJzfEApDygres9mwQjjycpM+EbyZs0Dw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "021e01bf-a386-4671-b468-e515fa68b8f8",
+                            TwoFactorEnabled = false,
+                            UserName = "needajob@abv.bg"
+                        },
+                        new
+                        {
+                            Id = "c7d63805-14d1-4a61-bbe8-a8abd51b5c32",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "51a2b9b9-7d25-49af-85b3-00c465d850d9",
+                            Email = "guest@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "guest@gmail.com",
+                            NormalizedUserName = "guest@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMEfSPbpEvBDfk6cpUR3Uj4KUAirwQoMmf8PySMfAOZRH//uspRw+auyY6HOVssGLg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a8f75631-c3c3-46ba-a541-8635e66d0deb",
+                            TwoFactorEnabled = false,
+                            UserName = "guest@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -488,11 +671,19 @@ namespace JobLink.Infrastructure.Migrations
 
             modelBuilder.Entity("JobLink.Infrastructure.Data.Models.Employer", b =>
                 {
+                    b.HasOne("JobLink.Infrastructure.Data.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Company");
 
                     b.Navigation("User");
                 });

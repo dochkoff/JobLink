@@ -18,6 +18,10 @@ namespace JobLink.Infrastructure.Data
 
         private Applicant Applicant { get; set; }
 
+        private Company Sirma { get; set; }
+
+        private Company DraftKings { get; set; }
+
         private JobCategory SoftDevJobCategory { get; set; }
 
         private JobCategory SalesJobCategory { get; set; }
@@ -44,6 +48,8 @@ namespace JobLink.Infrastructure.Data
         public DbSet<Applicant> Applicants { get; set; } = null!;
 
         public DbSet<Application> Applications { get; set; } = null!;
+
+        public DbSet<Company> Companies { get; set; } = null!;
 
         public DbSet<Employer> Employers { get; set; } = null!;
 
@@ -74,6 +80,11 @@ namespace JobLink.Infrastructure.Data
                 .HasData(EmployerUser,
                          ApplicantUser,
                          GuestUser);
+
+            SeedCompanies();
+            builder.Entity<Company>()
+                .HasData(Sirma,
+                        DraftKings);
 
             SeedEmployers();
             builder.Entity<Employer>()
@@ -144,17 +155,37 @@ namespace JobLink.Infrastructure.Data
             GuestUser.PasswordHash = hasher.HashPassword(GuestUser, "guest123");
         }
 
+        private void SeedCompanies()
+        {
+            Sirma = new Company
+            {
+                Id = 1,
+                Name = "Sirma Solutions",
+                Address = "Sofia, Bulgaria",
+                PhoneNumber = "+359 2 976 8310",
+                Website = "https://sirma.com",
+                LogoUrl = "https://3e-news.net/web/files/articles/37670/main_image/thumb_850x480_sirma-group-logo.jpg"
+            };
+
+            DraftKings = new Company
+            {
+                Id = 2,
+                Name = "DraftKings",
+                Address = "Boston, MA",
+                PhoneNumber = "+16175551212",
+                Website = "https://draftkings.com",
+                LogoUrl = "https://fontmeme.com/images/DraftKings-logo-font.png"
+            };
+        }
+
         private void SeedEmployers()
         {
             Employer = new Employer
             {
                 Id = 1,
-                CompanyName = "Sirma Solutions",
-                Address = "Sofia, Bulgaria",
                 PhoneNumber = "+359880000000",
-                Website = "https://sirma.com",
-                LogoUrl = "https://3e-news.net/web/files/articles/37670/main_image/thumb_850x480_sirma-group-logo.jpg",
-                UserId = EmployerUser.Id
+                UserId = EmployerUser.Id,
+                CompanyId = Sirma.Id
             };
         }
 
