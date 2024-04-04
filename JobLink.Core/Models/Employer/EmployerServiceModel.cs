@@ -8,5 +8,7 @@ namespace JobLink.Core.Models.Employer
         public string PhoneNumber { get; set; } = null!;
 
         public string Email { get; set; } = null!;
+
+        public string CompanyName { get; set; } = null!;
     }
 }

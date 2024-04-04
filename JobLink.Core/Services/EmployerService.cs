@@ -14,12 +14,13 @@ namespace JobLink.Core.Services
             repository = _repository;
         }
 
-        public async Task CreateAsync(string userId, string phoneNumber)
+        public async Task CreateAsync(string userId, string phoneNumber, int companyId)
         {
             await repository.AddAsync(new Employer()
             {
                 UserId = userId,
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                CompanyId = companyId
             });
 
             await repository.SaveChangesAsync();
@@ -48,5 +49,7 @@ namespace JobLink.Core.Services
             return await repository.AllReadOnly<Employer>()
                 .AnyAsync(a => a.PhoneNumber == phoneNumber);
         }
+
+        
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace JobLink.Core.Contracts
+﻿using JobLink.Core.Models.Company;
+
+namespace JobLink.Core.Contracts
 {
     public interface IEmployerService
     {
@@ -8,7 +10,7 @@
 
         Task<bool> UserHasApplicationsAsync(string userId);
 
-        Task CreateAsync(string userId, string phoneNumber);
+        Task CreateAsync(string userId, string phoneNumber, int companyId);
 
         Task<int?> GetEmployerIdAsync(string userId);
     }

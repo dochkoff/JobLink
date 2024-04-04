@@ -28,14 +28,14 @@
 
         public const string SalaryMaximum = "1000000";
 
-        //Employer
-        public const int EmployerCompanyNameMaxLength = 30;
+        //Company
+        public const int CompanyNameMaxLength = 30;
 
-        public const int EmployerCompanyNameMinLength = 2;
+        public const int CompanyNameMinLength = 2;
 
-        public const int EmployerWebsiteMaxLength = 50;
+        public const int CompanyWebsiteMaxLength = 50;
 
-        public const int EmployerWebsiteMinLength = 5;
+        public const int CompanyWebsiteMinLength = 5;
 
 
     }
