@@ -2,6 +2,7 @@ using JobLink.Core.Contracts;
 using JobLink.Core.Services;
 using JobLink.Infrastructure.Data;
 using JobLink.Infrastructure.Data.Common;
+using JobLink.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ builder.Services.AddScoped<IJobService, JobService>();
 builder.Services.AddScoped<IEmployerService, EmployerService>();
 builder.Services.AddScoped<IStatisticService, StatisticService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
-builder.Services.AddScoped<IRepository, Repository>(); ///////////////////////////////???????
+builder.Services.AddScoped<IRepository, Repository>();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -28,7 +29,10 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequireUppercase = false;
  })
     .AddEntityFrameworkStores<JobLinkDbContext>();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+});
 
 var app = builder.Build();
 
