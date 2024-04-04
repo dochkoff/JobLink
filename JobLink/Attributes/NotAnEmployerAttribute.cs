@@ -11,15 +11,15 @@ namespace JobLink.Attributes
         {
             base.OnActionExecuting(context);
 
-            IEmployerService? agentService = context.HttpContext.RequestServices.GetService<IEmployerService>();
+            IEmployerService? employerService = context.HttpContext.RequestServices.GetService<IEmployerService>();
 
-            if (agentService == null)
+            if (employerService == null)
             {
                 context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
-            if (agentService != null
-                && agentService.ExistsByIdAsync(context.HttpContext.User.Id()).Result)
+            if (employerService != null
+                && employerService.ExistsByIdAsync(context.HttpContext.User.Id()).Result)
             {
                 context.Result = new StatusCodeResult(StatusCodes.Status400BadRequest);
             }

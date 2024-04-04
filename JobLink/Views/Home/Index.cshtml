@@ -16,7 +16,7 @@
         </p>
         <hr class="my-4">
         <p class="lead">
-            @if (User.Identity.IsAuthenticated)
+            @if (User?.Identity?.IsAuthenticated ?? false)
             {
                 <a asp-controller="Job" asp-action="Add" class="btn btn-primary btn-lg"
                    role="button">Add Job</a>

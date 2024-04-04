@@ -41,13 +41,13 @@ namespace JobLink.Core.Services
         public async Task<bool> UserHasApplicationsAsync(string userId)
         {
             return await repository.AllReadOnly<Job>()
-                .AnyAsync(j => j.Applicants.Any(a=>a.UserId == userId));
+                .AnyAsync(j => j.Applicants.Any(e=>e.UserId == userId));
         }
 
         public async Task<bool> UserWithPhoneNumberExistsAsync(string phoneNumber)
         {
             return await repository.AllReadOnly<Employer>()
-                .AnyAsync(a => a.PhoneNumber == phoneNumber);
+                .AnyAsync(e => e.PhoneNumber == phoneNumber);
         }
 
         
