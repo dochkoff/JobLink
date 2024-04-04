@@ -29,7 +29,6 @@ namespace JobLink.Controllers
                 Companies = await companyService.AllCompaniesAsync()
             };
    
-
             return View(model);
         }
 
@@ -53,10 +52,6 @@ namespace JobLink.Controllers
 
                 return View(model);
             }
-
-            //int? agentId = await agentService.GetAgentIdAsync(User.Id());
-            //int newHouseId = await houseService.CreateAsync(model, agentId ?? 0);
-
 
             await employerService.CreateAsync(User.Id(), model.PhoneNumber, model.CompanyId);
 
