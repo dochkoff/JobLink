@@ -241,9 +241,9 @@ namespace JobLink.Core.Services
                 {
                     Id = j.Id,
                     Title = j.Title,
-                    Employer = j.Employer.CompanyName,
+                    Employer = j.Employer.Company.Name,
                     Location = j.Location,
-                    ImageUrl = j.Employer.LogoUrl
+                    ImageUrl = j.Employer.Company.LogoUrl
                 })
                 .ToListAsync();
         }
@@ -267,9 +267,9 @@ namespace JobLink.Core.Services
             }
         }
 
-        public async Task ApplyAsync(int id, int applicantId)
+        public async Task ApplyAsync(int jobId, int applicantId)
         {
-            var job = await repository.GetByIdAsync<Job>(id);
+            var job = await repository.GetByIdAsync<Job>(jobId);
             var applicant = await repository.GetByIdAsync<Applicant>(applicantId);
 
             if (job != null && applicant != null)
