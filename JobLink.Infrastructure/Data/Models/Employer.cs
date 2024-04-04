@@ -7,7 +7,7 @@ using static JobLink.Infrastructure.Constants.DataConstants;
 namespace JobLink.Infrastructure.Data.Models
 {
     [Index(nameof(PhoneNumber), IsUnique = true)]
-    [Comment("Employer of a job")]
+    [Comment("Jobs Employer")]
     public class Employer
     {
         [Key]
@@ -15,28 +15,9 @@ namespace JobLink.Infrastructure.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(EmployerCompanyNameMaxLength)]
-        [Comment("Employer's company name")]
-        public string CompanyName { get; set; } = string.Empty;
-
-        [Required]
-        [MaxLength(LocationMaxLength)]
-        [Comment("Company address")]
-        public string Address { get; set; } = string.Empty;
-
-        [Required]
         [MaxLength(PhoneMaxLength)]
         [Comment("Employer's phone")]
         public string PhoneNumber { get; set; } = string.Empty;
-
-        [Required]
-        [MaxLength(EmployerWebsiteMaxLength)]
-        [Comment("Employer's website")]
-        public string Website { get; set; } = string.Empty;
-
-        [MaxLength(UrlMaxLength)]
-        [Comment("Employer's logo")]
-        public string LogoUrl { get; set; } = string.Empty;
 
         [Required]
         [Comment("User Identifier")]
@@ -44,6 +25,13 @@ namespace JobLink.Infrastructure.Data.Models
 
         [ForeignKey(nameof(UserId))]
         public IdentityUser User { get; set; } = null!;
+
+        [Required]
+        [Comment("Company Identifier")]
+        public int CompanyId { get; set; }
+
+        [ForeignKey(nameof(CompanyId))]
+        public Company Company { get; set; } = null!;
 
         public List<Job> Jobs { get; set; } = new List<Job>();
     }

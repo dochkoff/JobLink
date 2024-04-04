@@ -14,6 +14,7 @@ builder.Services.AddDbContext<JobLinkDbContext>(options =>
 builder.Services.AddScoped<IJobService, JobService>();
 builder.Services.AddScoped<IEmployerService, EmployerService>();
 builder.Services.AddScoped<IStatisticService, StatisticService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IRepository, Repository>(); ///////////////////////////////???????
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

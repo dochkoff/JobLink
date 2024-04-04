@@ -37,10 +37,10 @@
                     <img class="card-img-top" src="@job.ImageUrl" alt="@job.Title">
                     <div class="card-body">
                         <h5 class="card-title">@job.Title</h5>
-                        <p class="card-text">Employer: @job.Employer</p>
+                        <p class="card-text">Company: @job.Employer</p>
                         <p class="card-text">Location: @job.Location</p>
                         <a class="btn btn-primary" asp-controller="Job" asp-action="Details"
-                           asp-route-id="@job.Id" asp-route-information="@job.get"> Details</a>
+                           asp-route-id="@job.Id" asp-route-information="@job"> Details</a>
                     </div>
                 </div>
             </div>
