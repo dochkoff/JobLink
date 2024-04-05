@@ -25,7 +25,7 @@ namespace JobLink.Core.Contracts
 
         Task<IEnumerable<JobServiceModel>> AllJobsByEmployerIdAsync(int employerId);
 
-        Task<IEnumerable<JobServiceModel>> AllJobsByApplicantId(int applicantId);
+        Task<IEnumerable<JobServiceModel>> AllJobsByUserIdAsync(string userId);
 
         Task<bool> ExistsAsync(int id);
 
@@ -43,8 +43,8 @@ namespace JobLink.Core.Contracts
 
         Task<bool> IsAppliedByApplicantWithIdAsync(int jobId, int applicantId);
 
-        Task CancelAsync(int jobId, int applicantId);
+        Task CancelAsync(int jobId, string applicantId);
 
-        Task ApplyAsync(int jobId, int applicantId);
+        Task ApplyAsync(int jobId, string applicantId);
     }
 }

@@ -9,5 +9,11 @@
         public const string PhoneExists = "Phone number already exists. Enter another one";
 
         public const string HasApplications = "You should have no job applications to become an employer";
+
+        public const string CategoryDoNotExist = "Category does not exist";
+
+        public const string NotAnApplicant = "The user is not an applicant";
+
+        public const string AlredyApplied = "The applicant is already applied for this job";
     }
 }

@@ -6,6 +6,7 @@ using JobLink.Core.Models.Job;
 using JobLink.Infrastructure.Data.Common;
 using JobLink.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using static JobLink.Core.Constants.MessageConstants;
 
 namespace JobLink.Core.Services
 {
@@ -95,10 +96,10 @@ namespace JobLink.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<JobServiceModel>> AllJobsByApplicantId(int applicantId)
+        public async Task<IEnumerable<JobServiceModel>> AllJobsByUserIdAsync(string userId)
         {
             return await repository.AllReadOnly<Job>()
-                .Where(j => j.Applicants.Any(a => a.Id == applicantId))
+                .Where(j => j.Applicants.Any(a => a.Id.ToString() == userId))
                 .ProjectToJobServiceModel()
                 .ToListAsync();
         }
@@ -248,35 +249,35 @@ namespace JobLink.Core.Services
                 .ToListAsync();
         }
 
-        public async Task CancelAsync(int jobId, int applicantId)
+        public async Task CancelAsync(int jobId, string applicantId)
         {
             var job = await repository.GetByIdAsync<Job>(jobId);
 
             if (job != null)
             {
-                if (job.Applicants.Any(a => a.Id == applicantId))
+                if (job.Applicants.Any(a => a.Id.ToString() == applicantId))
                 {
-                    var applicant = job.Applicants.First(a => a.Id == applicantId);
+                    var applicant = job.Applicants.First(a => a.Id.ToString() == applicantId);
                     job.Applicants.Remove(applicant);
                     await repository.SaveChangesAsync();
                 }
                 else
                 {
-                    throw new UnauthorizedActionException("The user is not an applicant");
+                    throw new UnauthorizedActionException(NotAnApplicant);
                 }
             }
         }
 
-        public async Task ApplyAsync(int jobId, int applicantId)
+        public async Task ApplyAsync(int jobId, string applicantId)
         {
             var job = await repository.GetByIdAsync<Job>(jobId);
             var applicant = await repository.GetByIdAsync<Applicant>(applicantId);
 
             if (job != null && applicant != null)
             {
-                if (job.Applicants.Any(a => a.Id == applicantId))
+                if (job.Applicants.Any(a => a.Id.ToString() == applicantId))
                 {
-                    throw new ApplicantAlreadyExistException("The applicant is already applied for this job");
+                    throw new ApplicantAlreadyExistException(AlredyApplied);
                 }
 
                 job.Applicants.Add(applicant);
