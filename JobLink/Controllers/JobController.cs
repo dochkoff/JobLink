@@ -177,13 +177,14 @@ namespace JobLink.Controllers
                 return Unauthorized();
             }
 
-            var house = await jobService.JobDetailsByIdAsync(id);
+            var job = await jobService.JobDetailsByIdAsync(id);
 
             var model = new JobDetailsViewModel()
             {
                 Id = id,
-                Title = house.Title,
-                Location = house.Location
+                Title = job.Title,
+                Location = job.Location,
+                CompanyLogoURL = job.CompanyLogoURL
             };
 
             return View(model);
