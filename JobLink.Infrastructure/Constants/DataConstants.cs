@@ -3,7 +3,9 @@
     public static class DataConstants
     {
         //Common
-        public const int NameLength = 50;
+        public const int NameMaxLength = 50;
+
+        public const int NameMinLength = 5;
 
         public const int PhoneMaxLength = 15;
 
@@ -14,6 +16,8 @@
         public const int LocationMinLength = 5;
 
         public const int UrlMaxLength = 500;
+
+        public const int UrlMinLength = 5;
 
         //Job
         public const int JobTitleMaxLength = 50;

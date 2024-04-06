@@ -43,6 +43,29 @@ namespace JobLink.Controllers
         }
 
         [HttpGet]
+        [MustBeApplicant]
+        public async Task<IActionResult> MyJobApplications()
+        {
+            var userId = User.Id();
+
+            IEnumerable<JobServiceModel> model;
+
+            if (await employerService.ExistsByIdAsync(userId))
+            {
+                int employerId = await employerService.GetEmployerIdAsync(userId) ?? 0;
+
+                model = await jobService.AllJobsByEmployerIdAsync(employerId);
+            }
+            else
+            {
+                model = await jobService.AllJobsByUserIdAsync(userId);
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        [MustBeEmployer]
         public async Task<IActionResult> MyJobPosts()
         {
             var userId = User.Id();

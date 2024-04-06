@@ -1,0 +1,19 @@
+﻿@model IEnumerable<JobServiceModel>
+@{
+    ViewData["Title"] = "My Job Applications";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+@if (Model.Any() == false)
+{
+    <h3 class="text-center">You have no job applications yet!</h3>
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <partial name="_JobPartial" model="@item" />
+    }
+</div>
