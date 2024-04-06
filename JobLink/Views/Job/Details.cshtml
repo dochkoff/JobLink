@@ -1,7 +1,66 @@
-﻿@model AllJobsQueryModel
+﻿@model JobDetailsServiceModel
+@inject IEmployerService employerService
+@inject IJobService jobService
+
 @{
-    ViewData["Title"] = "Job Details";
+    ViewBag.Title = "Job Details";
 }
 
-<h2 class="text-center">@ViewData["Title"]</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 <hr />
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.CompanyLogoURL" alt="Company Logo">
+        </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.Title</u></p>
+            <p>Job Location: <b>@Model.Location</b></p>
+            <p>
+               Monthly Salary:
+                <b>@String.Format("{0:f2}", Model.Salary) BGN</b>
+            </p>
+            <p>Description: <b>@Model.Description</b></p>
+            <p>Category: <b>@Model.Category</b></p>
+            <p><i>(@(Model.IsApplied ? "Has Applications" : "Be The First"))</i></p>
+            <div class="form-inline">
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    if (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id()))
+                    {
+                        <a class="btn btn-warning" asp-controller="Job" asp-action="Edit"
+                           asp-route-id="@Model.Id">Edit</a>
+                        <a class="ml-2 btn btn-danger" asp-controller="Job" asp-action="Delete"
+                           asp-route-id="@Model.Id">Delete</a>
+                    }
+
+                    @if (!Model.IsApplied && (await employerService.ExistsByIdAsync(User.Id())) == false)
+                    {
+                        <form class="ml-2" asp-controller="Job"
+                              asp-action="Apply" asp-route-id="@Model.Id" method="post">
+                            <input class="btn btn-primary" type="submit" value="Apply" />
+                        </form>
+                    }
+                    else if (await jobService.IsAppliedByUserWithIdAsync(Model.Id, User.Id()))
+                    {
+                        <form class="ml-2" asp-controller="Job" asp-action="Cancel"
+                              asp-route-id="@Model.Id" method="post">
+                            <input class="btn btn-primary" type="submit" value="Cancel" />
+                        </form>
+                    }
+                }
+            </div>
+            <p></p>
+            <div class="card" style="width: 20rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Employer Info</h5>
+                    <p class="card-text">Email:  @Model.Employer.Email</p>
+                    <p class="card-text">Phone Number: @Model.Employer.PhoneNumber</p>
+                    <p class="card-text">Company: @Model.Employer.CompanyName</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
