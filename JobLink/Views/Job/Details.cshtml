@@ -1,5 +1,5 @@
 ﻿@model JobDetailsServiceModel
-@inject IEmployerService employerService
+@inject IApplicantService applicantService
 @inject IJobService jobService
 
 @{
@@ -24,7 +24,14 @@
             </p>
             <p>Description: <b>@Model.Description</b></p>
             <p>Category: <b>@Model.Category</b></p>
-            <p><i>(@(Model.IsApplied ? "Has Applications" : "Be The First"))</i></p>
+            @if (Model.ApplicationsCount > 0)
+            {
+                <p><i>The job has @Model.ApplicationsCount applies</i></p>
+            }
+            else
+            {
+                <p><i>Be The First</i></p>
+            }
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
@@ -36,7 +43,9 @@
                            asp-route-id="@Model.Id">Delete</a>
                     }
 
-                    @if (!Model.IsApplied && (await employerService.ExistsByIdAsync(User.Id())) == false)
+                    @if (
+                        (await jobService.IsAppliedByUserWithIdAsync(Model.Id, User.Id())) == false
+                        && (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id())) == false)
                     {
                         <form class="ml-2" asp-controller="Job"
                               asp-action="Apply" asp-route-id="@Model.Id" method="post">
