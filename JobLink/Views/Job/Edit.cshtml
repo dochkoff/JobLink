@@ -1,7 +1,13 @@
 ﻿@model JobFormModel
 @{
-    ViewData["Title"] = "Edit Jobs";
+    ViewData["Title"] = "Edit Job Post";
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
+
+<partial name="_jobFormPartial" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
