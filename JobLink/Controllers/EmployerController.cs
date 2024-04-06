@@ -22,7 +22,7 @@ namespace JobLink.Controllers
 
         [HttpGet]
         [NotAnEmployer]
-        public async Task<IActionResult> Become()
+        public async Task<IActionResult> BecomeEmployer()
         {
             var model = new BecomeEmployerFormModel()
             {
@@ -34,7 +34,7 @@ namespace JobLink.Controllers
 
         [HttpPost]
         [NotAnEmployer]
-        public async Task<IActionResult> Become(BecomeEmployerFormModel model)
+        public async Task<IActionResult> BecoBecomeEmployerme(BecomeEmployerFormModel model)
         {
             if (await employerService.UserWithPhoneNumberExistsAsync(model.PhoneNumber))
             {

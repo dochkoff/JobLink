@@ -6,21 +6,21 @@ using JobLink.Controllers;
 
 namespace JobLink.Attributes
 {
-    public class MustBeEmployerAttribute : ActionFilterAttribute
+    public class MustBeApplicantAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);
 
-            IEmployerService? employerService = context.HttpContext.RequestServices.GetService<IEmployerService>();
+            IApplicantService? applicantService = context.HttpContext.RequestServices.GetService<IApplicantService>();
 
-            if (employerService == null)
+            if (applicantService == null)
             {
                 context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
-            if (employerService != null
-                && employerService.ExistsByIdAsync(context.HttpContext.User.Id()).Result == false)
+            if (applicantService != null
+                && applicantService.ExistsByIdAsync(context.HttpContext.User.Id()).Result == false)
             {
                 context.Result = new StatusCodeResult(StatusCodes.Status401Unauthorized);
             }
