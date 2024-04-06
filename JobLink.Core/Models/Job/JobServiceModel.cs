@@ -25,9 +25,12 @@ namespace JobLink.Core.Models.Job
             SalaryMinimum,
             SalaryMaximum,
             ConvertValueInInvariantCulture = true,
-            ErrorMessage = "Monthly salary must be a positive number and less than {2} leva")]
+            ErrorMessage = PositiveSalary)]
         [Display(Name = "Monthly salary")]
         public decimal Salary { get; set; }
+
+        [Display(Name = "Company Logo")]
+        public string CompanyLogoURL { get; set; } = null!;
 
         [Display(Name = "Is Applied")]
         public bool IsApplied { get; set; }

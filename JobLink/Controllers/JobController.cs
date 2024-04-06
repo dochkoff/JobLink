@@ -15,16 +15,13 @@ namespace JobLink.Controllers
     {
         private readonly IJobService jobService;
         private readonly IEmployerService employerService;
-        private readonly ILogger logger;
 
         public JobController(
             IJobService _jobService,
-            IEmployerService _employerService,
-            ILogger _logger)
+            IEmployerService _employerService)
         {
             jobService = _jobService;
             employerService = _employerService;
-            logger = _logger;
         }
 
         [AllowAnonymous]
@@ -245,7 +242,7 @@ namespace JobLink.Controllers
             }
             catch (UnauthorizedActionException uae)
             {
-                logger.LogError(uae, "HouseController/Cancel");
+                //logger.LogError(uae, "HouseController/Cancel");
 
                 return Unauthorized();
             }

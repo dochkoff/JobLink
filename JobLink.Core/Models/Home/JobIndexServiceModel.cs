@@ -1,6 +1,8 @@
-﻿namespace JobLink.Core.Models.Home
+﻿using JobLink.Core.Contracts;
+
+namespace JobLink.Core.Models.Home
 {
-    public class JobIndexServiceModel
+    public class JobIndexServiceModel : IJobModel
     {
         public int Id { get; set; }
 

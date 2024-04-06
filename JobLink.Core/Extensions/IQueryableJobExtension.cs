@@ -14,6 +14,7 @@ namespace System.Linq
                     Title = j.Title,
                     Location = j.Location,
                     Salary = j.Salary,
+                    CompanyLogoURL = j.Employer.Company.LogoUrl,
                     IsApplied = j.EmployerId != null,
                 });
         }

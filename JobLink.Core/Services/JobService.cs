@@ -198,9 +198,11 @@ namespace JobLink.Core.Services
                     Employer = new Models.Employer.EmployerServiceModel()
                     {
                         Email = j.Employer.User.Email,
-                        PhoneNumber = j.Employer.PhoneNumber
+                        PhoneNumber = j.Employer.PhoneNumber,
+                        CompanyName = j.Employer.Company.Name,
                     },
                     Category = j.JobCategory.Name,
+                    CompanyLogoURL = j.Employer.Company.LogoUrl,
                     IsApplied = j.Applicants != null,
                 })
                 .FirstAsync();
@@ -219,14 +221,14 @@ namespace JobLink.Core.Services
             return result;
         }
 
-        public async Task<bool> IsAppliedByApplicantWithIdAsync(int jobId, int applicantId)
+        public async Task<bool> IsAppliedByUserWithIdAsync(int jobId, string userId)
         {
             bool result = false;
             var job = await repository.GetByIdAsync<Job>(jobId);
 
             if (job != null)
             {
-                result = job.Applicants.Any(a=>a.Id==applicantId);
+                result = job.Applicants.Any(a => a.Id.ToString() == userId);
             }
 
             return result;
@@ -277,7 +279,7 @@ namespace JobLink.Core.Services
             {
                 if (job.Applicants.Any(a => a.Id.ToString() == applicantId))
                 {
-                    throw new ApplicantAlreadyExistException(AlredyApplied);
+                    throw new ApplicantAlreadyExistException(AlreadyApplied);
                 }
 
                 job.Applicants.Add(applicant);
