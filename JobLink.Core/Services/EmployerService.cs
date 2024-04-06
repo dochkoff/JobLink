@@ -49,7 +49,5 @@ namespace JobLink.Core.Services
             return await repository.AllReadOnly<Employer>()
                 .AnyAsync(e => e.PhoneNumber == phoneNumber);
         }
-
-        
     }
 }

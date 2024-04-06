@@ -1,5 +1,4 @@
 ﻿using JobLink.Core.Models.Company;
-using JobLink.Infrastructure.Data.Models;
 using System.ComponentModel.DataAnnotations;
 using static JobLink.Core.Constants.MessageConstants;
 using static JobLink.Infrastructure.Constants.DataConstants;

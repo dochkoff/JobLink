@@ -15,7 +15,7 @@ namespace JobLink.Infrastructure.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(NameLength)]
+        [MaxLength(NameMaxLength)]
         [Comment("Applicant name")]
         public string Name { get; set; } = string.Empty;
 
