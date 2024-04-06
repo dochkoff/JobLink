@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using JobLink.Core.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
-using JobLink.Core.Contracts;
-using JobLink.Controllers;
 
 namespace JobLink.Attributes
 {
