@@ -16,6 +16,6 @@
 
         public const string AlreadyApplied = "The applicant is already applied for this job";
 
-        public const string PositiveSalary = "Monthly salary must be a positive number and less than {2} leva";
+        public const string PositiveSalary = "Monthly Salary must be a positive number and less than {2} leva";
     }
 }
