@@ -58,7 +58,7 @@ namespace JobLink.Controllers
             }
             else
             {
-                model = await jobService.AllJobsByUserIdAsync(userId);
+                model = await jobService.AllJobApplicationsByUserIdAsync(userId);
             }
 
             return View(model);
@@ -80,7 +80,7 @@ namespace JobLink.Controllers
             }
             else
             {
-                model = await jobService.AllJobsByUserIdAsync(userId);
+                model = await jobService.AllJobPostsByUserIdAsync(userId);
             }
 
             return View(model);
@@ -244,14 +244,14 @@ namespace JobLink.Controllers
                 return Unauthorized();
             }
 
-            if (await jobService.IsAppliedAsync(id))
-            {
-                return BadRequest();
-            }
+            //if (await jobService.IsAppliedAsync(id))
+            //{
+            //    return BadRequest();
+            //}
 
             await jobService.ApplyAsync(id, User.Id());
 
-            return RedirectToAction(nameof(Board));
+            return RedirectToAction(nameof(MyJobApplications));
         }
 
         [HttpPost]
@@ -262,19 +262,19 @@ namespace JobLink.Controllers
                 return BadRequest();
             }
 
-            try
-            {
-                await jobService.CancelAsync(id, User.Id());
-            }
-            catch (UnauthorizedActionException uae)
-            {
-                //logger.LogError(uae, "HouseController/Cancel");
+            //try
+            //{
+                
+            //}
+            //catch (UnauthorizedActionException uae)
+            //{
+            //    //logger.LogError(uae, "HouseController/Cancel");
 
-                return Unauthorized();
-            }
+            //    return Unauthorized();
+            //}
+            await jobService.CancelAsync(id, User.Id());
 
-
-            return RedirectToAction(nameof(Board));
+            return RedirectToAction(nameof(MyJobApplications));
         }
     }
 }

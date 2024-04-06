@@ -96,10 +96,18 @@ namespace JobLink.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<JobServiceModel>> AllJobsByUserIdAsync(string userId)
+        public async Task<IEnumerable<JobServiceModel>> AllJobPostsByUserIdAsync(string userId)
         {
             return await repository.AllReadOnly<Job>()
-                .Where(j => j.Applicants.Any(a => a.Id.ToString() == userId))
+                .Where(j => j.Employer.UserId == userId)
+                .ProjectToJobServiceModel()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<JobServiceModel>> AllJobApplicationsByUserIdAsync(string userId)
+        {
+            return await repository.AllReadOnly<Job>()
+                .Where(j => j.Applications.Any(a => a.Applicant.UserId == userId))
                 .ProjectToJobServiceModel()
                 .ToListAsync();
         }
@@ -203,32 +211,34 @@ namespace JobLink.Core.Services
                     },
                     Category = j.JobCategory.Name,
                     CompanyLogoURL = j.Employer.Company.LogoUrl,
-                    IsApplied = j.Applicants != null,
+                    ApplicationsCount = j.Applications.Count()
                 })
                 .FirstAsync();
         }
 
-        public async Task<bool> IsAppliedAsync(int jobId)
-        {
-            bool result = false;
-            var job = await repository.GetByIdAsync<Job>(jobId);
+        //public async Task<bool> IsAppliedAsync(int jobId)
+        //{
+        //    bool result = false;
+        //    var job = await repository.GetByIdAsync<Job>(jobId);
 
-            if (job != null)
-            {
-                result = job.Applicants != null;
-            }
+        //    if (job != null)
+        //    {
+        //        result = job.Applicants != null;
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public async Task<bool> IsAppliedByUserWithIdAsync(int jobId, string userId)
         {
             bool result = false;
-            var job = await repository.GetByIdAsync<Job>(jobId);
 
-            if (job != null)
+            var application = await repository.AllReadOnly<Application>()
+                .FirstOrDefaultAsync(a => a.Applicant.UserId == userId && a.JobId == jobId);
+
+            if (application != null)
             {
-                result = job.Applicants.Any(a => a.Id.ToString() == userId);
+                result = true;
             }
 
             return result;
@@ -254,35 +264,49 @@ namespace JobLink.Core.Services
         public async Task CancelAsync(int jobId, string applicantId)
         {
             var job = await repository.GetByIdAsync<Job>(jobId);
+            var applicant = await repository.AllReadOnly<Applicant>()
+                .FirstAsync(a => a.UserId == applicantId);
 
-            if (job != null)
+            var application = await repository.AllReadOnly<Application>()
+                        .FirstAsync(a => a.Applicant.UserId == applicantId && a.JobId == jobId);
+
+            if (application !=null)
             {
-                if (job.Applicants.Any(a => a.Id.ToString() == applicantId))
-                {
-                    var applicant = job.Applicants.First(a => a.Id.ToString() == applicantId);
-                    job.Applicants.Remove(applicant);
-                    await repository.SaveChangesAsync();
-                }
-                else
-                {
-                    throw new UnauthorizedActionException(NotAnApplicant);
-                }
+                await repository.DeleteAsync<Application>(application.Id);
+                //job.Applications.Remove(application);
+                //applicant.Applications.Remove(application);
+                await repository.SaveChangesAsync();
+            }
+            else
+            {
+                throw new UnauthorizedActionException(NotAnApplicant);
             }
         }
 
         public async Task ApplyAsync(int jobId, string applicantId)
         {
             var job = await repository.GetByIdAsync<Job>(jobId);
-            var applicant = await repository.GetByIdAsync<Applicant>(applicantId);
+
+            var applicant = await repository.AllReadOnly<Applicant>()
+                .FirstAsync(a => a.UserId == applicantId);
 
             if (job != null && applicant != null)
             {
-                if (job.Applicants.Any(a => a.Id.ToString() == applicantId))
+                if (job.Applications.Any(a => a.Applicant.UserId == applicantId))
                 {
                     throw new ApplicantAlreadyExistException(AlreadyApplied);
                 }
 
-                job.Applicants.Add(applicant);
+                var application = new Application()
+                {
+                    JobId = jobId,
+                    ApplicantId = applicant.Id
+                };
+
+                await repository.AddAsync(application);
+                //job.Applications.Add(application);
+                //applicant.Applications.Add(application);
+
                 await repository.SaveChangesAsync();
             }
         }

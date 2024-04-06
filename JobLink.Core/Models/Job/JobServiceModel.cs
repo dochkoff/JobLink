@@ -32,7 +32,7 @@ namespace JobLink.Core.Models.Job
         [Display(Name = "Company Logo")]
         public string CompanyLogoURL { get; set; } = null!;
 
-        [Display(Name = "Is Applied")]
-        public bool IsApplied { get; set; }
+        [Display(Name = "Applications Count")]
+        public int ApplicationsCount { get; set; }
     }
 }

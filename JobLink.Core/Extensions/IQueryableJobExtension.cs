@@ -15,7 +15,7 @@ namespace System.Linq
                     Location = j.Location,
                     Salary = j.Salary,
                     CompanyLogoURL = j.Employer.Company.LogoUrl,
-                    IsApplied = j.EmployerId != null,
+                    ApplicationsCount = j.Applications.Count(),
                 });
         }
     }
