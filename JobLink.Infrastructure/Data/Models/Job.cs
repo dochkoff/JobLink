@@ -39,8 +39,8 @@ namespace JobLink.Infrastructure.Data.Models
         [Comment("Employer identifier")]
         public int EmployerId { get; set; }
 
-        [Comment("A list with applicants for the job")]
-        public List<Applicant> Applicants { get; set; } = new List<Applicant>();
+        [Comment("A list with applications for the job")]
+        public List<Application> Applications { get; set; } = new List<Application>();
 
         [ForeignKey(nameof(CategoryId))]
         public JobCategory JobCategory { get; set; } = null!;

@@ -24,6 +24,5 @@ namespace JobLink.Infrastructure.Data.Models
 
         [ForeignKey(nameof(ApplicantId))]
         public Applicant Applicant { get; set; } = null!;
-
     }
 }

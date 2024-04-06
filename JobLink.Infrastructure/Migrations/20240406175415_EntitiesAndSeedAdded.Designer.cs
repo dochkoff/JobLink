@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobLink.Infrastructure.Migrations
 {
     [DbContext(typeof(JobLinkDbContext))]
-    [Migration("20240404171500_EntitiesAndSeedAdded")]
+    [Migration("20240406175415_EntitiesAndSeedAdded")]
     partial class EntitiesAndSeedAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,21 +23,6 @@ namespace JobLink.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("ApplicantJob", b =>
-                {
-                    b.Property<int>("ApplicantsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("JobsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ApplicantsId", "JobsId");
-
-                    b.HasIndex("JobsId");
-
-                    b.ToTable("ApplicantJob");
-                });
 
             modelBuilder.Entity("JobLink.Infrastructure.Data.Models.Applicant", b =>
                 {
@@ -89,7 +74,7 @@ namespace JobLink.Infrastructure.Migrations
                             Name = "Pavel Dochkov",
                             PhoneNumber = "+359887654321",
                             ResumeUrl = "https://drive.google.com/file/d/1UeDWXN60iwk-iVav4_Wj0aekCdWn2BuE/view?usp=sharing",
-                            UserId = "d52c4853-4d5e-4be0-9639-80e17a54b87f"
+                            UserId = "39ce9086-54af-4f93-a2f2-a8e32ef8c05b"
                         });
                 });
 
@@ -247,7 +232,7 @@ namespace JobLink.Infrastructure.Migrations
                             Id = 1,
                             CompanyId = 1,
                             PhoneNumber = "+359880000000",
-                            UserId = "7172d444-1cbb-4856-a0ec-6f47634693bc"
+                            UserId = "251ffe29-fe1f-4791-9703-6ee4992bb4f6"
                         });
                 });
 
@@ -491,49 +476,49 @@ namespace JobLink.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7172d444-1cbb-4856-a0ec-6f47634693bc",
+                            Id = "251ffe29-fe1f-4791-9703-6ee4992bb4f6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "020325be-305a-496a-ad53-faf66903300c",
+                            ConcurrencyStamp = "083b890e-0de4-4d20-9190-6e8ef8634958",
                             Email = "sirmarecruit@sirma.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "sirmarecruit@sirma.com",
                             NormalizedUserName = "sirmarecruit@sirma.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENEwxazEaM1PalbCsdbkxev7IJPNfR2JaymarRhnfQEEPd23w/Vvqdj2OR3AOXEDuQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM01oOLXJQT4HVaECrcmZP0uuLgaJrjF3tzwT+Jr3tVoDRJ5l9MK1nlz9sAjZLZDBw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f050978d-d0f8-44c8-86bd-5d86c923b893",
+                            SecurityStamp = "7e07bba5-54df-4b27-8725-e6f5247e2262",
                             TwoFactorEnabled = false,
                             UserName = "sirmarecruit@sirma.com"
                         },
                         new
                         {
-                            Id = "d52c4853-4d5e-4be0-9639-80e17a54b87f",
+                            Id = "39ce9086-54af-4f93-a2f2-a8e32ef8c05b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e3df3f02-d7e3-4dc2-aef5-8cab8fc5ddab",
+                            ConcurrencyStamp = "08adab3c-0b7c-4b6e-98f0-2e944ff854f8",
                             Email = "needajob@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "needajob@abv.bg",
                             NormalizedUserName = "needajob@abv.bg",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFfXu32lZScTJq6OT0K13PAf4/wfyDYHq4XJzfEApDygres9mwQjjycpM+EbyZs0Dw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENJj/0ugZyepc8xduVipWfae291IrntatXf2MTvUYixxCohIVAE7ofooDLl9Dp6Zvw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "021e01bf-a386-4671-b468-e515fa68b8f8",
+                            SecurityStamp = "ecb764a6-ce6b-4025-b5ed-1e75d959fb60",
                             TwoFactorEnabled = false,
                             UserName = "needajob@abv.bg"
                         },
                         new
                         {
-                            Id = "c7d63805-14d1-4a61-bbe8-a8abd51b5c32",
+                            Id = "e89c13cc-4bcb-4100-ab3a-d59695b19565",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "51a2b9b9-7d25-49af-85b3-00c465d850d9",
+                            ConcurrencyStamp = "e2b4bad5-e715-4af2-9c0b-b49a2f957282",
                             Email = "guest@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@gmail.com",
                             NormalizedUserName = "guest@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMEfSPbpEvBDfk6cpUR3Uj4KUAirwQoMmf8PySMfAOZRH//uspRw+auyY6HOVssGLg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEATifZr9dkeb2vB/cETSzgGbBDyjLM84boTnNxNWWcTUCHgEAmiNWrABfIAEjdgo9A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a8f75631-c3c3-46ba-a541-8635e66d0deb",
+                            SecurityStamp = "4a0be4d1-2d6a-43b3-9fef-860aa8605478",
                             TwoFactorEnabled = false,
                             UserName = "guest@gmail.com"
                         });
@@ -624,21 +609,6 @@ namespace JobLink.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ApplicantJob", b =>
-                {
-                    b.HasOne("JobLink.Infrastructure.Data.Models.Applicant", null)
-                        .WithMany()
-                        .HasForeignKey("ApplicantsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("JobLink.Infrastructure.Data.Models.Job", null)
-                        .WithMany()
-                        .HasForeignKey("JobsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("JobLink.Infrastructure.Data.Models.Applicant", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
@@ -653,13 +623,13 @@ namespace JobLink.Infrastructure.Migrations
             modelBuilder.Entity("JobLink.Infrastructure.Data.Models.Application", b =>
                 {
                     b.HasOne("JobLink.Infrastructure.Data.Models.Applicant", "Applicant")
-                        .WithMany()
+                        .WithMany("Applications")
                         .HasForeignKey("ApplicantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JobLink.Infrastructure.Data.Models.Job", "Job")
-                        .WithMany()
+                        .WithMany("Applications")
                         .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -758,9 +728,19 @@ namespace JobLink.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("JobLink.Infrastructure.Data.Models.Applicant", b =>
+                {
+                    b.Navigation("Applications");
+                });
+
             modelBuilder.Entity("JobLink.Infrastructure.Data.Models.Employer", b =>
                 {
                     b.Navigation("Jobs");
+                });
+
+            modelBuilder.Entity("JobLink.Infrastructure.Data.Models.Job", b =>
+                {
+                    b.Navigation("Applications");
                 });
 
             modelBuilder.Entity("JobLink.Infrastructure.Data.Models.JobCategory", b =>

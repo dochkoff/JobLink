@@ -36,6 +36,7 @@ namespace JobLink.Infrastructure.Data.Models
         [ForeignKey(nameof(UserId))]
         public IdentityUser User { get; set; } = null!;
 
-        public List<Job> Jobs { get; set; } = new List<Job>();
+        [Comment("A list of user applications")]
+        public List<Application> Applications { get; set; } = new List<Application>();
     }
 }
