@@ -1,7 +1,6 @@
 ﻿using JobLink.Attributes;
 using JobLink.Core.Contracts;
 using JobLink.Core.Models.Employer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using static JobLink.Core.Constants.MessageConstants;
@@ -23,6 +22,11 @@ namespace JobLink.Controllers
         [NotAnEmployer]
         public async Task<IActionResult> BecomeEmployer()
         {
+            if (await employerService.UserHasApplicationsAsync(User.Id()))
+            {
+                ModelState.AddModelError("Error", HasApplications);
+            }
+
             var model = new BecomeEmployerFormModel()
             {
                 Companies = await companyService.AllCompaniesAsync()
@@ -43,6 +47,11 @@ namespace JobLink.Controllers
             if (await employerService.UserHasApplicationsAsync(User.Id()))
             {
                 ModelState.AddModelError("Error", HasApplications);
+            }
+
+            if (await employerService.CompanyWithIdAndNameExistsAsync(model.CompanyName, model.CompanyId)==false)
+            {
+                ModelState.AddModelError("Error", WrongCompanyOrId);
             }
 
             if (ModelState.IsValid == false)

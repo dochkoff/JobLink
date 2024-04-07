@@ -8,6 +8,8 @@
 
         Task CreateAsync(string userId, string name, string phoneNumber, string resumeURL);
 
+        Task RemoveApplicantAsync(string userId);
+
         Task<int?> GetApplicantIdAsync(string userId);
     }
 }

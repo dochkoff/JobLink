@@ -27,6 +27,18 @@ namespace JobLink.Core.Services
             await repository.SaveChangesAsync();
         }
 
+        public async Task RemoveApplicantAsync(string userId)
+        {
+            var applicant = await repository.All<Applicant>()
+                .FirstOrDefaultAsync(a => a.UserId == userId);
+
+            if (applicant != null)
+            {
+                await repository.DeleteAsync<Applicant>(applicant.Id);
+                await repository.SaveChangesAsync();
+            }            
+        }
+
         public async Task<bool> ApplicantExistsByIdAsync(string userId)
         {
             return await repository.AllReadOnly<Applicant>()
