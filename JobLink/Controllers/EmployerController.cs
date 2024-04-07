@@ -65,5 +65,17 @@ namespace JobLink.Controllers
 
             return RedirectToAction(nameof(JobController.Board), "Job");
         }
+
+
+        [HttpGet]
+        [MustBeEmployer]
+        public async Task<IActionResult> MyJobPosts()
+        {
+            int employerId = await employerService.GetEmployerIdAsync(User.Id()) ?? 0;
+
+            var model = await employerService.AllJobPostsByEmployerIdAsync(employerId);
+
+            return View(model);
+        }
     }
 }

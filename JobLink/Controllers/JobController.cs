@@ -42,50 +42,6 @@ namespace JobLink.Controllers
         }
 
         [HttpGet]
-        [MustBeApplicant]
-        public async Task<IActionResult> MyJobApplications()
-        {
-            var userId = User.Id();
-
-            IEnumerable<JobServiceModel> model;
-
-            if (await employerService.EmployerExistsByIdAsync(userId))
-            {
-                int employerId = await employerService.GetEmployerIdAsync(userId) ?? 0;
-
-                model = await jobService.AllJobsByEmployerIdAsync(employerId);
-            }
-            else
-            {
-                model = await jobService.AllJobApplicationsByUserIdAsync(userId);
-            }
-
-            return View(model);
-        }
-
-        [HttpGet]
-        [MustBeEmployer]
-        public async Task<IActionResult> MyJobPosts()
-        {
-            var userId = User.Id();
-
-            IEnumerable<JobServiceModel> model;
-
-            if (await employerService.EmployerExistsByIdAsync(userId))
-            {
-                int employerId = await employerService.GetEmployerIdAsync(userId) ?? 0;
-
-                model = await jobService.AllJobsByEmployerIdAsync(employerId);
-            }
-            else
-            {
-                model = await jobService.AllJobPostsByUserIdAsync(userId);
-            }
-
-            return View(model);
-        }
-
-        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id, string information)
         {
@@ -233,48 +189,6 @@ namespace JobLink.Controllers
             await jobService.DeleteAsync(model.Id);
 
             return RedirectToAction(nameof(Board));
-        }
-
-        [HttpPost]
-        [MustBeApplicant]
-        public async Task<IActionResult> Apply(int id)
-        {
-            if (await jobService.ExistsAsync(id) == false)
-            {
-                return BadRequest();
-            }
-
-            if (await employerService.EmployerExistsByIdAsync(User.Id()))
-            {
-                return Unauthorized();
-            }
-
-            await jobService.ApplyAsync(id, User.Id());
-
-            return RedirectToAction(nameof(Board));
-        }
-
-        [HttpPost]
-        [MustBeApplicant]
-        public async Task<IActionResult> Cancel(int id)
-        {
-            if (await jobService.ExistsAsync(id) == false)
-            {
-                return BadRequest();
-            }
-
-            try
-            {
-                await jobService.CancelAsync(id, User.Id());
-            }
-            catch (UnauthorizedActionException uae)
-            {
-                //logger.LogError(uae, "HouseController/Cancel");
-
-                return Unauthorized();
-            }
-            
-            return RedirectToAction(nameof(MyJobApplications));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using JobLink.Core.Contracts;
+using JobLink.Core.Models.Job;
 using JobLink.Infrastructure.Data.Common;
 using JobLink.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +56,14 @@ namespace JobLink.Core.Services
         {
             return await repository.AllReadOnly<Applicant>()
                 .AnyAsync(a => a.PhoneNumber == phoneNumber);
+        }
+
+        public async Task<IEnumerable<JobServiceModel>> AllJobApplicationsByUserIdAsync(string userId)
+        {
+            return await repository.AllReadOnly<Job>()
+                .Where(j => j.Applications.Any(a => a.Applicant.UserId == userId))
+                .ProjectToJobServiceModel()
+                .ToListAsync();
         }
     }
 }

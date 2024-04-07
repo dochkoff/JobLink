@@ -23,10 +23,10 @@ namespace JobLink.Core.Contracts
 
         Task<IEnumerable<string>> AllCategoriesNamesAsync();
 
-        Task<IEnumerable<JobServiceModel>> AllJobsByEmployerIdAsync(int employerId);
+        //Task<IEnumerable<JobServiceModel>> AllJobsByEmployerIdAsync(int employerId);
 
-        Task<IEnumerable<JobServiceModel>> AllJobApplicationsByUserIdAsync(string userId);
-        Task<IEnumerable<JobServiceModel>> AllJobPostsByUserIdAsync(string userId);
+        //Task<IEnumerable<JobServiceModel>> AllJobApplicationsByUserIdAsync(string userId);
+       // Task<IEnumerable<JobServiceModel>> AllJobPostsByUserIdAsync(string userId);
 
         Task<bool> ExistsAsync(int id);
 

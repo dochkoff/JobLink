@@ -1,6 +1,8 @@
 ﻿using JobLink.Attributes;
 using JobLink.Core.Contracts;
+using JobLink.Core.Exceptions;
 using JobLink.Core.Models.Applicant;
+using JobLink.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using static JobLink.Core.Constants.MessageConstants;
@@ -11,11 +13,16 @@ namespace JobLink.Controllers
     {
         private readonly IApplicantService applicantService;
         private readonly IEmployerService employerService;
+        private readonly IJobService jobService;
 
-        public ApplicantController(IApplicantService _applicantService, IEmployerService _employerService)
+        public ApplicantController(
+            IApplicantService _applicantService,
+            IEmployerService _employerService,
+            IJobService _jobService)
         {
             applicantService = _applicantService;
             employerService = _employerService;
+            jobService = _jobService;
         }
 
         [HttpGet]
@@ -50,7 +57,58 @@ namespace JobLink.Controllers
 
             await applicantService.CreateAsync(User.Id(),model.Name, model.PhoneNumber, model.ResumeUrl);
 
-            return RedirectToAction(nameof(JobController.MyJobApplications), "Job");
+            return RedirectToAction(nameof(JobController.Board), "Job");
+        }
+
+        [HttpPost]
+        [MustBeApplicant]
+        public async Task<IActionResult> Apply(int id)
+        {
+            if (await jobService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await employerService.EmployerExistsByIdAsync(User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            await jobService.ApplyAsync(id, User.Id());
+
+            return RedirectToAction(nameof(JobController.Board), "Job");
+        }
+
+        [HttpPost]
+        [MustBeApplicant]
+        public async Task<IActionResult> Cancel(int id)
+        {
+            if (await jobService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                await jobService.CancelAsync(id, User.Id());
+            }
+            catch (UnauthorizedActionException uae)
+            {
+                //logger.LogError(uae, "HouseController/Cancel");
+
+                return Unauthorized();
+            }
+
+            return RedirectToAction(nameof(MyJobApplications));
+        }
+
+        [HttpGet]
+        [MustBeApplicant]
+        public async Task<IActionResult> MyJobApplications()
+        {
+            var model = await applicantService.AllJobApplicationsByUserIdAsync(User.Id());
+
+            return View(model);
         }
     }
 }

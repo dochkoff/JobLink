@@ -47,14 +47,14 @@
                         && (await jobService.IsAppliedByUserWithIdAsync(Model.Id, User.Id())) == false
                         && (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id())) == false)
                     {
-                        <form class="ml-2" asp-controller="Job"
+                        <form class="ml-2" asp-controller="Applicant"
                               asp-action="Apply" asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary" type="submit" value="Apply" />
                         </form>
                     }
                     else if (await jobService.IsAppliedByUserWithIdAsync(Model.Id, User.Id()))
                     {
-                        <form class="ml-2" asp-controller="Job" asp-action="Cancel"
+                        <form class="ml-2" asp-controller="Applicant" asp-action="Cancel"
                               asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary" type="submit" value="Cancel" />
                         </form>

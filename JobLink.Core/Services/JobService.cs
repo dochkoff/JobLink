@@ -88,29 +88,14 @@ namespace JobLink.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<JobServiceModel>> AllJobsByEmployerIdAsync(int employerId)
-        {
-            return await repository.AllReadOnly<Job>()
-                .Where(j => j.EmployerId == employerId)
-                .ProjectToJobServiceModel()
-                .ToListAsync();
-        }
 
-        public async Task<IEnumerable<JobServiceModel>> AllJobPostsByUserIdAsync(string userId)
-        {
-            return await repository.AllReadOnly<Job>()
-                .Where(j => j.Employer.UserId == userId)
-                .ProjectToJobServiceModel()
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<JobServiceModel>> AllJobApplicationsByUserIdAsync(string userId)
-        {
-            return await repository.AllReadOnly<Job>()
-                .Where(j => j.Applications.Any(a => a.Applicant.UserId == userId))
-                .ProjectToJobServiceModel()
-                .ToListAsync();
-        }
+        //public async Task<IEnumerable<JobServiceModel>> AllJobPostsByUserIdAsync(string userId)
+        //{
+        //    return await repository.AllReadOnly<Job>()
+        //        .Where(j => j.Employer.UserId == userId)
+        //        .ProjectToJobServiceModel()
+        //        .ToListAsync();
+        //}
 
         public async Task<bool> CategoryExistsAsync(int categoryId)
         {
