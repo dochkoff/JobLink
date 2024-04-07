@@ -41,6 +41,10 @@
 
         public const int CompanyWebsiteMinLength = 5;
 
+        public const int CompanyIdMinLength = 1;
+
+        public const int CompanyIdMaxLength = 36;
+
 
     }
 }

@@ -19,5 +19,7 @@
         public const string PositiveSalary = "Monthly Salary must be a positive number and less than {2} leva";
 
         public const string UserIsEmployer = "You should not be employer to become an applicant";
+
+        public const string WrongCompanyOrId = "Wrong Company ID";
     }
 }

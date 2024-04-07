@@ -7,8 +7,8 @@ namespace JobLink.Core.Contracts
     {
         Task<IEnumerable<CompanyServiceModel>> AllCompaniesAsync();
 
-        Task<int?> GetCompanyByIdAsync(int companyId); //not used yet
+        Task<string> GetCompanyByIdAsync(string companyId); //not used yet
 
-        Task<int> GetCompanyIdByName(string companyName);  //not used yet
+        Task<string> GetCompanyIdByName(string companyName);  //not used yet
     }
 }

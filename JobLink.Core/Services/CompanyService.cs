@@ -20,25 +20,25 @@ namespace JobLink.Core.Services
             return await repository.AllReadOnly<Company>()
                 .Select(c => new CompanyServiceModel()
                 {
-                    Id = c.Id,
+                    Id = c.Id.ToString().ToLower(),
                     Name = c.Name
                 })
                 .ToListAsync();
         }
 
-        public async Task<int?> GetCompanyByIdAsync(int companyId)
+        public async Task<string> GetCompanyByIdAsync(string companyId)
         {
             return (await repository.AllReadOnly<Company>()
-                .FirstOrDefaultAsync(c => c.Id == companyId))?.Id;
+                    .FirstOrDefaultAsync(c => c.Id.ToString().ToLower() == companyId.ToLower()))?.Name ?? string.Empty;
         }
 
-        public async Task<int> GetCompanyIdByName(string companyName)
+        public async Task<string> GetCompanyIdByName(string companyName)
         {
             var company = await repository.AllReadOnly<Company>()
                 .Where(c => c.Name == companyName)
                 .FirstOrDefaultAsync();
 
-            return company?.Id ?? 0;
+            return company?.Id.ToString().ToLower() ?? string.Empty;
         }
 
     }

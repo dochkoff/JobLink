@@ -10,7 +10,9 @@ namespace JobLink.Core.Contracts
 
         Task<bool> UserHasApplicationsAsync(string userId);
 
-        Task CreateAsync(string userId, string phoneNumber, int companyId);
+        Task<bool> CompanyWithIdAndNameExistsAsync(string companyName, string companyId);
+
+        Task CreateAsync(string userId, string phoneNumber, string companyId);
 
         Task<int?> GetEmployerIdAsync(string userId);
     }

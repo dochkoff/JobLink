@@ -8,20 +8,28 @@ namespace JobLink.Core.Services
     public class EmployerService : IEmployerService
     {
         private readonly IRepository repository;
+        private readonly IApplicantService applicantService;
 
-        public EmployerService(IRepository _repository)
+        public EmployerService(IRepository _repository,
+            IApplicantService _applicantService)
         {
             repository = _repository;
+            applicantService = _applicantService;
         }
 
-        public async Task CreateAsync(string userId, string phoneNumber, int companyId)
+        public async Task CreateAsync(string userId, string phoneNumber, string companyId)
         {
             await repository.AddAsync(new Employer()
             {
                 UserId = userId,
                 PhoneNumber = phoneNumber,
-                CompanyId = companyId
+                CompanyId = new Guid(companyId)
             });
+
+            if ((await applicantService.ApplicantExistsByIdAsync(userId)) == true)
+            {
+                await applicantService.RemoveApplicantAsync(userId);
+            }
 
             await repository.SaveChangesAsync();
         }
@@ -48,6 +56,12 @@ namespace JobLink.Core.Services
         {
             return await repository.AllReadOnly<Employer>()
                 .AnyAsync(e => e.PhoneNumber == phoneNumber);
+        }
+
+        public async Task<bool> CompanyWithIdAndNameExistsAsync(string companyName, string companyId)
+        {
+            return await repository.AllReadOnly<Company>()
+                .AnyAsync(c => c.Name == companyName && c.Id.ToString().ToLower() == companyId.ToLower());
         }
     }
 }

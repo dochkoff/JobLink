@@ -13,10 +13,17 @@ namespace JobLink.Core.Models.Employer
             ErrorMessage = LengthMessage)]
         [Display(Name = "Phone number")]
         [Phone]
-        public string PhoneNumber { get; set; } = null!;
+        public string PhoneNumber { get; set; } = string.Empty;
 
-        [Display(Name = "Company")]
-        public int CompanyId { get; set; }
+        [Display(Name = "Company Name")]
+        public string CompanyName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = RequiredMessage)]
+        [StringLength(CompanyIdMaxLength,
+            MinimumLength = CompanyIdMinLength,
+            ErrorMessage = LengthMessage)]
+        [Display(Name = "Company ID")]
+        public string CompanyId { get; set; } = string.Empty;
 
         public IEnumerable<CompanyServiceModel> Companies { get; set; } = new List<CompanyServiceModel>();
 
