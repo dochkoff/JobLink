@@ -159,22 +159,23 @@ namespace JobLink.Infrastructure.Data
         {
             Sirma = new Company
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "Sirma Solutions",
                 Address = "Sofia, Bulgaria",
                 PhoneNumber = "+359 2 976 8310",
                 Website = "https://sirma.com",
-                LogoUrl = "https://3e-news.net/web/files/articles/37670/main_image/thumb_850x480_sirma-group-logo.jpg"
+                LogoUrl = "logo-sirma.jpg"
+
             };
 
             DraftKings = new Company
             {
-                Id = 2,
+                Id = Guid.NewGuid(),
                 Name = "DraftKings",
                 Address = "Boston, MA",
                 PhoneNumber = "+16175551212",
                 Website = "https://draftkings.com",
-                LogoUrl = "https://fontmeme.com/images/DraftKings-logo-font.png"
+                LogoUrl = "logo-draftkings.png"
             };
         }
 

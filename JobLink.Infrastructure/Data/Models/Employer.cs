@@ -28,7 +28,7 @@ namespace JobLink.Infrastructure.Data.Models
 
         [Required]
         [Comment("Company Identifier")]
-        public int CompanyId { get; set; }
+        public Guid CompanyId { get; set; }
 
         [ForeignKey(nameof(CompanyId))]
         public Company Company { get; set; } = null!;
