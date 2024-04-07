@@ -19,7 +19,7 @@ namespace JobLink.Attributes
             }
 
             if (employerService != null
-                && employerService.ExistsByIdAsync(context.HttpContext.User.Id()).Result)
+                && employerService.EmployerExistsByIdAsync(context.HttpContext.User.Id()).Result)
             {
                 context.Result = new StatusCodeResult(StatusCodes.Status400BadRequest);
             }

@@ -4,7 +4,7 @@ namespace JobLink.Core.Contracts
 {
     public interface IEmployerService
     {
-        Task<bool> ExistsByIdAsync(string userId);
+        Task<bool> EmployerExistsByIdAsync(string userId);
 
         Task<bool> UserWithPhoneNumberExistsAsync(string phoneNumber);
 

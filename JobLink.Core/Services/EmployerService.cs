@@ -26,7 +26,7 @@ namespace JobLink.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task<bool> ExistsByIdAsync(string userId)
+        public async Task<bool> EmployerExistsByIdAsync(string userId)
         {
             return await repository.AllReadOnly<Employer>()
                 .AnyAsync(e => e.UserId == userId);

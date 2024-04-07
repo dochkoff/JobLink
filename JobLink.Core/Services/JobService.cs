@@ -273,8 +273,6 @@ namespace JobLink.Core.Services
             if (application !=null)
             {
                 await repository.DeleteAsync<Application>(application.Id);
-                //job.Applications.Remove(application);
-                //applicant.Applications.Remove(application);
                 await repository.SaveChangesAsync();
             }
             else
@@ -304,8 +302,6 @@ namespace JobLink.Core.Services
                 };
 
                 await repository.AddAsync(application);
-                //job.Applications.Add(application);
-                //applicant.Applications.Add(application);
 
                 await repository.SaveChangesAsync();
             }

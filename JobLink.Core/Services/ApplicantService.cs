@@ -27,7 +27,7 @@ namespace JobLink.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task<bool> ExistsByIdAsync(string userId)
+        public async Task<bool> ApplicantExistsByIdAsync(string userId)
         {
             return await repository.AllReadOnly<Applicant>()
                 .AnyAsync(e => e.UserId == userId);
@@ -37,12 +37,6 @@ namespace JobLink.Core.Services
         {
             return (await repository.AllReadOnly<Applicant>()
                 .FirstOrDefaultAsync(e => e.UserId == userId))?.Id;
-        }
-
-        public async Task<bool> UserIsEmployerAsync(string userId)
-        {
-            return await repository.AllReadOnly<Employer>()
-                .AnyAsync(e => e.UserId == userId);
         }
 
         public async Task<bool> UserWithPhoneNumberExistsAsync(string phoneNumber)

@@ -10,7 +10,6 @@ using static JobLink.Core.Constants.MessageConstants;
 
 namespace JobLink.Controllers
 {
-    [Authorize]
     public class JobController : BaseController
     {
         private readonly IJobService jobService;
@@ -24,8 +23,8 @@ namespace JobLink.Controllers
             employerService = _employerService;
         }
 
-        [AllowAnonymous]
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Board([FromQuery] AllJobsQueryModel model)
         {
             var jobs = await jobService.AllAsync(
@@ -50,7 +49,7 @@ namespace JobLink.Controllers
 
             IEnumerable<JobServiceModel> model;
 
-            if (await employerService.ExistsByIdAsync(userId))
+            if (await employerService.EmployerExistsByIdAsync(userId))
             {
                 int employerId = await employerService.GetEmployerIdAsync(userId) ?? 0;
 
@@ -72,7 +71,7 @@ namespace JobLink.Controllers
 
             IEnumerable<JobServiceModel> model;
 
-            if (await employerService.ExistsByIdAsync(userId))
+            if (await employerService.EmployerExistsByIdAsync(userId))
             {
                 int employerId = await employerService.GetEmployerIdAsync(userId) ?? 0;
 
@@ -87,6 +86,7 @@ namespace JobLink.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id, string information)
         {
             if (await jobService.ExistsAsync(id) == false)
@@ -140,6 +140,7 @@ namespace JobLink.Controllers
         }
 
         [HttpGet]
+        [MustBeEmployer]
         public async Task<IActionResult> Edit(int id)
         {
             if (await jobService.ExistsAsync(id) == false)
@@ -158,6 +159,7 @@ namespace JobLink.Controllers
         }
 
         [HttpPost]
+        [MustBeEmployer]
         public async Task<IActionResult> Edit(int id, JobFormModel model)
         {
             if (await jobService.ExistsAsync(id) == false)
@@ -188,6 +190,7 @@ namespace JobLink.Controllers
         }
 
         [HttpGet]
+        [MustBeEmployer]
         public async Task<IActionResult> Delete(int id)
         {
             if (await jobService.ExistsAsync(id) == false)
@@ -214,6 +217,7 @@ namespace JobLink.Controllers
         }
 
         [HttpPost]
+        [MustBeEmployer]
         public async Task<IActionResult> Delete(JobDetailsViewModel model)
         {
             if (await jobService.ExistsAsync(model.Id) == false)
@@ -232,6 +236,7 @@ namespace JobLink.Controllers
         }
 
         [HttpPost]
+        [MustBeApplicant]
         public async Task<IActionResult> Apply(int id)
         {
             if (await jobService.ExistsAsync(id) == false)
@@ -239,22 +244,18 @@ namespace JobLink.Controllers
                 return BadRequest();
             }
 
-            if (await employerService.ExistsByIdAsync(User.Id()))
+            if (await employerService.EmployerExistsByIdAsync(User.Id()))
             {
                 return Unauthorized();
             }
 
-            //if (await jobService.IsAppliedAsync(id))
-            //{
-            //    return BadRequest();
-            //}
-
             await jobService.ApplyAsync(id, User.Id());
 
-            return RedirectToAction(nameof(MyJobApplications));
+            return RedirectToAction(nameof(Board));
         }
 
         [HttpPost]
+        [MustBeApplicant]
         public async Task<IActionResult> Cancel(int id)
         {
             if (await jobService.ExistsAsync(id) == false)
@@ -262,19 +263,18 @@ namespace JobLink.Controllers
                 return BadRequest();
             }
 
-            //try
-            //{
-                
-            //}
-            //catch (UnauthorizedActionException uae)
-            //{
-            //    //logger.LogError(uae, "HouseController/Cancel");
+            try
+            {
+                await jobService.CancelAsync(id, User.Id());
+            }
+            catch (UnauthorizedActionException uae)
+            {
+                //logger.LogError(uae, "HouseController/Cancel");
 
-            //    return Unauthorized();
-            //}
-            await jobService.CancelAsync(id, User.Id());
-
-            return RedirectToAction(nameof(MyJobApplications));
+                return Unauthorized();
+            }
+            
+            return RedirectToAction(nameof(Board));
         }
     }
 }

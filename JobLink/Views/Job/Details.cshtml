@@ -12,8 +12,7 @@
 <div class="container" style="display:inline">
     <div class="row">
         <div class="col-4">
-            <img class="card-img-top" style="width: 20rem;"
-                 src="@Model.CompanyLogoURL" alt="Company Logo">
+            <img class="card-img-top" src="@Model.CompanyLogoURL" alt="Company Logo" style="width: 100%; height: 200px; object-fit: cover;">
         </div>
         <div class="card col-8 border-0">
             <p style="font-size:25px;"><u>@Model.Title</u></p>
@@ -24,13 +23,14 @@
             </p>
             <p>Description: <b>@Model.Description</b></p>
             <p>Category: <b>@Model.Category</b></p>
-            @if (Model.ApplicationsCount > 0)
+            @if (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id()))
             {
                 <p><i>The job has @Model.ApplicationsCount applies</i></p>
             }
-            else
+            else if (Model.ApplicationsCount == 0
+                    && await applicantService.ApplicantExistsByIdAsync(User.Id()))
             {
-                <p><i>Be The First</i></p>
+                <p><i>Apply First!</i></p>
             }
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
@@ -43,8 +43,8 @@
                            asp-route-id="@Model.Id">Delete</a>
                     }
 
-                    @if (
-                        (await jobService.IsAppliedByUserWithIdAsync(Model.Id, User.Id())) == false
+                    @if ((await applicantService.ApplicantExistsByIdAsync(User.Id()))
+                        && (await jobService.IsAppliedByUserWithIdAsync(Model.Id, User.Id())) == false
                         && (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id())) == false)
                     {
                         <form class="ml-2" asp-controller="Job"

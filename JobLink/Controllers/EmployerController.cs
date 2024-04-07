@@ -8,7 +8,6 @@ using static JobLink.Core.Constants.MessageConstants;
 
 namespace JobLink.Controllers
 {
-    [Authorize]
     public class EmployerController : BaseController
     {
         private readonly IEmployerService employerService;
@@ -34,7 +33,7 @@ namespace JobLink.Controllers
 
         [HttpPost]
         [NotAnEmployer]
-        public async Task<IActionResult> BecoBecomeEmployerme(BecomeEmployerFormModel model)
+        public async Task<IActionResult> BecomeEmployer(BecomeEmployerFormModel model)
         {
             if (await employerService.UserWithPhoneNumberExistsAsync(model.PhoneNumber))
             {

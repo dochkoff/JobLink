@@ -12,11 +12,12 @@
                 Monthly Salary:
                 <b>@String.Format("{0:f2}", Model.Salary) BGN</b>
             </h6>
-            @if (Model.ApplicationsCount > 0)
+            @if (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id()))
             {
-                <h6>Job applies: <b>@Model.ApplicationsCount</b></h6>
+                <p><i>The job has @Model.ApplicationsCount applies</i></p>
             }
-            else
+            else if (Model.ApplicationsCount == 0
+                    && await applicantService.ApplicantExistsByIdAsync(User.Id()))
             {
                 <p><i>Apply First!</i></p>
             }
@@ -34,9 +35,9 @@
                 }
 
                 <p></p>
-                @if (
-                    (await jobService.IsAppliedByUserWithIdAsync(Model.Id, User.Id())) == false
-                     && (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id())) == false)
+                @if ((await applicantService.ApplicantExistsByIdAsync(User.Id()))
+                    && (await jobService.IsAppliedByUserWithIdAsync(Model.Id, User.Id())) == false
+                    && (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id())) == false)
                 {
                     <form class="input-group-sm" asp-controller="Job"
                           asp-action="Apply" asp-route-id="@Model.Id" method="post">

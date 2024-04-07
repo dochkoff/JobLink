@@ -10,10 +10,12 @@ namespace JobLink.Controllers
     public class ApplicantController : BaseController
     {
         private readonly IApplicantService applicantService;
+        private readonly IEmployerService employerService;
 
-        public ApplicantController(IApplicantService _applicantService)
+        public ApplicantController(IApplicantService _applicantService, IEmployerService _employerService)
         {
             applicantService = _applicantService;
+            employerService = _employerService;
         }
 
         [HttpGet]
@@ -36,7 +38,7 @@ namespace JobLink.Controllers
                 ModelState.AddModelError(nameof(model.PhoneNumber), PhoneExists);
             }
 
-            if (await applicantService.UserIsEmployerAsync(User.Id()))
+            if (await employerService.EmployerExistsByIdAsync(User.Id()))
             {
                 ModelState.AddModelError("Error", UserIsEmployer);
             }

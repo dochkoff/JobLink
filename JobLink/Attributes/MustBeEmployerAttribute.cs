@@ -19,7 +19,7 @@ namespace JobLink.Attributes
             }
 
             if (employerService != null
-                && employerService.ExistsByIdAsync(context.HttpContext.User.Id()).Result == false)
+                && employerService.EmployerExistsByIdAsync(context.HttpContext.User.Id()).Result == false)
             {
                 context.Result = new StatusCodeResult(StatusCodes.Status401Unauthorized);
             }
