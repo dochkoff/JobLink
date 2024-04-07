@@ -274,7 +274,7 @@ namespace JobLink.Controllers
                 return Unauthorized();
             }
             
-            return RedirectToAction(nameof(Board));
+            return RedirectToAction(nameof(MyJobApplications));
         }
     }
 }
