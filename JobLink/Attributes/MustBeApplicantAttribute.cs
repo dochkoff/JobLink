@@ -1,4 +1,5 @@
-﻿using JobLink.Core.Contracts;
+﻿using JobLink.Controllers;
+using JobLink.Core.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
@@ -21,7 +22,7 @@ namespace JobLink.Attributes
             if (applicantService != null
                 && applicantService.ApplicantExistsByIdAsync(context.HttpContext.User.Id()).Result == false)
             {
-                context.Result = new StatusCodeResult(StatusCodes.Status403Forbidden);
+                context.Result = new RedirectToActionResult(nameof(ApplicantController.BecomeApplicant), "Applicant", null);
             }
         }
     }

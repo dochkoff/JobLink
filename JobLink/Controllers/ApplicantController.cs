@@ -70,7 +70,7 @@ namespace JobLink.Controllers
 
             if (await employerService.EmployerExistsByIdAsync(User.Id()))
             {
-                return Forbid();
+                return Unauthorized();
             }
 
             await jobService.ApplyAsync(id, User.Id());
@@ -88,7 +88,7 @@ namespace JobLink.Controllers
             }
             if (await employerService.EmployerExistsByIdAsync(User.Id()))
             {
-                return Forbid();
+                return Unauthorized();
             }
 
             //try
