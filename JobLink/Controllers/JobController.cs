@@ -54,7 +54,7 @@ namespace JobLink.Controllers
 
             if (information != model.GetInformation())
             {
-                return BadRequest();
+                return NotFound();
             }
 
             return View(model);
@@ -106,7 +106,7 @@ namespace JobLink.Controllers
 
             if (await jobService.HasEmployerWithIdAsync(id, User.Id()) == false)
             {
-                return Unauthorized();
+                return Forbid();
             }
 
             var model = await jobService.GetJobFormModelByIdAsync(id);
@@ -125,7 +125,7 @@ namespace JobLink.Controllers
 
             if (await jobService.HasEmployerWithIdAsync(id, User.Id()) == false)
             {
-                return Unauthorized();
+                return Forbid();
             }
 
             if (await jobService.CategoryExistsAsync(model.CategoryId) == false)
@@ -156,7 +156,7 @@ namespace JobLink.Controllers
 
             if (await jobService.HasEmployerWithIdAsync(id, User.Id()) == false)
             {
-                return Unauthorized();
+                return Forbid();
             }
 
             var job = await jobService.JobDetailsByIdAsync(id);
@@ -183,7 +183,7 @@ namespace JobLink.Controllers
 
             if (await jobService.HasEmployerWithIdAsync(model.Id, User.Id()) == false)
             {
-                return Unauthorized();
+                return Forbid();
             }
 
             await jobService.DeleteAsync(model.Id);

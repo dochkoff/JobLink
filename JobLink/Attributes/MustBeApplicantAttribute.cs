@@ -21,7 +21,7 @@ namespace JobLink.Attributes
             if (applicantService != null
                 && applicantService.ApplicantExistsByIdAsync(context.HttpContext.User.Id()).Result == false)
             {
-                context.Result = new StatusCodeResult(StatusCodes.Status401Unauthorized);
+                context.Result = new StatusCodeResult(StatusCodes.Status403Forbidden);
             }
         }
     }

@@ -1,53 +1,12 @@
-﻿@page
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #f4f4f4;
-        }
+﻿@{
+    ViewData["Title"] = "Error";
+}
 
-        .error-container {
-            text-align: center;
-            margin-top: 100px;
-        }
-
-        .error-image {
-            width: 500px;
-            margin-bottom: 20px;
-        }
-
-        .error-message {
-            font-size: 2rem;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .home-button {
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .home-button:hover {
-            background-color: #2980b9;
-        }
-    </style>
-</head>
-<body>
-    <div class="container error-container">
-        <img src="~/images/errors/error400.jpg" alt="404 Error" class="error-image">
-        <div class="error-message">Page Not Found</div>
-        <a href="/" class="home-button">Go to Home Page</a>
+<div class="row">
+    <div class="col-6 text-center" style="margin: 0 auto">
+        <h4 class="text-danger">ERROR 400: BAD REQUEST</h4>
+        <img src="~/images/errors/error-400.png" alt="400 Error" style="width: 100%; height: 300px;">
+        <br />
+        <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Back to Home</a>
     </div>
-</body>
-</html>
+</div>

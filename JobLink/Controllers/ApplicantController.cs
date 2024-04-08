@@ -2,7 +2,6 @@
 using JobLink.Core.Contracts;
 using JobLink.Core.Exceptions;
 using JobLink.Core.Models.Applicant;
-using JobLink.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using static JobLink.Core.Constants.MessageConstants;
@@ -71,7 +70,7 @@ namespace JobLink.Controllers
 
             if (await employerService.EmployerExistsByIdAsync(User.Id()))
             {
-                return Unauthorized();
+                return Forbid();
             }
 
             await jobService.ApplyAsync(id, User.Id());
@@ -87,17 +86,21 @@ namespace JobLink.Controllers
             {
                 return BadRequest();
             }
-
-            try
+            if (await employerService.EmployerExistsByIdAsync(User.Id()))
             {
-                await jobService.CancelAsync(id, User.Id());
+                return Forbid();
             }
-            catch (UnauthorizedActionException uae)
-            {
-                //logger.LogError(uae, "HouseController/Cancel");
 
-                return Unauthorized();
-            }
+            //try
+            //{
+            //    await jobService.CancelAsync(id, User.Id());
+            //}
+            //catch (UnauthorizedActionException uae)
+            //{
+            //    logger.LogError(uae, "HouseController/Cancel");
+
+            //    return Unauthorized();
+            //}
 
             return RedirectToAction(nameof(MyJobApplications));
         }
