@@ -16,6 +16,10 @@ namespace JobLink.Controllers
             {
                 return View("Error400");
             }
+            else if (statusCode == 401)
+            {
+                return View("Error401");
+            }
             else if (statusCode == 403)
             {
                 return View("Error403");
