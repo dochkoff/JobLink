@@ -2,8 +2,8 @@
 {
     public class StatisticServiceModel
     {
-        public int TotalJobs { get; set; }
+        public int TotalCompanies { get; set; }
 
-        public int TotalEmployers { get; set; }
+        public int TotalJobs { get; set; }
     }
 }

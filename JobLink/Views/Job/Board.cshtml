@@ -86,3 +86,31 @@
         </nav>
     </div>
 </div>
+
+<div class="mb-5"></div>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <button class="btn btn-primary" id="statistics-button">Show Statistics</button>
+    </div>
+</div>
+
+<div class="col-12 card mb-3 text-center mt-4 p-5 bg-light d-none text-center" " id="statistics">
+    <div class="row">
+        <h2 id="statistics-info"></h2>
+    </div>
+</div>
+
+<br />
+
+@section Scripts {
+    <script>
+        $('#statistics-button').on('click', ev => {
+            $.get('/api/statistic', data => {
+                $('#statistics-info').text(data.totalJobs + ' JOB POSTS FROM ' + data.totalCompanies + ' COMPANIES');
+                $('#statistics').removeClass('d-none');
+                $('#statistics-button').hide();
+            });
+        });
+    </script>
+}

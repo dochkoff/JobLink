@@ -17,16 +17,16 @@ namespace JobLink.Core.Services
 
         public async Task<StatisticServiceModel> TotalAsync()
         {
-            int totalJobs = await repository.AllReadOnly<Job>()
+            int totalCompanies = await repository.AllReadOnly<Company>()
                 .CountAsync();
 
-            int totalEmployers = await repository.AllReadOnly<Employer>()
+            int totalJobs = await repository.AllReadOnly<Job>()
                 .CountAsync();
 
             return new StatisticServiceModel()
             {
-                TotalJobs = totalJobs,
-                TotalEmployers = totalEmployers
+                TotalCompanies = totalCompanies,
+                TotalJobs = totalJobs
             };
         }
     }

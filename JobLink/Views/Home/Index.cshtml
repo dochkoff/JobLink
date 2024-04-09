@@ -51,34 +51,5 @@
     <div class="col-12 text-center">
         <a class="btn btn-primary" asp-controller="Job" asp-action="Board"> View Jobs Board</a>
     </div>
-</div>
-
-<div class="mb-5"></div>
-
-<div class="row">
-    <div class="col-12 text-center">
-        <button class="btn btn-primary" id="statistics-button">Show Statistics</button>
-    </div>
-</div>
-
-<div class="mt-4 p-5 bg-light d-none" id="statistics">
-    <div class="row">
-        <h2 class="col-md-2 text-center" id="total-houses"></h2>
-        <h2 class="col-md-2 text-center" id="total-rents"></h2>
-    </div>
-</div>
 
 <br />
-
-@section Scripts {
-    <script>
-        $('#statistics-button').on('click', ev => {
-            $.get('/api/statistic', data => {
-                $('#total-houses').text(data.totalHouses + ' Houses');
-                $('#total-rents').text(data.totalRents + ' Rents');
-                $('#statistics').removeClass('d-none');
-                $('#statistics-button').hide();
-            });
-        });
-    </script>
-}
