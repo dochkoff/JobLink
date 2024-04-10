@@ -97,7 +97,7 @@ namespace JobLink.Controllers
 
         [HttpGet]
         [MustBeEmployer]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id, string information)
         {
             if (await jobService.ExistsAsync(id) == false)
             {
@@ -110,6 +110,11 @@ namespace JobLink.Controllers
             }
 
             var model = await jobService.GetJobFormModelByIdAsync(id);
+
+            if (information != model?.GetInformation())
+            {
+                return NotFound();
+            }
 
             return View(model);
         }
@@ -147,7 +152,7 @@ namespace JobLink.Controllers
 
         [HttpGet]
         [MustBeEmployer]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, string information)
         {
             if (await jobService.ExistsAsync(id) == false)
             {
@@ -168,6 +173,11 @@ namespace JobLink.Controllers
                 Location = job.Location,
                 CompanyLogoURL = job.CompanyLogoURL
             };
+
+            if (information != model.GetInformation())
+            {
+                return NotFound();
+            }
 
             return View(model);
         }
