@@ -31,6 +31,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequireUppercase = false;
  })
     .AddEntityFrameworkStores<JobLinkDbContext>();
+
 builder.Services.AddControllersWithViews(options =>
 {
     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
@@ -59,7 +60,15 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapDefaultControllerRoute();
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "Job Details",
+        pattern: "/Job/Details/{id}/{information}",
+        defaults: new { Controller = "Job", Action = "Details" }
+    );
+    endpoints.MapDefaultControllerRoute();
+    endpoints.MapRazorPages();
+});
 
 await app.RunAsync();

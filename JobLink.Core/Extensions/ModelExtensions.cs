@@ -7,17 +7,11 @@ namespace JobLink.Core.Extensions
     {
         public static string GetInformation(this IJobModel job)
         {
-            string info = job.Title.Replace(" ", "-") + "-" + GetLocation(job.Location);
+            string info = (job.Title + "-" + job.Location).Replace(" ", "-");
             info = Regex.Replace(info, @"[^a-zA-Z0-9\-]", string.Empty);
 
             return info;
         }
-
-        private static string GetLocation(string location)
-        {
-            location = string.Join("-", location.Split(" ").Take(3));
-
-            return location;
-        }
     }
 }
+ 
