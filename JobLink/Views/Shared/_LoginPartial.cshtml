@@ -1,16 +1,25 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject IEmployerService employerService
+@inject IApplicantService applicantService
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Applicant" asp-action="BecomeApplicant">Become Applicant</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Employer" asp-action="BecomeEmployer">Become Employer</a>
-    </li>
+    if ((await employerService.EmployerExistsByIdAsync(User.Id())) == false
+        && (await applicantService.ApplicantExistsByIdAsync(User.Id())) == false)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Applicant" asp-action="BecomeApplicant">Become Applicant</a>
+        </li>
+    }
+    if ((await employerService.EmployerExistsByIdAsync(User.Id())) == false)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Employer" asp-action="BecomeEmployer">Become Employer</a>
+        </li>
+    }
     <li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>
