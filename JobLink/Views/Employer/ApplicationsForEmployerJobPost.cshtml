@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ApplicationDetailsViewModel>
+
+@{
+    ViewData["Title"] = @Model.FirstOrDefault()?.JobTitle;
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+@if (Model.Any() == false)
+{
+    <h3 class="text-center">Your job post has no applications yet!</h3>
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Application ID @item.Id</h5>
+                    <p class="card-text">
+                        <b>Name</b><br />
+                        @item.ApplicantName
+                    </p>
+                    <p class="card-text">
+                        <b>Phone Number</b><br />
+                        @item.ApplicantPhoneNumber
+                    </p>
+                    <p class="card-text">
+                        <b>Applies On</b><br />
+                        @item.DateAndTime
+                    </p>
+                    <a class="btn btn-info" href="@item.ApplicantResumeUrl">Resume</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

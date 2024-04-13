@@ -25,7 +25,17 @@
             <p>Category: <b>@Model.Category</b></p>
             @if (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id()))
             {
-                <p><i>The job has @Model.ApplicationsCount applies</i></p>
+                <p>
+                    <i>The job has @Model.ApplicationsCount applies</i>
+                    <form class="ml-2" asp-controller="Employer"
+                          asp-action="ApplicationsForEmployerJobPost" method="get">
+                        <input type="hidden" name="jobId" value="@Model.Id" />
+                        <input class="btn btn-success" type="submit" value="See Applies" @if (Model.ApplicationsCount == 0)
+                        {
+                            <text>disabled</text>
+                        } />
+                    </form>
+                </p>
             }
             else if (Model.ApplicationsCount == 0
                     && await applicantService.ApplicantExistsByIdAsync(User.Id()))

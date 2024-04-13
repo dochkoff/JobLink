@@ -1,5 +1,6 @@
-﻿using JobLink.Core.Models.Company;
+﻿using JobLink.Core.Models.Application;
 using JobLink.Core.Models.Job;
+using JobLink.Infrastructure.Data.Models;
 
 namespace JobLink.Core.Contracts
 {
@@ -18,5 +19,7 @@ namespace JobLink.Core.Contracts
         Task<int?> GetEmployerIdAsync(string userId);
 
         Task<IEnumerable<JobServiceModel>> AllJobPostsByEmployerIdAsync(int employerId);
+
+        Task<IEnumerable<ApplicationDetailsViewModel>> AllApplicationsByJobIdAsync(int jobId);
     }
 }
