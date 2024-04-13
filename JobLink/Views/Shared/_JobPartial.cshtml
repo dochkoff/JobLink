@@ -23,7 +23,7 @@
             }
             <br />
             <a asp-controller="Job" asp-action="Details" asp-route-id="@Model.Id"
-               asp-route-information="@Model.GetInformation()" class="btn btn-success">Details</a>
+               asp-route-information="@Model.GetInformation()" class="btn btn-primary">Details</a>
             @if (this.User.Identity.IsAuthenticated)
             {
                 if (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id()))
