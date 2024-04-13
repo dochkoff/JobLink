@@ -48,8 +48,8 @@ namespace JobLink.Core.Services
                 JobSorting.Salary => jobsToShow
                     .OrderBy(j => j.Salary),
                 JobSorting.NoApplicationFirst => jobsToShow
-                    .OrderBy(h => h.EmployerId != null)
-                    .ThenByDescending(j => j.Id),
+                    .Where(h => h.Applications.Count() == 0)
+                    .OrderByDescending(j => j.Id),
                 _ => jobsToShow
                     .OrderByDescending(j => j.Id)
             };
