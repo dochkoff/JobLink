@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobLink.Infrastructure.Migrations
 {
     [DbContext(typeof(JobLinkDbContext))]
-    [Migration("20240407142058_CompaniesLogoSeedChanged")]
-    partial class CompaniesLogoSeedChanged
+    [Migration("20240412193032_SeedDatabase")]
+    partial class SeedDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -74,7 +74,7 @@ namespace JobLink.Infrastructure.Migrations
                             Name = "Pavel Dochkov",
                             PhoneNumber = "+359887654321",
                             ResumeUrl = "https://drive.google.com/file/d/1UeDWXN60iwk-iVav4_Wj0aekCdWn2BuE/view?usp=sharing",
-                            UserId = "2616b770-803e-4d36-bc20-b310f15ff4fd"
+                            UserId = "76b3f545-e38c-4ee9-b7ee-1641c81ef9ad"
                         });
                 });
 
@@ -90,6 +90,10 @@ namespace JobLink.Infrastructure.Migrations
                     b.Property<int>("ApplicantId")
                         .HasColumnType("int")
                         .HasComment("Applicant Identifier");
+
+                    b.Property<DateTime>("DateAndTime")
+                        .HasColumnType("datetime2")
+                        .HasComment("Application Date and Time");
 
                     b.Property<int>("JobId")
                         .HasColumnType("int")
@@ -110,12 +114,14 @@ namespace JobLink.Infrastructure.Migrations
                         {
                             Id = 1,
                             ApplicantId = 1,
+                            DateAndTime = new DateTime(2024, 4, 12, 22, 30, 32, 498, DateTimeKind.Local).AddTicks(6626),
                             JobId = 1
                         },
                         new
                         {
                             Id = 2,
                             ApplicantId = 1,
+                            DateAndTime = new DateTime(2024, 4, 12, 22, 30, 32, 498, DateTimeKind.Local).AddTicks(6707),
                             JobId = 2
                         });
                 });
@@ -169,7 +175,7 @@ namespace JobLink.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a651a6d2-1861-4830-b932-0add417bb192"),
+                            Id = new Guid("145039e7-c7be-4d86-b7d1-cad0bcd791fe"),
                             Address = "Sofia, Bulgaria",
                             LogoUrl = "logo-sirma.jpg",
                             Name = "Sirma Solutions",
@@ -178,7 +184,7 @@ namespace JobLink.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e7cc168f-9d11-4c7a-ba18-2f0ad4fe43c8"),
+                            Id = new Guid("fd097e8e-5034-4394-9673-3492c231e664"),
                             Address = "Boston, MA",
                             LogoUrl = "logo-draftkings.png",
                             Name = "DraftKings",
@@ -228,9 +234,9 @@ namespace JobLink.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CompanyId = new Guid("a651a6d2-1861-4830-b932-0add417bb192"),
+                            CompanyId = new Guid("145039e7-c7be-4d86-b7d1-cad0bcd791fe"),
                             PhoneNumber = "+359880000000",
-                            UserId = "7e4be972-f204-472f-b974-67eb4621f867"
+                            UserId = "8c938716-90c9-4e2d-9c1e-eed5c13e6566"
                         });
                 });
 
@@ -474,49 +480,49 @@ namespace JobLink.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7e4be972-f204-472f-b974-67eb4621f867",
+                            Id = "8c938716-90c9-4e2d-9c1e-eed5c13e6566",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7e7485ae-b1e2-41ce-9b1d-f544351afe49",
+                            ConcurrencyStamp = "e19b64b3-177e-44d7-a3cf-e9519a119ccd",
                             Email = "sirmarecruit@sirma.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "sirmarecruit@sirma.com",
                             NormalizedUserName = "sirmarecruit@sirma.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKOOSyzHZvZ1dLrUPvSS19vQptjwBJ/GKWVsep3QBUwh37vmrlGKy21EmHSfpkgSfQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECv9O+DRe/M4PBWrp2P7BSYxiCuQq5+KY/tjoIR/Xi8yMTOqnoERR2iyA0Wd1O0tBA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6b5333fd-49e7-4a56-95f3-0d667c8a5ee3",
+                            SecurityStamp = "95fafc5d-ab79-44c8-b693-8b961cd5df7e",
                             TwoFactorEnabled = false,
                             UserName = "sirmarecruit@sirma.com"
                         },
                         new
                         {
-                            Id = "2616b770-803e-4d36-bc20-b310f15ff4fd",
+                            Id = "76b3f545-e38c-4ee9-b7ee-1641c81ef9ad",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8cf6bb68-4806-4caa-8f84-ad9021e572a4",
+                            ConcurrencyStamp = "e4b6a499-f936-4361-b379-45bc366467a2",
                             Email = "needajob@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "needajob@abv.bg",
                             NormalizedUserName = "needajob@abv.bg",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDpdUejxSr6QuFaO1d2EgOfnNbxYFS11MCs62EV46wOVXLMEU8UZu4KqjlRczex52g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDsOTlpj6bGyLwRtEfN9GZXMidQEkH5etGjRX7zBH3C+OzDP1jHD6a4UcHkFm0H+SA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "14b246df-805d-48cc-a01c-5980b0f3b063",
+                            SecurityStamp = "86d208ae-c179-4e4a-a30c-5620fd150af9",
                             TwoFactorEnabled = false,
                             UserName = "needajob@abv.bg"
                         },
                         new
                         {
-                            Id = "472cefc3-0a47-4996-ba91-cdd399f8d1fb",
+                            Id = "52ffe97b-c0d2-4747-9758-c42f45b819f3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4424e885-a761-4867-9732-c77d7e67572b",
+                            ConcurrencyStamp = "6ccc27c3-94ca-4688-a2c8-1f73a05092bd",
                             Email = "guest@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@gmail.com",
                             NormalizedUserName = "guest@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOszlYuAVafgnvZz6PQ+KbPjkcFn84t6FM34dBpuDZY581PkWEnHp7NbxSs0Lvu2MA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGm4ZgIyiHYRUV04qkUbXrsVlRgFvh53iUzafQiPPKHiw83nbnSL/jvECqOkKrmR1Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7524f3c4-79b2-4e2b-ae1f-b691dd88b408",
+                            SecurityStamp = "846deae3-de10-4cbd-9ffd-a359ed318211",
                             TwoFactorEnabled = false,
                             UserName = "guest@gmail.com"
                         });

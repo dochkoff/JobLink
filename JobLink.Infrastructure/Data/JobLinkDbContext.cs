@@ -264,6 +264,7 @@ namespace JobLink.Infrastructure.Data
             SoftDevApplication = new Application
             {
                 Id = 1,
+                DateAndTime = DateTime.Now,
                 ApplicantId = Applicant.Id,
                 JobId = SoftDevJob.Id
             };
@@ -271,6 +272,7 @@ namespace JobLink.Infrastructure.Data
             SalesApplication = new Application
             {
                 Id = 2,
+                DateAndTime = DateTime.Now,
                 ApplicantId = Applicant.Id,
                 JobId = SalesJob.Id
             };

@@ -12,6 +12,10 @@ namespace JobLink.Infrastructure.Data.Models
         public int Id { get; set; }
 
         [Required]
+        [Comment("Application Date and Time")]
+        public DateTime DateAndTime { get; set; }
+
+        [Required]
         [Comment("Job Identifier")]
         public int JobId { get; set; }
 
