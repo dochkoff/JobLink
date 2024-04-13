@@ -15,7 +15,7 @@ namespace JobLink.Core.Services
             repository = _repository;
         }
 
-        public async Task CreateAsync(string userId,string name, string phoneNumber, string resumeURL)
+        public async Task CreateApplicantAsync(string userId,string name, string phoneNumber, string resumeURL)
         {
             await repository.AddAsync(new Applicant()
             {

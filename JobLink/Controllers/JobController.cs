@@ -90,7 +90,7 @@ namespace JobLink.Controllers
 
             int? employerId = await employerService.GetEmployerIdAsync(User.Id());
 
-            int newJobId = await jobService.CreateAsync(model, employerId ?? 0);
+            int newJobId = await jobService.CreateJobAsync(model, employerId ?? 0);
 
             return RedirectToAction(nameof(Details), new { id = newJobId, information = model.GetInformation() });
         }

@@ -18,7 +18,7 @@ namespace JobLink.Core.Services
             applicantService = _applicantService;
         }
 
-        public async Task CreateAsync(string userId, string phoneNumber, string companyId)
+        public async Task CreateEmployerAsync(string userId, string phoneNumber, string companyId)
         {
             await repository.AddAsync(new Employer()
             {

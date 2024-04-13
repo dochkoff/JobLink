@@ -12,7 +12,7 @@ namespace JobLink.Core.Contracts
 
         Task<bool> CategoryExistsAsync(int categoryId);
 
-        Task<int> CreateAsync(JobFormModel model, int employerId);
+        Task<int> CreateJobAsync(JobFormModel model, int employerId);
 
         Task<JobQueryServiceModel> AllAsync(
             string? category = null,

@@ -103,7 +103,7 @@ namespace JobLink.Core.Services
                 .AnyAsync(c => c.Id == categoryId);
         }
 
-        public async Task<int> CreateAsync(JobFormModel model, int employerId)
+        public async Task<int> CreateJobAsync(JobFormModel model, int employerId)
         {
             Job job = new Job()
             {
@@ -282,6 +282,7 @@ namespace JobLink.Core.Services
 
                 var application = new Application()
                 {
+                    DateAndTime = DateTime.Now,
                     JobId = jobId,
                     ApplicantId = applicant.Id
                 };

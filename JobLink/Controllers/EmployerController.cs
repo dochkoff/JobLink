@@ -61,7 +61,7 @@ namespace JobLink.Controllers
                 return View(model);
             }
 
-            await employerService.CreateAsync(User.Id(), model.PhoneNumber, model.CompanyId);
+            await employerService.CreateEmployerAsync(User.Id(), model.PhoneNumber, model.CompanyId);
 
             return RedirectToAction(nameof(JobController.Board), "Job");
         }
