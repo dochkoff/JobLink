@@ -3,7 +3,6 @@
     ViewData["Title"] = "Become Employer";
 }
 
-
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
@@ -25,7 +24,7 @@
             <div class="form-group">
                 <label asp-for="CompanyName"></label>
                 <select asp-for="CompanyName" class="form-control">
-                    @foreach (var company in Model.Companies)
+                    @foreach (var company in Model.Companies.Where(c => c.IsActive == true))
                     {
                         <option value="@company.Name">@company.Name</option>
                     }
@@ -40,6 +39,15 @@
             <div class="text-center">
                 <input class="btn btn-primary mt-3 " type="submit" value="Save" />
             </div>
+        </form>
+    </div>
+</div>
+<p></p>
+<div class="row">
+    <div class="col text-center">
+        <h4>Your company is not in the list?</h4>
+        <form asp-controller="Company" asp-action="Add" method="get">
+            <input class="btn btn-success" type="submit" value="Add Company" />
         </form>
     </div>
 </div>
