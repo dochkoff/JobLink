@@ -1,0 +1,24 @@
+﻿@model CompanyDetailsServiceModel
+
+@{
+    ViewBag.Title = "Company Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" src="@Model.LogoUrl" alt="Company Logo" style="width: 100%; height: 200px; object-fit: cover;">
+        </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.Name</u></p>
+            <p><b>Address:</b> @Model.Address</p>
+            <p><b>Phone Number:</b> @Model.PhoneNumber</p>
+            <p><b>Website:</b> @Model.Website</p>
+            <p><b>Approved:</b> @Model.IsActive</p>
+            <p><b>ID:</b> @Model.Id</p>
+        </div>
+    </div>
+</div>
