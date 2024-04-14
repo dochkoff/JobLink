@@ -52,7 +52,7 @@ namespace JobLink.Controllers
 
             var model = await jobService.JobDetailsByIdAsync(id);
 
-            if (information != model.GetInformation())
+            if (information != model.GetJobInformation())
             {
                 return NotFound();
             }
@@ -92,7 +92,7 @@ namespace JobLink.Controllers
 
             int newJobId = await jobService.CreateJobAsync(model, employerId ?? 0);
 
-            return RedirectToAction(nameof(Details), new { id = newJobId, information = model.GetInformation() });
+            return RedirectToAction(nameof(Details), new { id = newJobId, information = model.GetJobInformation() });
         }
 
         [HttpGet]
@@ -111,7 +111,7 @@ namespace JobLink.Controllers
 
             var model = await jobService.GetJobFormModelByIdAsync(id);
 
-            if (information != model?.GetInformation())
+            if (information != model?.GetJobInformation())
             {
                 return NotFound();
             }
@@ -147,7 +147,7 @@ namespace JobLink.Controllers
 
             await jobService.EditAsync(id, model);
 
-            return RedirectToAction(nameof(Details), new { id, information = model.GetInformation() });
+            return RedirectToAction(nameof(Details), new { id, information = model.GetJobInformation() });
         }
 
         [HttpGet]
@@ -174,7 +174,7 @@ namespace JobLink.Controllers
                 CompanyLogoURL = job.CompanyLogoURL
             };
 
-            if (information != model.GetInformation())
+            if (information != model.GetJobInformation())
             {
                 return NotFound();
             }

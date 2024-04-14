@@ -34,13 +34,13 @@
         {
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img class="card-img-top" src="/images/logos/@job.ImageUrl" alt="@job.Title" style="width: 100%; height: 200px; object-fit: cover;">
+                    <img class="card-img-top" src="@job.ImageUrl" alt="@job.Title" style="width: 100%; height: 200px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">@job.Title</h5>
                         <p class="card-text">Company: @job.Employer</p>
                         <p class="card-text">Location: @job.Location</p>
                         <a class="btn btn-primary" asp-controller="Job" asp-action="Details"
-                           asp-route-id="@job.Id" asp-route-information="@job.GetInformation()"> Details</a>
+                           asp-route-id="@job.Id" asp-route-information="@job.GetJobInformation()"> Details</a>
                     </div>
                 </div>
             </div>
