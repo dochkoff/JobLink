@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobLink.Infrastructure.Migrations
 {
     [DbContext(typeof(JobLinkDbContext))]
-    [Migration("20240414155019_SeedDatabase")]
+    [Migration("20240414193136_SeedDatabase")]
     partial class SeedDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,7 +74,7 @@ namespace JobLink.Infrastructure.Migrations
                             Name = "Pavel Dochkov",
                             PhoneNumber = "+359887654321",
                             ResumeUrl = "https://drive.google.com/file/d/1UeDWXN60iwk-iVav4_Wj0aekCdWn2BuE/view?usp=sharing",
-                            UserId = "3dc5909a-a03f-40b6-9ccd-cff0dff1f6f8"
+                            UserId = "01076739-f5c0-4e14-ba27-46a2e3c1824f"
                         });
                 });
 
@@ -114,14 +114,14 @@ namespace JobLink.Infrastructure.Migrations
                         {
                             Id = 1,
                             ApplicantId = 1,
-                            DateAndTime = new DateTime(2024, 4, 14, 18, 50, 18, 729, DateTimeKind.Local).AddTicks(9146),
+                            DateAndTime = new DateTime(2024, 4, 14, 22, 31, 35, 699, DateTimeKind.Local).AddTicks(69),
                             JobId = 1
                         },
                         new
                         {
                             Id = 2,
                             ApplicantId = 1,
-                            DateAndTime = new DateTime(2024, 4, 14, 18, 50, 18, 729, DateTimeKind.Local).AddTicks(9199),
+                            DateAndTime = new DateTime(2024, 4, 14, 22, 31, 35, 699, DateTimeKind.Local).AddTicks(131),
                             JobId = 2
                         });
                 });
@@ -169,7 +169,7 @@ namespace JobLink.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PhoneNumber")
+                    b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("Companies");
@@ -179,20 +179,20 @@ namespace JobLink.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8ec30b07-4a7c-4b0d-b0f9-b911d09a2ef5"),
+                            Id = new Guid("387114dd-5768-4c8c-a581-9433ce9caa57"),
                             Address = "Sofia, Bulgaria",
                             IsActive = true,
-                            LogoUrl = "logo-sirma.jpg",
+                            LogoUrl = "/images/logos/logo-sirma.jpg",
                             Name = "Sirma Solutions",
                             PhoneNumber = "+359 2 976 8310",
                             Website = "https://sirma.com"
                         },
                         new
                         {
-                            Id = new Guid("4541f1f1-7dbf-4e0f-85d3-6c0db195fbbb"),
+                            Id = new Guid("5aa8e9d0-7063-462d-aa7e-2c8c4fdafe35"),
                             Address = "Boston, MA",
                             IsActive = true,
-                            LogoUrl = "logo-draftkings.png",
+                            LogoUrl = "/images/logos/logo-draftkings.png",
                             Name = "DraftKings",
                             PhoneNumber = "+16175551212",
                             Website = "https://draftkings.com"
@@ -240,9 +240,9 @@ namespace JobLink.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CompanyId = new Guid("8ec30b07-4a7c-4b0d-b0f9-b911d09a2ef5"),
+                            CompanyId = new Guid("387114dd-5768-4c8c-a581-9433ce9caa57"),
                             PhoneNumber = "+359880000000",
-                            UserId = "2c92f3f1-9a57-4bf5-9802-7fb2e005015e"
+                            UserId = "31eb7fa0-f364-47c2-84a7-1e29803dc179"
                         });
                 });
 
@@ -486,49 +486,49 @@ namespace JobLink.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2c92f3f1-9a57-4bf5-9802-7fb2e005015e",
+                            Id = "31eb7fa0-f364-47c2-84a7-1e29803dc179",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7bff2d55-0c3c-4fbd-861e-47f85a75cc25",
+                            ConcurrencyStamp = "6fec75a6-9f1b-48fc-b7d4-5f583ad04010",
                             Email = "sirmarecruit@sirma.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "sirmarecruit@sirma.com",
                             NormalizedUserName = "sirmarecruit@sirma.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJl2b+sHdWd2CaFx7MaBYRd6hB5UVLWKV7IqL6QvJ9azC+MgE5kV39y61mpFw+4hqw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECKjG0UnkeU2HhrzCGKGnF9TUuW5poplIBz7Pc6mzpGOHvn39P67QAk6vqcXhYDbpw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "36ff71bd-5990-48f3-b18b-4bade72bfff7",
+                            SecurityStamp = "4a12ca67-abee-410d-bca8-4223555588fa",
                             TwoFactorEnabled = false,
                             UserName = "sirmarecruit@sirma.com"
                         },
                         new
                         {
-                            Id = "3dc5909a-a03f-40b6-9ccd-cff0dff1f6f8",
+                            Id = "01076739-f5c0-4e14-ba27-46a2e3c1824f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "080d3bfb-5d38-4077-9005-169252ee25de",
+                            ConcurrencyStamp = "57dd85a8-8402-41d3-809a-89b997d31cc5",
                             Email = "needajob@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "needajob@abv.bg",
                             NormalizedUserName = "needajob@abv.bg",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGXnr0/dpzqaO8AQ33chYWnPXYjM2ZWFK6OAX5z85lgj+kJTSrucH3Azig4Fj/2RnA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJEQ/u1aR9wXoNkeZUySRM9B9+zu5e1a4UgW+Y6M/UooUy8OiXao0p4gt1ujG75KQg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c5f40cc9-34c9-46d7-b75d-588f269d24b3",
+                            SecurityStamp = "e98d2985-db32-4441-8d76-00bf4108ce71",
                             TwoFactorEnabled = false,
                             UserName = "needajob@abv.bg"
                         },
                         new
                         {
-                            Id = "ae2e22d6-d85a-419d-a73f-d5109ba61caf",
+                            Id = "9a6e8afe-5d91-4419-9f55-ba2a220f530b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "897feb6a-04ca-466f-94ae-c33004b07cce",
+                            ConcurrencyStamp = "908deb0c-d76a-4fae-9541-ec1680d78526",
                             Email = "guest@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@gmail.com",
                             NormalizedUserName = "guest@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENo2rFRG9vt0Ivnx2kGbLXJiGNeAq7l5hZ7d3EyNJdSdjdI7j4pwwn0LG/OMupwP8g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN9xSfgwF950aa9kmzKdSVvVgvuMwD6WSUEibLk2tSgwBbsBg+Ej7uIcl2dkxe89lA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "730ff799-341e-4010-87dd-76f303f799d4",
+                            SecurityStamp = "945ab861-8b5e-40b2-9fa5-4c6650b7728e",
                             TwoFactorEnabled = false,
                             UserName = "guest@gmail.com"
                         });

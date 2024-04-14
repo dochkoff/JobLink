@@ -4,7 +4,7 @@ using static JobLink.Infrastructure.Constants.DataConstants;
 
 namespace JobLink.Infrastructure.Data.Models
 {
-    [Index(nameof(PhoneNumber), IsUnique = true)]
+    [Index(nameof(Name), IsUnique = true)]
     [Comment("Company")]
     public class Company
     {
