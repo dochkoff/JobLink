@@ -35,5 +35,8 @@ namespace JobLink.Infrastructure.Data.Models
         [MaxLength(UrlMaxLength)]
         [Comment("Company's logo")]
         public string LogoUrl { get; set; } = string.Empty;
+
+        [Comment("Is company active or not")]
+        public bool IsActive { get; set; } = false;
     }
 }

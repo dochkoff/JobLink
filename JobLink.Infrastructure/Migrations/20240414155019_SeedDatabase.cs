@@ -41,7 +41,8 @@ namespace JobLink.Infrastructure.Migrations
                     Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false, comment: "Company address"),
                     PhoneNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false, comment: "Company's phone number"),
                     Website = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "Company's website"),
-                    LogoUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false, comment: "Company's logo")
+                    LogoUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false, comment: "Company's logo"),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, comment: "Is company active or not")
                 },
                 constraints: table =>
                 {
@@ -155,18 +156,18 @@ namespace JobLink.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "52ffe97b-c0d2-4747-9758-c42f45b819f3", 0, "6ccc27c3-94ca-4688-a2c8-1f73a05092bd", "guest@gmail.com", false, false, null, "guest@gmail.com", "guest@gmail.com", "AQAAAAEAACcQAAAAEGm4ZgIyiHYRUV04qkUbXrsVlRgFvh53iUzafQiPPKHiw83nbnSL/jvECqOkKrmR1Q==", null, false, "846deae3-de10-4cbd-9ffd-a359ed318211", false, "guest@gmail.com" },
-                    { "76b3f545-e38c-4ee9-b7ee-1641c81ef9ad", 0, "e4b6a499-f936-4361-b379-45bc366467a2", "needajob@abv.bg", false, false, null, "needajob@abv.bg", "needajob@abv.bg", "AQAAAAEAACcQAAAAEDsOTlpj6bGyLwRtEfN9GZXMidQEkH5etGjRX7zBH3C+OzDP1jHD6a4UcHkFm0H+SA==", null, false, "86d208ae-c179-4e4a-a30c-5620fd150af9", false, "needajob@abv.bg" },
-                    { "8c938716-90c9-4e2d-9c1e-eed5c13e6566", 0, "e19b64b3-177e-44d7-a3cf-e9519a119ccd", "sirmarecruit@sirma.com", false, false, null, "sirmarecruit@sirma.com", "sirmarecruit@sirma.com", "AQAAAAEAACcQAAAAECv9O+DRe/M4PBWrp2P7BSYxiCuQq5+KY/tjoIR/Xi8yMTOqnoERR2iyA0Wd1O0tBA==", null, false, "95fafc5d-ab79-44c8-b693-8b961cd5df7e", false, "sirmarecruit@sirma.com" }
+                    { "2c92f3f1-9a57-4bf5-9802-7fb2e005015e", 0, "7bff2d55-0c3c-4fbd-861e-47f85a75cc25", "sirmarecruit@sirma.com", false, false, null, "sirmarecruit@sirma.com", "sirmarecruit@sirma.com", "AQAAAAEAACcQAAAAEJl2b+sHdWd2CaFx7MaBYRd6hB5UVLWKV7IqL6QvJ9azC+MgE5kV39y61mpFw+4hqw==", null, false, "36ff71bd-5990-48f3-b18b-4bade72bfff7", false, "sirmarecruit@sirma.com" },
+                    { "3dc5909a-a03f-40b6-9ccd-cff0dff1f6f8", 0, "080d3bfb-5d38-4077-9005-169252ee25de", "needajob@abv.bg", false, false, null, "needajob@abv.bg", "needajob@abv.bg", "AQAAAAEAACcQAAAAEGXnr0/dpzqaO8AQ33chYWnPXYjM2ZWFK6OAX5z85lgj+kJTSrucH3Azig4Fj/2RnA==", null, false, "c5f40cc9-34c9-46d7-b75d-588f269d24b3", false, "needajob@abv.bg" },
+                    { "ae2e22d6-d85a-419d-a73f-d5109ba61caf", 0, "897feb6a-04ca-466f-94ae-c33004b07cce", "guest@gmail.com", false, false, null, "guest@gmail.com", "guest@gmail.com", "AQAAAAEAACcQAAAAENo2rFRG9vt0Ivnx2kGbLXJiGNeAq7l5hZ7d3EyNJdSdjdI7j4pwwn0LG/OMupwP8g==", null, false, "730ff799-341e-4010-87dd-76f303f799d4", false, "guest@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Companies",
-                columns: new[] { "Id", "Address", "LogoUrl", "Name", "PhoneNumber", "Website" },
+                columns: new[] { "Id", "Address", "IsActive", "LogoUrl", "Name", "PhoneNumber", "Website" },
                 values: new object[,]
                 {
-                    { new Guid("145039e7-c7be-4d86-b7d1-cad0bcd791fe"), "Sofia, Bulgaria", "logo-sirma.jpg", "Sirma Solutions", "+359 2 976 8310", "https://sirma.com" },
-                    { new Guid("fd097e8e-5034-4394-9673-3492c231e664"), "Boston, MA", "logo-draftkings.png", "DraftKings", "+16175551212", "https://draftkings.com" }
+                    { new Guid("4541f1f1-7dbf-4e0f-85d3-6c0db195fbbb"), "Boston, MA", true, "logo-draftkings.png", "DraftKings", "+16175551212", "https://draftkings.com" },
+                    { new Guid("8ec30b07-4a7c-4b0d-b0f9-b911d09a2ef5"), "Sofia, Bulgaria", true, "logo-sirma.jpg", "Sirma Solutions", "+359 2 976 8310", "https://sirma.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -182,12 +183,12 @@ namespace JobLink.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Applicants",
                 columns: new[] { "Id", "Name", "PhoneNumber", "ResumeUrl", "UserId" },
-                values: new object[] { 1, "Pavel Dochkov", "+359887654321", "https://drive.google.com/file/d/1UeDWXN60iwk-iVav4_Wj0aekCdWn2BuE/view?usp=sharing", "76b3f545-e38c-4ee9-b7ee-1641c81ef9ad" });
+                values: new object[] { 1, "Pavel Dochkov", "+359887654321", "https://drive.google.com/file/d/1UeDWXN60iwk-iVav4_Wj0aekCdWn2BuE/view?usp=sharing", "3dc5909a-a03f-40b6-9ccd-cff0dff1f6f8" });
 
             migrationBuilder.InsertData(
                 table: "Employers",
                 columns: new[] { "Id", "CompanyId", "PhoneNumber", "UserId" },
-                values: new object[] { 1, new Guid("145039e7-c7be-4d86-b7d1-cad0bcd791fe"), "+359880000000", "8c938716-90c9-4e2d-9c1e-eed5c13e6566" });
+                values: new object[] { 1, new Guid("8ec30b07-4a7c-4b0d-b0f9-b911d09a2ef5"), "+359880000000", "2c92f3f1-9a57-4bf5-9802-7fb2e005015e" });
 
             migrationBuilder.InsertData(
                 table: "Jobs",
@@ -207,12 +208,12 @@ namespace JobLink.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Applications",
                 columns: new[] { "Id", "ApplicantId", "DateAndTime", "JobId" },
-                values: new object[] { 1, 1, new DateTime(2024, 4, 12, 22, 30, 32, 498, DateTimeKind.Local).AddTicks(6626), 1 });
+                values: new object[] { 1, 1, new DateTime(2024, 4, 14, 18, 50, 18, 729, DateTimeKind.Local).AddTicks(9146), 1 });
 
             migrationBuilder.InsertData(
                 table: "Applications",
                 columns: new[] { "Id", "ApplicantId", "DateAndTime", "JobId" },
-                values: new object[] { 2, 1, new DateTime(2024, 4, 12, 22, 30, 32, 498, DateTimeKind.Local).AddTicks(6707), 2 });
+                values: new object[] { 2, 1, new DateTime(2024, 4, 14, 18, 50, 18, 729, DateTimeKind.Local).AddTicks(9199), 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Applicants_PhoneNumber",
@@ -291,17 +292,17 @@ namespace JobLink.Infrastructure.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "52ffe97b-c0d2-4747-9758-c42f45b819f3");
+                keyValue: "ae2e22d6-d85a-419d-a73f-d5109ba61caf");
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "76b3f545-e38c-4ee9-b7ee-1641c81ef9ad");
+                keyValue: "3dc5909a-a03f-40b6-9ccd-cff0dff1f6f8");
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "8c938716-90c9-4e2d-9c1e-eed5c13e6566");
+                keyValue: "2c92f3f1-9a57-4bf5-9802-7fb2e005015e");
         }
     }
 }

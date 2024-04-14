@@ -164,7 +164,8 @@ namespace JobLink.Infrastructure.Data
                 Address = "Sofia, Bulgaria",
                 PhoneNumber = "+359 2 976 8310",
                 Website = "https://sirma.com",
-                LogoUrl = "logo-sirma.jpg"
+                LogoUrl = "logo-sirma.jpg",
+                IsActive = true
 
             };
 
@@ -175,7 +176,8 @@ namespace JobLink.Infrastructure.Data
                 Address = "Boston, MA",
                 PhoneNumber = "+16175551212",
                 Website = "https://draftkings.com",
-                LogoUrl = "logo-draftkings.png"
+                LogoUrl = "logo-draftkings.png",
+                IsActive = true
             };
         }
 
