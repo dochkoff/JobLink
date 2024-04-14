@@ -19,8 +19,4 @@
     <ProjectReference Include="..\JobLink.Core\JobLink.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
