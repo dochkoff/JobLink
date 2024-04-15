@@ -194,6 +194,7 @@ namespace JobLink.Core.Services
                     Salary = j.Salary,
                     Employer = new Models.Employer.EmployerServiceModel()
                     {
+                        FullName = $"{j.Employer.User.FirstName} {j.Employer.User.LastName}",
                         Email = j.Employer.User.Email,
                         PhoneNumber = j.Employer.PhoneNumber,
                         CompanyName = j.Employer.Company.Name,

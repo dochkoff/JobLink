@@ -15,7 +15,7 @@
             <img class="card-img-top" src="@Model.CompanyLogoURL" alt="Company Logo" style="width: 100%; height: 200px; object-fit: cover;">
         </div>
         <div class="card col-8 border-0">
-            <p style="font-size:25px;"><u>@Model.Title</u></p>
+            <p style="font-size:25px;">@Model.Title</p>
             <p>Job Location: <b>@Model.Location</b></p>
             <p>
                Monthly Salary:
@@ -79,6 +79,7 @@
                 <div class="card" style="width: 20rem;">
                     <div class="card-body">
                         <h5 class="card-title">Employer Info</h5>
+                        <p class="card-text">Name:  @Model.Employer.FullName</p>
                         <p class="card-text">Email:  @Model.Employer.Email</p>
                         <p class="card-text">Phone Number: @Model.Employer.PhoneNumber</p>
                         <p class="card-text">Company: @Model.Employer.CompanyName</p>
