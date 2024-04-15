@@ -4,6 +4,7 @@ using JobLink.Infrastructure.Data;
 using JobLink.Infrastructure.Data.Common;
 using JobLink.Infrastructure.Data.Models;
 using JobLink.ModelBinders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +32,7 @@ builder.Services.AddDefaultIdentity<AccountHolder>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
  })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<JobLinkDbContext>();
 
 builder.Services.AddControllersWithViews(options =>

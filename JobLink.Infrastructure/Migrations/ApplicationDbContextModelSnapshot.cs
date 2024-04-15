@@ -65,7 +65,7 @@ namespace JobLink.Infrastructure.Migrations
                             Id = 1,
                             PhoneNumber = "+359886509188",
                             ResumeUrl = "https://drive.google.com/file/d/1UeDWXN60iwk-iVav4_Wj0aekCdWn2BuE/view?usp=sharing",
-                            UserId = "87ba53d2-1b52-4fc2-8793-a9383b6090d0"
+                            UserId = "30121835-deea-4cfe-818b-f44588310481"
                         });
                 });
 
@@ -105,14 +105,14 @@ namespace JobLink.Infrastructure.Migrations
                         {
                             Id = 1,
                             ApplicantId = 1,
-                            DateAndTime = new DateTime(2024, 4, 16, 0, 37, 13, 144, DateTimeKind.Local).AddTicks(26),
+                            DateAndTime = new DateTime(2024, 4, 16, 1, 59, 36, 968, DateTimeKind.Local).AddTicks(7196),
                             JobId = 1
                         },
                         new
                         {
                             Id = 2,
                             ApplicantId = 1,
-                            DateAndTime = new DateTime(2024, 4, 16, 0, 37, 13, 144, DateTimeKind.Local).AddTicks(115),
+                            DateAndTime = new DateTime(2024, 4, 16, 1, 59, 36, 968, DateTimeKind.Local).AddTicks(7261),
                             JobId = 2
                         });
                 });
@@ -170,7 +170,7 @@ namespace JobLink.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d9b4fb5e-8145-4948-a7e5-258e636c042a"),
+                            Id = new Guid("5c33a6ba-3946-4157-8da6-d3a273d5775b"),
                             Address = "Sofia, Bulgaria",
                             IsApproved = true,
                             LogoUrl = "/images/logos/logo-sirma.jpg",
@@ -180,7 +180,7 @@ namespace JobLink.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d6343d44-e874-49b5-bb6d-28624139c29e"),
+                            Id = new Guid("f14429b6-2fd4-4bd1-8fbf-d7c55264252d"),
                             Address = "Boston, MA",
                             IsApproved = true,
                             LogoUrl = "/images/logos/logo-draftkings.png",
@@ -231,9 +231,9 @@ namespace JobLink.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CompanyId = new Guid("d9b4fb5e-8145-4948-a7e5-258e636c042a"),
+                            CompanyId = new Guid("5c33a6ba-3946-4157-8da6-d3a273d5775b"),
                             PhoneNumber = "+359880000000",
-                            UserId = "6e79a681-09b9-4851-aafb-baf4131811cd"
+                            UserId = "7a29bd89-4ed7-417c-9663-cc461dfd03e3"
                         });
                 });
 
@@ -383,6 +383,15 @@ namespace JobLink.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b0b26784-bf8a-46f8-9fde-bb3d674c62b2",
+                            ConcurrencyStamp = "7f61e4c6-a329-4379-ad10-fa955925439c",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -511,28 +520,28 @@ namespace JobLink.Infrastructure.Migrations
                             Id = 1,
                             ClaimType = "user:fullname",
                             ClaimValue = "Strict Admin",
-                            UserId = "f0ba3818-f2e3-4787-a6f2-5782d980a918"
+                            UserId = "a83adf52-1b7f-42f7-bf93-a2e4c1f0a7b4"
                         },
                         new
                         {
                             Id = 2,
                             ClaimType = "user:fullname",
                             ClaimValue = "Stamo Blagodarya",
-                            UserId = "6e79a681-09b9-4851-aafb-baf4131811cd"
+                            UserId = "7a29bd89-4ed7-417c-9663-cc461dfd03e3"
                         },
                         new
                         {
                             Id = 3,
                             ClaimType = "user:fullname",
                             ClaimValue = "Pavel Dochkov",
-                            UserId = "87ba53d2-1b52-4fc2-8793-a9383b6090d0"
+                            UserId = "30121835-deea-4cfe-818b-f44588310481"
                         },
                         new
                         {
                             Id = 4,
                             ClaimType = "user:fullname",
                             ClaimValue = "Stefan Gorchev",
-                            UserId = "24de9d57-156d-4aa8-a395-144fb253d3ca"
+                            UserId = "8f06c7b6-1e5a-4fa8-885a-dbdd2a40c076"
                         });
                 });
 
@@ -573,6 +582,13 @@ namespace JobLink.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "a83adf52-1b7f-42f7-bf93-a2e4c1f0a7b4",
+                            RoleId = "b0b26784-bf8a-46f8-9fde-bb3d674c62b2"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -615,17 +631,17 @@ namespace JobLink.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f0ba3818-f2e3-4787-a6f2-5782d980a918",
+                            Id = "a83adf52-1b7f-42f7-bf93-a2e4c1f0a7b4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "17dcd7ba-55cc-47d7-a769-5426113917bf",
+                            ConcurrencyStamp = "d9ba91a1-f200-4164-82cb-68234d0c364b",
                             Email = "admin@joblink.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@JOBLINK.COM",
                             NormalizedUserName = "ADMIN@JOBLINK.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEINfgbu8zCfDjZ1qnWi4yWn7xg/aAQYlaUbLV8TibVyiTJLEFzBEFZ9wLBKrBEcNtw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGaXWLiK4zYC1QDRTa/YhlSAyhiLIqsRhhC6LS/ntIWkEccw0K5bGYGN/WSBvErMFQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e5588a8b-26c5-4bd1-a776-ac8df8fd1af4",
+                            SecurityStamp = "e835d3e8-c63b-455b-919c-2e83d7b12491",
                             TwoFactorEnabled = false,
                             UserName = "admin@joblink.com",
                             FirstName = "Strict",
@@ -633,17 +649,17 @@ namespace JobLink.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = "6e79a681-09b9-4851-aafb-baf4131811cd",
+                            Id = "7a29bd89-4ed7-417c-9663-cc461dfd03e3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "670af48e-a639-4104-be91-7da8955b7206",
+                            ConcurrencyStamp = "92240f1b-252f-4b01-ba84-2c5783e4be91",
                             Email = "sirmarecruit@sirma.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SIRMARECRUIT@SIRMA.COM",
                             NormalizedUserName = "SIRMARECRUIT@SIRMA.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHm3ejnJWrfkrmInB0WDava0wtJ+ZBoZRRvpvaj90SnzxxNQ9/j7u9D67oQxOCh61Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEACVGtUz3GwAOEjNuOg42h5qGeELRYsnRGarTOUpDXIGDiYs3YkRgUB89i9Vo7N4ZA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a7da1acc-8425-49c9-9828-ecc9e47e2080",
+                            SecurityStamp = "9b389320-a87d-4a44-8415-7743cd8aad38",
                             TwoFactorEnabled = false,
                             UserName = "sirmarecruit@sirma.com",
                             FirstName = "Stamo",
@@ -651,17 +667,17 @@ namespace JobLink.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = "87ba53d2-1b52-4fc2-8793-a9383b6090d0",
+                            Id = "30121835-deea-4cfe-818b-f44588310481",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d8cc5078-946e-4e50-9fe4-8bd809ab24dd",
+                            ConcurrencyStamp = "32fa4eb4-eaf7-42cb-a4ae-15ddc4c9345d",
                             Email = "needajob@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "NEEDAJOB@ABV.BG",
                             NormalizedUserName = "NEEDAJOB@ABV.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH3LJ4BzqVWlEQREXu8IIhgLVZ94tf2nNlZvyRjIn+p1E97ux05yyrNIrSUFpN/DDw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPGR2cN3DjtxsQttKAzSMAjv1CiTtj2WYLWEhJ0pPftLgHKYv3JbmYa/UgRavpQhEg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fcfc09e3-3a69-4d51-a337-e4919e26d9b2",
+                            SecurityStamp = "8be99598-71a0-4953-aae4-9bcf4f178ba1",
                             TwoFactorEnabled = false,
                             UserName = "needajob@abv.bg",
                             FirstName = "Pavel",
@@ -669,19 +685,19 @@ namespace JobLink.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = "24de9d57-156d-4aa8-a395-144fb253d3ca",
+                            Id = "8f06c7b6-1e5a-4fa8-885a-dbdd2a40c076",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "73f2c3f7-7a65-4ea9-ba6f-242db3fbef10",
-                            Email = "guest@gmail.com",
+                            ConcurrencyStamp = "3d3e86ec-fd6a-4c4b-a7e2-7bc105742a6e",
+                            Email = "newuser@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "guest@gmail.com",
-                            NormalizedUserName = "guest@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAECwfNjq1qhd6l8ATn3eE8Y3h5VJ2TA2yFJFbHa6w4PKggRIntwyRB7wtlaoZTjPoAw==",
+                            NormalizedEmail = "NEWUSER@GMAIL.COM",
+                            NormalizedUserName = "NEWUSER@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKfl7e1TcpOtGYMNuMHpusK3KpseM8PEwATUNApJl0VxM2x/R//Zbwc2aBqvzNFJTA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9c44d47e-f69c-4d3d-af5c-ff8193d9d6c0",
+                            SecurityStamp = "0193d357-35a4-450c-bba8-cba1235c0899",
                             TwoFactorEnabled = false,
-                            UserName = "guest@gmail.com",
+                            UserName = "newuser@gmail.com",
                             FirstName = "Stefan",
                             LastName = "Gorchev"
                         });
@@ -747,7 +763,7 @@ namespace JobLink.Infrastructure.Migrations
                     b.HasOne("JobLink.Infrastructure.Data.Models.Employer", "Employer")
                         .WithMany("Jobs")
                         .HasForeignKey("EmployerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Employer");

@@ -9,7 +9,7 @@ namespace JobLink.Infrastructure.Data
     public class JobLinkDbContext : IdentityDbContext
     {
         //Properties for seeding data
-        private AccountHolder AdminUser { get; set; }
+        private AccountHolder AdministratorUser { get; set; }
 
         private AccountHolder EmployerUser { get; set; }
 
@@ -17,13 +17,17 @@ namespace JobLink.Infrastructure.Data
 
         private AccountHolder NewUser { get; set; }
 
-        public IdentityUserClaim<string> AdminUserClaim { get; set; }
+        public IdentityUserClaim<string> AdministratorUserClaim { get; set; }
 
         public IdentityUserClaim<string> EmployerUserClaim { get; set; }
 
         public IdentityUserClaim<string> ApplicantUserClaim { get; set; }
 
         public IdentityUserClaim<string> NewUserClaim { get; set; }
+
+        public IdentityRole AdministratorRole { get; set; }
+
+        public IdentityUserRole<string> AdministratorUserRole { get; set; }
 
         private Employer Employer { get; set; }
 
@@ -83,21 +87,28 @@ namespace JobLink.Infrastructure.Data
                 .HasOne(j => j.Employer)
                 .WithMany(e => e.Jobs)
                 .HasForeignKey(j => j.EmployerId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
 
             //Seed data
             SeedUsers();
             builder.Entity<AccountHolder>()
-                .HasData(AdminUser,
+                .HasData(AdministratorUser,
                          EmployerUser,
                          ApplicantUser,
                          NewUser);
 
             builder.Entity<IdentityUserClaim<string>>()
-                .HasData(AdminUserClaim,
+                .HasData(AdministratorUserClaim,
                          EmployerUserClaim,
                          ApplicantUserClaim,
                          NewUserClaim);
+
+            SeedRoles();
+            builder.Entity<IdentityRole>()
+                .HasData(AdministratorRole);
+
+            builder.Entity<IdentityUserRole<string>>()
+                .HasData(AdministratorUserRole);
 
             SeedCompanies();
             builder.Entity<Company>()
@@ -137,7 +148,7 @@ namespace JobLink.Infrastructure.Data
             var hasher = new PasswordHasher<AccountHolder>();
 
             // Administrator
-            AdminUser = new AccountHolder()
+            AdministratorUser = new AccountHolder()
             {
                 Id = Guid.NewGuid().ToString(),
                 FirstName = "Strict",
@@ -148,15 +159,15 @@ namespace JobLink.Infrastructure.Data
                 NormalizedEmail = "ADMIN@JOBLINK.COM"
             };
 
-            AdminUserClaim = new IdentityUserClaim<string>()
+            AdministratorUserClaim = new IdentityUserClaim<string>()
             {
                 Id = 1,
                 ClaimType = UserFullNameClaim,
                 ClaimValue = "Strict Admin",
-                UserId = AdminUser.Id
+                UserId = AdministratorUser.Id
             };
 
-            AdminUser.PasswordHash = hasher.HashPassword(AdminUser, "1qaz!QAZ");
+            AdministratorUser.PasswordHash = hasher.HashPassword(AdministratorUser, "1qaz!QAZ");
 
             // Employer
             EmployerUser = new AccountHolder()
@@ -208,10 +219,10 @@ namespace JobLink.Infrastructure.Data
                 Id = Guid.NewGuid().ToString(),
                 FirstName = "Stefan",
                 LastName = "Gorchev",
-                UserName = "guest@gmail.com",
-                NormalizedUserName = "guest@gmail.com",
-                Email = "guest@gmail.com",
-                NormalizedEmail = "guest@gmail.com"
+                UserName = "newuser@gmail.com",
+                NormalizedUserName = "NEWUSER@GMAIL.COM",
+                Email = "newuser@gmail.com",
+                NormalizedEmail = "NEWUSER@GMAIL.COM"
             };
 
             NewUserClaim = new IdentityUserClaim<string>()
@@ -223,6 +234,22 @@ namespace JobLink.Infrastructure.Data
             };
 
             NewUser.PasswordHash = hasher.HashPassword(NewUser, "guest123");
+        }
+        
+        private void SeedRoles()
+        {
+            AdministratorRole = new IdentityRole()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Administrator",
+                NormalizedName = "ADMINISTRATOR"
+            };
+
+            AdministratorUserRole = new IdentityUserRole<string>()
+            {
+                UserId = AdministratorUser.Id,
+                RoleId = AdministratorRole.Id
+            };
         }
 
         private void SeedCompanies()

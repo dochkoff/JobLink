@@ -132,8 +132,7 @@ namespace JobLink.Infrastructure.Migrations
                         name: "FK_Jobs_Employers_EmployerId",
                         column: x => x.EmployerId,
                         principalTable: "Employers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Jobs_JobCategories_CategoryId",
                         column: x => x.CategoryId,
@@ -172,14 +171,19 @@ namespace JobLink.Infrastructure.Migrations
                 comment: "Application for a job");
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "b0b26784-bf8a-46f8-9fde-bb3d674c62b2", "7f61e4c6-a329-4379-ad10-fa955925439c", "Administrator", "ADMINISTRATOR" });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "24de9d57-156d-4aa8-a395-144fb253d3ca", 0, "73f2c3f7-7a65-4ea9-ba6f-242db3fbef10", "AccountHolder", "guest@gmail.com", false, "Stefan", "Gorchev", false, null, "guest@gmail.com", "guest@gmail.com", "AQAAAAEAACcQAAAAECwfNjq1qhd6l8ATn3eE8Y3h5VJ2TA2yFJFbHa6w4PKggRIntwyRB7wtlaoZTjPoAw==", null, false, "9c44d47e-f69c-4d3d-af5c-ff8193d9d6c0", false, "guest@gmail.com" },
-                    { "6e79a681-09b9-4851-aafb-baf4131811cd", 0, "670af48e-a639-4104-be91-7da8955b7206", "AccountHolder", "sirmarecruit@sirma.com", false, "Stamo", "Blagodarya", false, null, "SIRMARECRUIT@SIRMA.COM", "SIRMARECRUIT@SIRMA.COM", "AQAAAAEAACcQAAAAEHm3ejnJWrfkrmInB0WDava0wtJ+ZBoZRRvpvaj90SnzxxNQ9/j7u9D67oQxOCh61Q==", null, false, "a7da1acc-8425-49c9-9828-ecc9e47e2080", false, "sirmarecruit@sirma.com" },
-                    { "87ba53d2-1b52-4fc2-8793-a9383b6090d0", 0, "d8cc5078-946e-4e50-9fe4-8bd809ab24dd", "AccountHolder", "needajob@abv.bg", false, "Pavel", "Dochkov", false, null, "NEEDAJOB@ABV.BG", "NEEDAJOB@ABV.BG", "AQAAAAEAACcQAAAAEH3LJ4BzqVWlEQREXu8IIhgLVZ94tf2nNlZvyRjIn+p1E97ux05yyrNIrSUFpN/DDw==", null, false, "fcfc09e3-3a69-4d51-a337-e4919e26d9b2", false, "needajob@abv.bg" },
-                    { "f0ba3818-f2e3-4787-a6f2-5782d980a918", 0, "17dcd7ba-55cc-47d7-a769-5426113917bf", "AccountHolder", "admin@joblink.com", false, "Strict", "Admin", false, null, "ADMIN@JOBLINK.COM", "ADMIN@JOBLINK.COM", "AQAAAAEAACcQAAAAEINfgbu8zCfDjZ1qnWi4yWn7xg/aAQYlaUbLV8TibVyiTJLEFzBEFZ9wLBKrBEcNtw==", null, false, "e5588a8b-26c5-4bd1-a776-ac8df8fd1af4", false, "admin@joblink.com" }
+                    { "30121835-deea-4cfe-818b-f44588310481", 0, "32fa4eb4-eaf7-42cb-a4ae-15ddc4c9345d", "AccountHolder", "needajob@abv.bg", false, "Pavel", "Dochkov", false, null, "NEEDAJOB@ABV.BG", "NEEDAJOB@ABV.BG", "AQAAAAEAACcQAAAAEPGR2cN3DjtxsQttKAzSMAjv1CiTtj2WYLWEhJ0pPftLgHKYv3JbmYa/UgRavpQhEg==", null, false, "8be99598-71a0-4953-aae4-9bcf4f178ba1", false, "needajob@abv.bg" },
+                    { "7a29bd89-4ed7-417c-9663-cc461dfd03e3", 0, "92240f1b-252f-4b01-ba84-2c5783e4be91", "AccountHolder", "sirmarecruit@sirma.com", false, "Stamo", "Blagodarya", false, null, "SIRMARECRUIT@SIRMA.COM", "SIRMARECRUIT@SIRMA.COM", "AQAAAAEAACcQAAAAEACVGtUz3GwAOEjNuOg42h5qGeELRYsnRGarTOUpDXIGDiYs3YkRgUB89i9Vo7N4ZA==", null, false, "9b389320-a87d-4a44-8415-7743cd8aad38", false, "sirmarecruit@sirma.com" },
+                    { "8f06c7b6-1e5a-4fa8-885a-dbdd2a40c076", 0, "3d3e86ec-fd6a-4c4b-a7e2-7bc105742a6e", "AccountHolder", "newuser@gmail.com", false, "Stefan", "Gorchev", false, null, "NEWUSER@GMAIL.COM", "NEWUSER@GMAIL.COM", "AQAAAAEAACcQAAAAEKfl7e1TcpOtGYMNuMHpusK3KpseM8PEwATUNApJl0VxM2x/R//Zbwc2aBqvzNFJTA==", null, false, "0193d357-35a4-450c-bba8-cba1235c0899", false, "newuser@gmail.com" },
+                    { "a83adf52-1b7f-42f7-bf93-a2e4c1f0a7b4", 0, "d9ba91a1-f200-4164-82cb-68234d0c364b", "AccountHolder", "admin@joblink.com", false, "Strict", "Admin", false, null, "ADMIN@JOBLINK.COM", "ADMIN@JOBLINK.COM", "AQAAAAEAACcQAAAAEGaXWLiK4zYC1QDRTa/YhlSAyhiLIqsRhhC6LS/ntIWkEccw0K5bGYGN/WSBvErMFQ==", null, false, "e835d3e8-c63b-455b-919c-2e83d7b12491", false, "admin@joblink.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -187,8 +191,8 @@ namespace JobLink.Infrastructure.Migrations
                 columns: new[] { "Id", "Address", "IsApproved", "LogoUrl", "Name", "PhoneNumber", "Website" },
                 values: new object[,]
                 {
-                    { new Guid("d6343d44-e874-49b5-bb6d-28624139c29e"), "Boston, MA", true, "/images/logos/logo-draftkings.png", "DraftKings", "+16175551212", "https://draftkings.com" },
-                    { new Guid("d9b4fb5e-8145-4948-a7e5-258e636c042a"), "Sofia, Bulgaria", true, "/images/logos/logo-sirma.jpg", "Sirma Solutions", "+359 2 976 8310", "https://sirma.com" }
+                    { new Guid("5c33a6ba-3946-4157-8da6-d3a273d5775b"), "Sofia, Bulgaria", true, "/images/logos/logo-sirma.jpg", "Sirma Solutions", "+359 2 976 8310", "https://sirma.com" },
+                    { new Guid("f14429b6-2fd4-4bd1-8fbf-d7c55264252d"), "Boston, MA", true, "/images/logos/logo-draftkings.png", "DraftKings", "+16175551212", "https://draftkings.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -204,23 +208,28 @@ namespace JobLink.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Applicants",
                 columns: new[] { "Id", "PhoneNumber", "ResumeUrl", "UserId" },
-                values: new object[] { 1, "+359886509188", "https://drive.google.com/file/d/1UeDWXN60iwk-iVav4_Wj0aekCdWn2BuE/view?usp=sharing", "87ba53d2-1b52-4fc2-8793-a9383b6090d0" });
+                values: new object[] { 1, "+359886509188", "https://drive.google.com/file/d/1UeDWXN60iwk-iVav4_Wj0aekCdWn2BuE/view?usp=sharing", "30121835-deea-4cfe-818b-f44588310481" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "user:fullname", "Strict Admin", "f0ba3818-f2e3-4787-a6f2-5782d980a918" },
-                    { 2, "user:fullname", "Stamo Blagodarya", "6e79a681-09b9-4851-aafb-baf4131811cd" },
-                    { 3, "user:fullname", "Pavel Dochkov", "87ba53d2-1b52-4fc2-8793-a9383b6090d0" },
-                    { 4, "user:fullname", "Stefan Gorchev", "24de9d57-156d-4aa8-a395-144fb253d3ca" }
+                    { 1, "user:fullname", "Strict Admin", "a83adf52-1b7f-42f7-bf93-a2e4c1f0a7b4" },
+                    { 2, "user:fullname", "Stamo Blagodarya", "7a29bd89-4ed7-417c-9663-cc461dfd03e3" },
+                    { 3, "user:fullname", "Pavel Dochkov", "30121835-deea-4cfe-818b-f44588310481" },
+                    { 4, "user:fullname", "Stefan Gorchev", "8f06c7b6-1e5a-4fa8-885a-dbdd2a40c076" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "b0b26784-bf8a-46f8-9fde-bb3d674c62b2", "a83adf52-1b7f-42f7-bf93-a2e4c1f0a7b4" });
 
             migrationBuilder.InsertData(
                 table: "Employers",
                 columns: new[] { "Id", "CompanyId", "PhoneNumber", "UserId" },
-                values: new object[] { 1, new Guid("d9b4fb5e-8145-4948-a7e5-258e636c042a"), "+359880000000", "6e79a681-09b9-4851-aafb-baf4131811cd" });
+                values: new object[] { 1, new Guid("5c33a6ba-3946-4157-8da6-d3a273d5775b"), "+359880000000", "7a29bd89-4ed7-417c-9663-cc461dfd03e3" });
 
             migrationBuilder.InsertData(
                 table: "Jobs",
@@ -240,12 +249,12 @@ namespace JobLink.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Applications",
                 columns: new[] { "Id", "ApplicantId", "DateAndTime", "JobId" },
-                values: new object[] { 1, 1, new DateTime(2024, 4, 16, 0, 37, 13, 144, DateTimeKind.Local).AddTicks(26), 1 });
+                values: new object[] { 1, 1, new DateTime(2024, 4, 16, 1, 59, 36, 968, DateTimeKind.Local).AddTicks(7196), 1 });
 
             migrationBuilder.InsertData(
                 table: "Applications",
                 columns: new[] { "Id", "ApplicantId", "DateAndTime", "JobId" },
-                values: new object[] { 2, 1, new DateTime(2024, 4, 16, 0, 37, 13, 144, DateTimeKind.Local).AddTicks(115), 2 });
+                values: new object[] { 2, 1, new DateTime(2024, 4, 16, 1, 59, 36, 968, DateTimeKind.Local).AddTicks(7261), 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Applicants_PhoneNumber",
@@ -342,24 +351,34 @@ namespace JobLink.Infrastructure.Migrations
                 keyValue: 4);
 
             migrationBuilder.DeleteData(
-                table: "AspNetUsers",
+                table: "AspNetUserRoles",
+                keyColumns: new[] { "RoleId", "UserId" },
+                keyValues: new object[] { "b0b26784-bf8a-46f8-9fde-bb3d674c62b2", "a83adf52-1b7f-42f7-bf93-a2e4c1f0a7b4" });
+
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "24de9d57-156d-4aa8-a395-144fb253d3ca");
+                keyValue: "b0b26784-bf8a-46f8-9fde-bb3d674c62b2");
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "f0ba3818-f2e3-4787-a6f2-5782d980a918");
+                keyValue: "8f06c7b6-1e5a-4fa8-885a-dbdd2a40c076");
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "87ba53d2-1b52-4fc2-8793-a9383b6090d0");
+                keyValue: "a83adf52-1b7f-42f7-bf93-a2e4c1f0a7b4");
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "6e79a681-09b9-4851-aafb-baf4131811cd");
+                keyValue: "30121835-deea-4cfe-818b-f44588310481");
+
+            migrationBuilder.DeleteData(
+                table: "AspNetUsers",
+                keyColumn: "Id",
+                keyValue: "7a29bd89-4ed7-417c-9663-cc461dfd03e3");
 
             migrationBuilder.DropColumn(
                 name: "Discriminator",
