@@ -37,6 +37,6 @@ namespace JobLink.Infrastructure.Data.Models
         public string LogoUrl { get; set; } = string.Empty;
 
         [Comment("Is company active or not")]
-        public bool IsActive { get; set; } = false;
+        public bool IsApproved { get; set; } = false;
     }
 }

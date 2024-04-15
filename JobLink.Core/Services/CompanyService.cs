@@ -24,7 +24,7 @@ namespace JobLink.Core.Services
                 {
                     Id = c.Id.ToString().ToLower(),
                     Name = c.Name,
-                    IsActive = c.IsActive
+                    IsActive = c.IsApproved
                 })
                 .ToListAsync();
         }
@@ -41,7 +41,7 @@ namespace JobLink.Core.Services
                     PhoneNumber = c.PhoneNumber,
                     Website = c.Website,
                     LogoUrl = c.LogoUrl,
-                    IsActive = c.IsActive
+                    IsApproved = c.IsApproved
                 })
                 .FirstAsync();
                     

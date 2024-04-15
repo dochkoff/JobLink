@@ -13,6 +13,6 @@ namespace JobLink.Core.Models.Company
         public string LogoUrl { get; set; } = string.Empty;
 
         [Display(Name = "Is Approved")]
-        public bool IsActive { get; set; }
+        public bool IsApproved { get; set; }
     }
 }

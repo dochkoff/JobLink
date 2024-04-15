@@ -165,7 +165,7 @@ namespace JobLink.Infrastructure.Data
                 PhoneNumber = "+359 2 976 8310",
                 Website = "https://sirma.com",
                 LogoUrl = "/images/logos/logo-sirma.jpg",
-                IsActive = true
+                IsApproved = true
 
             };
 
@@ -177,7 +177,7 @@ namespace JobLink.Infrastructure.Data
                 PhoneNumber = "+16175551212",
                 Website = "https://draftkings.com",
                 LogoUrl = "/images/logos/logo-draftkings.png",
-                IsActive = true
+                IsApproved = true
             };
         }
 
