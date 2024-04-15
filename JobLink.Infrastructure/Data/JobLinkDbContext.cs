@@ -88,9 +88,16 @@ namespace JobLink.Infrastructure.Data
             //Seed data
             SeedUsers();
             builder.Entity<AccountHolder>()
-                .HasData(EmployerUser,
+                .HasData(AdminUser,
+                         EmployerUser,
                          ApplicantUser,
                          NewUser);
+
+            builder.Entity<IdentityUserClaim<string>>()
+                .HasData(AdminUserClaim,
+                         EmployerUserClaim,
+                         ApplicantUserClaim,
+                         NewUserClaim);
 
             SeedCompanies();
             builder.Entity<Company>()
