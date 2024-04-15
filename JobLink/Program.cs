@@ -2,8 +2,8 @@ using JobLink.Core.Contracts;
 using JobLink.Core.Services;
 using JobLink.Infrastructure.Data;
 using JobLink.Infrastructure.Data.Common;
+using JobLink.Infrastructure.Data.Models;
 using JobLink.ModelBinders;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +22,7 @@ builder.Services.AddScoped<IStatisticService, StatisticService>();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddDefaultIdentity<AccountHolder>(options =>
 {
     options.User.RequireUniqueEmail = true;
     options.SignIn.RequireConfirmedAccount = false;

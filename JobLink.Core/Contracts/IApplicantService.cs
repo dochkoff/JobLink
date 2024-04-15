@@ -8,7 +8,7 @@ namespace JobLink.Core.Contracts
 
         Task<bool> UserWithPhoneNumberExistsAsync(string phoneNumber);
 
-        Task CreateApplicantAsync(string userId, string name, string phoneNumber, string resumeURL);
+        Task CreateApplicantAsync(string userId, string phoneNumber, string resumeURL);
 
         Task RemoveApplicantAsync(string userId);
 

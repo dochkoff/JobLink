@@ -3,9 +3,6 @@
     public static class DataConstants
     {
         //Common
-        public const int NameMaxLength = 50;
-
-        public const int NameMinLength = 5;
 
         public const int PhoneMaxLength = 15;
 
@@ -32,6 +29,8 @@
 
         public const string SalaryMaximum = "1000000";
 
+        public const int JobCategoryNameMaxLength = 20;
+
         //Company
         public const int CompanyNameMaxLength = 30;
 
@@ -45,6 +44,14 @@
 
         public const int CompanyIdMaxLength = 36;
 
+        //AccountHolder
 
+        public const int UserFirstNameMaxLength = 20;
+
+        public const int UserFirstNameMinLength = 1;
+
+        public const int UserLastNameMaxLength = 50;
+
+        public const int UserLastNameMinLength = 5;
     }
 }

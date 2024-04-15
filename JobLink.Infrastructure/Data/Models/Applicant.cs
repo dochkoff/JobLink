@@ -15,11 +15,6 @@ namespace JobLink.Infrastructure.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(NameMaxLength)]
-        [Comment("Applicant name")]
-        public string Name { get; set; } = string.Empty;
-
-        [Required]
         [MaxLength(PhoneMaxLength)]
         [Comment("Agent's phone")]
         public string PhoneNumber { get; set; } = string.Empty;
@@ -34,7 +29,7 @@ namespace JobLink.Infrastructure.Data.Models
         public string UserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(UserId))]
-        public IdentityUser User { get; set; } = null!;
+        public AccountHolder User { get; set; } = null!;
 
         [Comment("A list of user applications")]
         public List<Application> Applications { get; set; } = new List<Application>();

@@ -2,17 +2,28 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using static JobLink.Infrastructure.Constants.CustomClaims;
 
 namespace JobLink.Infrastructure.Data
 {
     public class JobLinkDbContext : IdentityDbContext
     {
         //Properties for seeding data
-        private IdentityUser EmployerUser { get; set; }
+        private AccountHolder AdminUser { get; set; }
 
-        private IdentityUser ApplicantUser { get; set; }
+        private AccountHolder EmployerUser { get; set; }
 
-        private IdentityUser GuestUser { get; set; }
+        private AccountHolder ApplicantUser { get; set; }
+
+        private AccountHolder NewUser { get; set; }
+
+        public IdentityUserClaim<string> AdminUserClaim { get; set; }
+
+        public IdentityUserClaim<string> EmployerUserClaim { get; set; }
+
+        public IdentityUserClaim<string> ApplicantUserClaim { get; set; }
+
+        public IdentityUserClaim<string> NewUserClaim { get; set; }
 
         private Employer Employer { get; set; }
 
@@ -76,10 +87,10 @@ namespace JobLink.Infrastructure.Data
 
             //Seed data
             SeedUsers();
-            builder.Entity<IdentityUser>()
+            builder.Entity<AccountHolder>()
                 .HasData(EmployerUser,
                          ApplicantUser,
-                         GuestUser);
+                         NewUser);
 
             SeedCompanies();
             builder.Entity<Company>()
@@ -116,43 +127,95 @@ namespace JobLink.Infrastructure.Data
 
         private void SeedUsers()
         {
-            var hasher = new PasswordHasher<IdentityUser>();
+            var hasher = new PasswordHasher<AccountHolder>();
 
-            // Employer
-            EmployerUser = new IdentityUser()
+            // Administrator
+            AdminUser = new AccountHolder()
             {
                 Id = Guid.NewGuid().ToString(),
+                FirstName = "Strict",
+                LastName = "Admin",
+                UserName = "admin@joblink.com",
+                NormalizedUserName = "ADMIN@JOBLINK.COM",
+                Email = "admin@joblink.com",
+                NormalizedEmail = "ADMIN@JOBLINK.COM"
+            };
+
+            AdminUserClaim = new IdentityUserClaim<string>()
+            {
+                Id = 1,
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Strict Admin",
+                UserId = AdminUser.Id
+            };
+
+            AdminUser.PasswordHash = hasher.HashPassword(AdminUser, "1qaz!QAZ");
+
+            // Employer
+            EmployerUser = new AccountHolder()
+            {
+                Id = Guid.NewGuid().ToString(),
+                FirstName = "Stamo",
+                LastName = "Blagodarya",
                 UserName = "sirmarecruit@sirma.com",
-                NormalizedUserName = "sirmarecruit@sirma.com",
+                NormalizedUserName = "SIRMARECRUIT@SIRMA.COM",
                 Email = "sirmarecruit@sirma.com",
-                NormalizedEmail = "sirmarecruit@sirma.com"
+                NormalizedEmail = "SIRMARECRUIT@SIRMA.COM"
+            };
+
+            EmployerUserClaim = new IdentityUserClaim<string>()
+            {
+                Id = 2,
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Stamo Blagodarya",
+                UserId = EmployerUser.Id
             };
 
             EmployerUser.PasswordHash = hasher.HashPassword(EmployerUser, "sirmarecruit123");
 
             // Applicant
-            ApplicantUser = new IdentityUser()
+            ApplicantUser = new AccountHolder()
             {
                 Id = Guid.NewGuid().ToString(),
+                FirstName = "Pavel",
+                LastName = "Dochkov",
                 UserName = "needajob@abv.bg",
-                NormalizedUserName = "needajob@abv.bg",
+                NormalizedUserName = "NEEDAJOB@ABV.BG",
                 Email = "needajob@abv.bg",
-                NormalizedEmail = "needajob@abv.bg"
+                NormalizedEmail = "NEEDAJOB@ABV.BG"
+            };
+
+            ApplicantUserClaim = new IdentityUserClaim<string>()
+            {
+                Id = 3,
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Pavel Dochkov",
+                UserId = ApplicantUser.Id
             };
 
             ApplicantUser.PasswordHash = hasher.HashPassword(ApplicantUser, "needajob123");
 
-            // Guest
-            GuestUser = new IdentityUser()
+            // New User
+            NewUser = new AccountHolder()
             {
                 Id = Guid.NewGuid().ToString(),
+                FirstName = "Stefan",
+                LastName = "Gorchev",
                 UserName = "guest@gmail.com",
                 NormalizedUserName = "guest@gmail.com",
                 Email = "guest@gmail.com",
                 NormalizedEmail = "guest@gmail.com"
             };
 
-            GuestUser.PasswordHash = hasher.HashPassword(GuestUser, "guest123");
+            NewUserClaim = new IdentityUserClaim<string>()
+            {
+                Id = 4,
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Stefan Gorchev",
+                UserId = NewUser.Id
+            };
+
+            NewUser.PasswordHash = hasher.HashPassword(NewUser, "guest123");
         }
 
         private void SeedCompanies()
@@ -197,8 +260,7 @@ namespace JobLink.Infrastructure.Data
             Applicant = new Applicant
             {
                 Id = 1,
-                Name = "Pavel Dochkov",
-                PhoneNumber = "+359887654321",
+                PhoneNumber = "+359886509188",
                 ResumeUrl = "https://drive.google.com/file/d/1UeDWXN60iwk-iVav4_Wj0aekCdWn2BuE/view?usp=sharing",
                 UserId = ApplicantUser.Id
             };

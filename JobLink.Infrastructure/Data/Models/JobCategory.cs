@@ -12,7 +12,7 @@ namespace JobLink.Infrastructure.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(JobCategoryNameMaxLength)]
         [Comment("Category name")]
         public string Name { get; set; } = string.Empty;
 

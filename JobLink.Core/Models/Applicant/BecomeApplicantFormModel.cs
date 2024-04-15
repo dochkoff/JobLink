@@ -7,13 +7,6 @@ namespace JobLink.Core.Models.Applicant
     public class BecomeApplicantFormModel
     {
         [Required(ErrorMessage = RequiredMessage)]
-        [StringLength(NameMaxLength,
-            MinimumLength = NameMinLength,
-            ErrorMessage = LengthMessage)]
-        [Display(Name = "Name")]
-        public string Name { get; set; } = null!;
-
-        [Required(ErrorMessage = RequiredMessage)]
         [StringLength(PhoneMaxLength,
             MinimumLength = PhoneMinLength,
             ErrorMessage = LengthMessage)]

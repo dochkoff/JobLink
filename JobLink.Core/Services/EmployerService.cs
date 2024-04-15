@@ -85,7 +85,7 @@ namespace JobLink.Core.Services
                     Id = a.Id,
                     JobTitle = a.Job.Title,
                     DateAndTime = a.DateAndTime.ToString("HH:mm dd/MM/yyyy"),
-                    ApplicantName = a.Applicant.Name,
+                    ApplicantName = $"{a.Applicant.User.FirstName} {a.Applicant.User.LastName}",
                     ApplicantPhoneNumber = a.Applicant.PhoneNumber,
                     ApplicantResumeUrl = a.Applicant.ResumeUrl
                 })

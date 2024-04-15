@@ -24,7 +24,7 @@ namespace JobLink.Infrastructure.Data.Models
         public string UserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(UserId))]
-        public IdentityUser User { get; set; } = null!;
+        public AccountHolder User { get; set; } = null!;
 
         [Required]
         [Comment("Company Identifier")]
