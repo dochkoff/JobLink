@@ -7,11 +7,10 @@
 
 @{
     string userName = string.Empty;
+
     if (SignInManager.IsSignedIn(User))
     {
-        var user = await UserManager.FindByIdAsync(User.Id());
-
-        userName = $"{user.FirstName} {user.LastName}";
+        userName = User.FindFirstValue(JobLink.Infrastructure.Constants.CustomClaims.UserFullNameClaim) ?? string.Empty;
     }
 }
 
