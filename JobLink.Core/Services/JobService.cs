@@ -26,7 +26,9 @@ namespace JobLink.Core.Services
             int currentPage = 1,
             int jobsPerPage = 1)
         {
-            var jobsToShow = repository.AllReadOnly<Job>();
+            var jobsToShow = repository
+                .AllReadOnly<Job>()
+                .Where(j => j.Employer.Company.IsApproved == true);
 
             if (category != null)
             {
@@ -146,6 +148,7 @@ namespace JobLink.Core.Services
         public async Task<bool> ExistsAsync(int jobId)
         {
             return await repository.AllReadOnly<Job>()
+                .Where(j => j.Employer.Company.IsApproved == true)
                 .AnyAsync(j => j.Id == jobId);
         }
 
@@ -181,6 +184,7 @@ namespace JobLink.Core.Services
         {
             return await repository.AllReadOnly<Job>()
                 .Where(j => j.Id == jobId)
+                .Where(j => j.Employer.Company.IsApproved == true)
                 .Select(j => new JobDetailsServiceModel()
                 {
                     Id = j.Id,
@@ -233,6 +237,7 @@ namespace JobLink.Core.Services
         {
             return await repository
                 .AllReadOnly<Job>()
+                .Where(j => j.Employer.Company.IsApproved == true)
                 .OrderByDescending(j => j.Id)
                 .Take(3)
                 .Select(j => new JobIndexServiceModel()

@@ -70,6 +70,7 @@ namespace JobLink.Core.Services
         {
             return await repository.AllReadOnly<Job>()
                 .Where(j => j.EmployerId == employerId)
+                .Where(j => j.Employer.Company.IsApproved == true)
                 .ProjectToJobServiceModel()
                 .ToListAsync();
         }

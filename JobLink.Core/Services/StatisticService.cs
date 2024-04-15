@@ -18,9 +18,11 @@ namespace JobLink.Core.Services
         public async Task<StatisticServiceModel> TotalAsync()
         {
             int totalCompanies = await repository.AllReadOnly<Company>()
+                .Where(c => c.IsApproved == true)
                 .CountAsync();
 
             int totalJobs = await repository.AllReadOnly<Job>()
+                .Where(j => j.Employer.Company.IsApproved == true)
                 .CountAsync();
 
             return new StatisticServiceModel()

@@ -61,7 +61,9 @@ namespace JobLink.Core.Services
         public async Task<IEnumerable<JobServiceModel>> AllJobApplicationsByUserIdAsync(string userId)
         {
             return await repository.AllReadOnly<Job>()
-                .Where(j => j.Applications.Any(a => a.Applicant.UserId == userId))
+                .Where(j => j.Employer.Company.IsApproved == true)
+                .Where(j => j.Applications
+                        .Any(a => a.Applicant.UserId == userId))
                 .ProjectToJobServiceModel()
                 .ToListAsync();
         }
