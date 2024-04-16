@@ -1,6 +1,5 @@
 ﻿using JobLink.Attributes;
 using JobLink.Core.Contracts;
-using JobLink.Core.Exceptions;
 using JobLink.Core.Models.Applicant;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

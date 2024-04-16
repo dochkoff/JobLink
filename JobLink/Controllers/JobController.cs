@@ -104,7 +104,8 @@ namespace JobLink.Controllers
                 return BadRequest();
             }
 
-            if (await jobService.HasEmployerWithIdAsync(id, User.Id()) == false)
+            if (await jobService.HasEmployerWithIdAsync(id, User.Id()) == false
+                && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -128,8 +129,9 @@ namespace JobLink.Controllers
                 return BadRequest();
             }
 
-            if (await jobService.HasEmployerWithIdAsync(id, User.Id()) == false)
-            {
+            if (await jobService.HasEmployerWithIdAsync(id, User.Id()) == false
+                && User.IsAdmin() == false)
+                {
                 return Unauthorized();
             }
 
@@ -159,7 +161,8 @@ namespace JobLink.Controllers
                 return BadRequest();
             }
 
-            if (await jobService.HasEmployerWithIdAsync(id, User.Id()) == false)
+            if (await jobService.HasEmployerWithIdAsync(id, User.Id()) == false
+                && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -191,7 +194,8 @@ namespace JobLink.Controllers
                 return BadRequest();
             }
 
-            if (await jobService.HasEmployerWithIdAsync(model.Id, User.Id()) == false)
+            if (await jobService.HasEmployerWithIdAsync(model.Id, User.Id()) == false
+                && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }

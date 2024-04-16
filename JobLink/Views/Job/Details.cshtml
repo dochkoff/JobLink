@@ -23,7 +23,7 @@
             </p>
             <p>Description: <b>@Model.Description</b></p>
             <p>Category: <b>@Model.Category</b></p>
-            @if (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id()))
+            @if (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id()) || User.IsAdmin())
             {
                 <p>
                     <i>The job has @Model.ApplicationsCount applies</i>
@@ -47,7 +47,7 @@
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
-                    if (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id()))
+                    if (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id()) || User.IsAdmin())
                     {
                         <a class="btn btn-warning" asp-controller="Job" asp-action="Edit"
                            asp-route-id="@Model.Id" asp-route-information="@Model.GetJobInformation()">Edit</a>
@@ -56,8 +56,7 @@
                     }
 
                     @if (await applicantService.ApplicantExistsByIdAsync(User.Id())
-                        && (await jobService.IsAppliedByUserWithIdAsync(Model.Id, User.Id())) == false
-                        && (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id())) == false)
+                        && (await jobService.IsAppliedByUserWithIdAsync(Model.Id, User.Id())) == false)
                     {
                         <form class="ml-2" asp-controller="Applicant"
                               asp-action="Apply" asp-route-id="@Model.Id" method="post">
