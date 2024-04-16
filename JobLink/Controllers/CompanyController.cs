@@ -1,6 +1,8 @@
 ﻿using JobLink.Core.Contracts;
 using JobLink.Core.Extensions;
 using JobLink.Core.Models.Company;
+using JobLink.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobLink.Controllers
@@ -34,7 +36,10 @@ namespace JobLink.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(string companyId, string information)
         {
-
+            if (await companyService.CompanyExistsAsync(companyId) == false)
+            {
+                return BadRequest();
+            }
 
             var model = await companyService.CompanyDetailsByIdAsync(companyId);
 
@@ -45,6 +50,5 @@ namespace JobLink.Controllers
 
             return View(model);
         }
-
     }
 }

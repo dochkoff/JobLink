@@ -1,5 +1,6 @@
 ﻿using JobLink.Attributes;
 using JobLink.Core.Contracts;
+using JobLink.Core.Exceptions;
 using JobLink.Core.Models.Applicant;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -90,16 +91,16 @@ namespace JobLink.Controllers
                 return Unauthorized();
             }
 
-            //try
-            //{
-            //    await jobService.CancelAsync(id, User.Id());
-            //}
-            //catch (UnauthorizedActionException uae)
-            //{
-            //    logger.LogError(uae, "HouseController/Cancel");
+            try
+            {
+                await jobService.CancelAsync(id, User.Id());
+            }
+            catch (UnauthorizedActionException uae)
+            {
+                //logger.LogError(uae, "HouseController/Cancel");
 
-            //    return Unauthorized();
-            //}
+                return Unauthorized();
+            }
 
             return RedirectToAction(nameof(MyJobApplications));
         }

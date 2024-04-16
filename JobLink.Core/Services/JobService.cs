@@ -255,10 +255,10 @@ namespace JobLink.Core.Services
         public async Task CancelAsync(int jobId, string applicantId)
         {
             var job = await repository.GetByIdAsync<Job>(jobId);
-            var applicant = await repository.AllReadOnly<Applicant>()
+            var applicant = await repository.All<Applicant>()
                 .FirstAsync(a => a.UserId == applicantId);
 
-            var application = await repository.AllReadOnly<Application>()
+            var application = await repository.All<Application>()
                         .FirstAsync(a => a.Applicant.UserId == applicantId && a.JobId == jobId);
 
             if (application !=null)
