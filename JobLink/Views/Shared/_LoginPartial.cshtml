@@ -30,6 +30,12 @@
             <a class="nav-link text-dark" asp-area="" asp-controller="Employer" asp-action="BecomeEmployer">Become Employer</a>
         </li>
     }
+    if (User.IsAdmin())
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="AdminCenter">Admin Center</a>
+        </li>
+    }
     <li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @userName!</a>
     </li>
