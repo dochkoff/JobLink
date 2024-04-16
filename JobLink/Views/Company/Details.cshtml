@@ -11,19 +11,22 @@
 <div class="container" style="display:inline">
     <div class="row">
         <div class="col-4">
-            <img class="card-img-top" src="@Model.LogoUrl" alt="Company Logo" style="width: 100%; height: 200px; object-fit: cover;">
+            <img class="card-img-top" 
+            src="@Model.LogoUrl" 
+            alt="Company Logo" 
+            style="width: 100%; height: 200px; object-fit: cover;">
         </div>
         <div class="card col-8 border-0">
             <p style="font-size:25px;">@Model.Name</p>
             <p><b>Address:</b> @Model.Address</p>
             <p><b>Phone Number:</b> @Model.PhoneNumber</p>
-            <p><b>Website:</b> @Model.Website</p>
+            <p><b>Website:</b> <a href="@Model.Website">@Model.Website</a></p>
             <p><b>Approved:</b> @status</p>
             <p>
                 <b>ID:</b> @Model.Id <br />
                 <i>Write down your company ID. After the company is approved you will need this ID to become employer.</i>
             </p>
-            <p>You will be notified by email after your company is approved.</p>
+            <p>You will be notified when your company is approved.</p>
             <br />
             <a class="btn btn-primary col-3" asp-controller="Home" asp-action="Index">Back to Home</a>
         </div>

@@ -1,6 +1,5 @@
 ﻿using JobLink.Attributes;
 using JobLink.Core.Contracts;
-using JobLink.Core.Exceptions;
 using JobLink.Core.Extensions;
 using JobLink.Core.Models.Job;
 using Microsoft.AspNetCore.Authorization;

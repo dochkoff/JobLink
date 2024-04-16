@@ -12,7 +12,10 @@
 <div class="container" style="display:inline">
     <div class="row">
         <div class="col-4">
-            <img class="card-img-top" src="@Model.CompanyLogoURL" alt="Company Logo" style="width: 100%; height: 200px; object-fit: cover;">
+            <img class="card-img-top"
+                src="@Model.CompanyLogoURL" 
+                alt="Company Logo" 
+                style="width: 100%; height: 200px; object-fit: cover;">
         </div>
         <div class="card col-8 border-0">
             <p style="font-size:25px;">@Model.Title</p>
@@ -28,15 +31,16 @@
                 <p>
                     <i>The job has @Model.ApplicationsCount applies</i>
                     <form class="ml-2" asp-controller="Employer"
-                          asp-action="ApplicationsForEmployerJobPost" method="get">
-                        <input type="hidden" name="jobId" value="@Model.Id" />
-                        <input class="btn btn-success" type="submit" value="See Applies"
-                        @if (Model.ApplicationsCount == 0)
-                        {
-                            <text>disabled</text>
-                        }
-                        />
+                        asp-action="MyJobPostApplications" asp-route-jobId="@Model.Id" method="get">
+                        <button class="btn btn-success" type="submit"
+                            @if (Model.ApplicationsCount == 0)
+                            {
+                                <text>disabled</text>
+                            }>
+                            See Applications
+                        </button>
                     </form>
+
                 </p>
             }
             else if (Model.ApplicationsCount == 0
