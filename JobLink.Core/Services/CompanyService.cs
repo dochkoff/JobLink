@@ -1,4 +1,5 @@
 ﻿using JobLink.Core.Contracts;
+using JobLink.Core.Exceptions;
 using JobLink.Core.Models.Company;
 using JobLink.Core.Models.Job;
 using JobLink.Infrastructure.Data.Common;
@@ -17,16 +18,44 @@ namespace JobLink.Core.Services
             repository = _repository;
         }
 
-        public async Task<IEnumerable<CompanyServiceModel>> AllCompaniesAsync()
+        public async Task<AllCompaniesModel> AllApprovedCompaniesAsync()
         {
-            return await repository.AllReadOnly<Company>()
+            var companiesToShow = await repository.AllReadOnly<Company>()
+                .Where(c => c.IsApproved == true)
                 .Select(c => new CompanyServiceModel()
                 {
                     Id = c.Id.ToString().ToLower(),
                     Name = c.Name,
-                    IsActive = c.IsApproved
+                    Address = c.Address,
+                    LogoUrl = c.LogoUrl,
+                    IsApproved = c.IsApproved
                 })
                 .ToListAsync();
+
+            return new AllCompaniesModel
+                    {
+                        Companies = companiesToShow
+                    };
+        }
+
+        public async Task<AllCompaniesModel> AllNonApprovedCompaniesAsync()
+        {
+            var companiesToShow = await repository.AllReadOnly<Company>()
+                .Where(c => c.IsApproved == false)
+                .Select(c => new CompanyServiceModel()
+                {
+                    Id = c.Id.ToString().ToLower(),
+                    Name = c.Name,
+                    Address = c.Address,
+                    LogoUrl = c.LogoUrl,
+                    IsApproved = c.IsApproved
+                })
+                .ToListAsync();
+
+            return new AllCompaniesModel()
+            {
+                Companies = companiesToShow
+            };
         }
 
         public async Task<CompanyDetailsServiceModel> CompanyDetailsByIdAsync(string companyId)
@@ -46,21 +75,21 @@ namespace JobLink.Core.Services
                 .FirstAsync();
                     
         }
-       
-        public async Task<string> GetCompanyByIdAsync(string companyId)
+
+        public async Task ApproveCompanyAsync(string companyId)
         {
-            return (await repository.AllReadOnly<Company>()
-                    .FirstOrDefaultAsync(c => c.Id.ToString().ToLower() == companyId.ToLower()))?.Name ?? string.Empty;
+            var company = await repository.All<Company>()
+                .Where(c => c.Id.ToString().ToLower() == companyId.ToLower())
+                .FirstAsync();
+
+            if (company != null)
+            {
+                company.IsApproved = true;
+
+                await repository.SaveChangesAsync();
+            }
         }
 
-        public async Task<string> GetCompanyIdByNameAsync(string companyName)
-        {
-            var company = await repository.AllReadOnly<Company>()
-                .Where(c => c.Name == companyName)
-                .FirstOrDefaultAsync();
-
-            return company?.Id.ToString().ToLower() ?? string.Empty;
-        }
         public async Task<bool> CompanyExistsAsync(string companyId)
         {
             return await repository.AllReadOnly<Company>()

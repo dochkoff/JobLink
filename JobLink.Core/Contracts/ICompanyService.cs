@@ -1,6 +1,4 @@
 ﻿using JobLink.Core.Models.Company;
-using JobLink.Core.Models.Job;
-using JobLink.Infrastructure.Data.Models;
 
 namespace JobLink.Core.Contracts
 {
@@ -12,12 +10,10 @@ namespace JobLink.Core.Contracts
 
         Task<bool> CompanyExistsAsync(string companyId);
 
-        Task<IEnumerable<CompanyServiceModel>> AllCompaniesAsync();
+        Task<AllCompaniesModel> AllApprovedCompaniesAsync();
 
-        Task<string> GetCompanyByIdAsync(string companyId); //not used yet
+        Task<AllCompaniesModel> AllNonApprovedCompaniesAsync();
 
-        Task<string> GetCompanyIdByNameAsync(string companyName);  //not used yet
-
-
+        Task ApproveCompanyAsync(string companyId);
     }
 }
