@@ -66,15 +66,21 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
-        name: "Job Details",
+        name: "JobDetails",
         pattern: "/Job/Details/{id}/{information}",
         defaults: new { Controller = "Job", Action = "Details" }
     );
 
     endpoints.MapControllerRoute(
-        name: "Company Details",
-        pattern: "/Company/Details/{id}/{information}",
+        name: "CompanyDetails",
+        pattern: "/Company/Details/{companyId}/{information}",
         defaults: new { Controller = "Company", Action = "Details" }
+    );
+
+    endpoints.MapControllerRoute(
+        name: "MyJobPostApplications",
+        pattern: "/Employer/MyJobPostApplications/{jobId}",
+        defaults: new { Controller = "Employer", Action = "MyJobPostApplications" }
     );
 
     endpoints.MapControllerRoute(
