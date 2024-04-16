@@ -1,4 +1,5 @@
 ﻿using JobLink.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobLink.Core.Models.Company
 {
@@ -10,6 +11,9 @@ namespace JobLink.Core.Models.Company
 
         public string Address { get; set; } = string.Empty;
 
-        public bool IsActive { get; set; }
+        public string LogoUrl { get; set; } = string.Empty;
+
+        [Display(Name = "Is Approved")]
+        public bool IsApproved { get; set; }
     }
 }
