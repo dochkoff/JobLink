@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label asp-for="CompanyName"></label>
                 <select asp-for="CompanyName" class="form-control">
-                    @foreach (var company in Model.Companies.Where(c => c.IsActive == true))
+                    @foreach (var company in Model.Companies)
                     {
                         <option value="@company.Name">@company.Name</option>
                     }
