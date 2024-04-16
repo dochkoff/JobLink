@@ -3,6 +3,7 @@ using JobLink.Core.Contracts;
 using JobLink.Core.Models.Employer;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using JobLink.Core.Extensions;
 using static JobLink.Core.Constants.MessageConstants;
 
 namespace JobLink.Controllers
@@ -32,9 +33,11 @@ namespace JobLink.Controllers
                 ModelState.AddModelError("Error", HasApplications);
             }
 
+            var companiestoShow = await companyService.AllApprovedCompaniesAsync();
+
             var model = new BecomeEmployerFormModel()
             {
-                Companies = await companyService.AllCompaniesAsync()
+                Companies = companiestoShow.Companies
             };
    
             return View(model);
@@ -59,9 +62,11 @@ namespace JobLink.Controllers
                 ModelState.AddModelError("Error", WrongCompanyOrId);
             }
 
+            var companiestoShow = await companyService.AllApprovedCompaniesAsync();
+
             if (ModelState.IsValid == false)
             {
-                model.Companies = await companyService.AllCompaniesAsync();
+                model.Companies = companiestoShow.Companies;
 
                 return View(model);
             }
@@ -85,7 +90,7 @@ namespace JobLink.Controllers
 
         [HttpGet]
         [MustBeEmployer]
-        public async Task<IActionResult> ApplicationsForEmployerJobPost(int jobId)
+        public async Task<IActionResult> MyJobPostApplications(int jobId)
         {
             if (await jobService.ExistsAsync(jobId) == false)
             {
