@@ -31,7 +31,11 @@ namespace JobLink.Infrastructure.Data
 
         private Employer Employer { get; set; }
 
+        private Employer AdminEmployer { get; set; }
+
         private Applicant Applicant { get; set; }
+
+        private Company JobLink { get; set; }
 
         private Company Sirma { get; set; }
 
@@ -112,12 +116,13 @@ namespace JobLink.Infrastructure.Data
 
             SeedCompanies();
             builder.Entity<Company>()
-                .HasData(Sirma,
+                .HasData(JobLink,
+                        Sirma,
                         DraftKings);
 
             SeedEmployers();
             builder.Entity<Employer>()
-                .HasData(Employer);
+                .HasData(AdminEmployer, Employer);
 
             SeedApplicants();
             builder.Entity<Applicant>()
@@ -254,6 +259,18 @@ namespace JobLink.Infrastructure.Data
 
         private void SeedCompanies()
         {
+            JobLink = new Company
+            {
+                Id = Guid.NewGuid(),
+                Name = "JobLink",
+                Address = "Stara Zagora, Bulgaria",
+                PhoneNumber = "+359 42 333 999",
+                Website = "https://joblink.com",
+                LogoUrl = "/images/logos/logo-joblink.jpg",
+                IsApproved = true
+
+            };
+
             Sirma = new Company
             {
                 Id = Guid.NewGuid(),
@@ -280,10 +297,18 @@ namespace JobLink.Infrastructure.Data
 
         private void SeedEmployers()
         {
-            Employer = new Employer
+            AdminEmployer = new Employer
             {
                 Id = 1,
                 PhoneNumber = "+359880000000",
+                UserId = AdministratorUser.Id,
+                CompanyId = JobLink.Id
+            };
+
+            Employer = new Employer
+            {
+                Id = 2,
+                PhoneNumber = "+359887654321",
                 UserId = EmployerUser.Id,
                 CompanyId = Sirma.Id
             };
@@ -361,7 +386,7 @@ namespace JobLink.Infrastructure.Data
         {
             SoftDevApplication = new Application
             {
-                Id = 1,
+                Id = 1, 
                 DateAndTime = DateTime.Now,
                 ApplicantId = Applicant.Id,
                 JobId = SoftDevJob.Id
@@ -370,7 +395,7 @@ namespace JobLink.Infrastructure.Data
             SalesApplication = new Application
             {
                 Id = 2,
-                DateAndTime = DateTime.Now,
+                DateAndTime = DateTime.Now.AddDays(-3),
                 ApplicantId = Applicant.Id,
                 JobId = SalesJob.Id
             };
