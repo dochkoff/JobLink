@@ -97,8 +97,6 @@ namespace JobLink.Controllers
             }
             catch (UnauthorizedActionException uae)
             {
-                //logger.LogError(uae, "HouseController/Cancel");
-
                 return Unauthorized();
             }
 

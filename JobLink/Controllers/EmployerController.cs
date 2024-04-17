@@ -3,7 +3,6 @@ using JobLink.Core.Contracts;
 using JobLink.Core.Models.Employer;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using JobLink.Core.Extensions;
 using static JobLink.Core.Constants.MessageConstants;
 
 namespace JobLink.Controllers
