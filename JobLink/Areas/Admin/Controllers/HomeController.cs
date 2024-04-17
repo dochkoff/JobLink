@@ -19,26 +19,5 @@ namespace JobLink.Areas.Admin.Controllers
 
             return View(model);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> AwaitingApproval()
-        {
-            var model = await companyService.AllNonApprovedCompaniesAsync();
-
-            return View(model);
-        }
-        
-        [HttpPost]
-        public async Task<IActionResult> ApproveCompany(string companyId)
-        {
-            if (await companyService.CompanyExistsAsync(companyId) == false)
-            {
-                return BadRequest();
-            }
-
-            await companyService.ApproveCompanyAsync(companyId);
-
-            return RedirectToAction(nameof(AwaitingApproval), "Home");
-        }
     }
 }
