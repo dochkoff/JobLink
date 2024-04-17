@@ -70,7 +70,6 @@ namespace JobLink.Core.Services
                     IsApproved = c.IsApproved
                 })
                 .FirstAsync();
-                    
         }
 
         public async Task ApproveCompanyAsync(string companyId)

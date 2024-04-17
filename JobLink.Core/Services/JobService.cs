@@ -90,15 +90,6 @@ namespace JobLink.Core.Services
                 .ToListAsync();
         }
 
-
-        //public async Task<IEnumerable<JobServiceModel>> AllJobPostsByUserIdAsync(string userId)
-        //{
-        //    return await repository.AllReadOnly<Job>()
-        //        .Where(j => j.Employer.UserId == userId)
-        //        .ProjectToJobServiceModel()
-        //        .ToListAsync();
-        //}
-
         public async Task<bool> CategoryExistsAsync(int categoryId)
         {
             return await repository.AllReadOnly<JobCategory>()
