@@ -78,6 +78,12 @@ app.UseEndpoints(endpoints =>
     );
 
     endpoints.MapControllerRoute(
+        name: "AdminCompanyDetails",
+        pattern: "/Admin/Company/Details/{companyId}/{information}",
+        defaults: new { Area="Admin", Controller = "Company", Action = "Details" }
+    );
+
+    endpoints.MapControllerRoute(
         name: "MyJobPostApplications",
         pattern: "/Employer/MyJobPostApplications/{jobId}",
         defaults: new { Controller = "Employer", Action = "MyJobPostApplications" }

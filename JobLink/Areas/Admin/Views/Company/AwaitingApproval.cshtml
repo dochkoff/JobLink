@@ -1,7 +1,7 @@
 ﻿@model AllCompaniesModel
 
 @{
-    ViewBag.Title = "All Approved Companies";
+    ViewBag.Title = "Companies Awaiting Approval";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -9,7 +9,7 @@
 
 @if (!Model.Companies.Any())
 {
-    <h2 class="text-center">No companies found!</h2>
+    <h2 class="text-center">No companies yet!</h2>
 }
 
 <div class="row">
@@ -24,7 +24,6 @@
                 <div class="card-body text-center">
                     <h4>@company.Name</h4>
                     <h6>Address: <b>@company.Address</b></h6>
-                    
                     <br />
                     <a asp-area="Admin" asp-controller="Company" asp-action="Details" asp-route-companyId="@company.Id"
                        asp-route-information="@company.GetCompanyInformation()" class="btn btn-primary">Details</a>
