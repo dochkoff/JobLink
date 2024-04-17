@@ -107,9 +107,8 @@
     <script>
         $('#statistics-button').on('click', ev => {
             $.get('/api/statistic', data => {
-                var totalJobs = '<span style="color: blue;">' + data.totalJobs + '</span>'; // Wrap totalJobs in span with green color
-                var totalCompanies = '<span style="color: blue;">' + data.totalCompanies + '</span>'; // Wrap totalCompanies in span with green color
-
+                var totalJobs = '<span style="color: blue;">' + data.totalJobs + '</span>';
+                var totalCompanies = '<span style="color: blue;">' + data.totalCompanies + '</span>';
                 $('#statistics-info').html(totalJobs + ' Job Posts <br/>     from<br/>' + totalCompanies + ' Companies');
                 $('#statistics').removeClass('d-none');
                 $('#statistics-button').hide();

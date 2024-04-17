@@ -206,19 +206,6 @@ namespace JobLink.Core.Services
                 .FirstAsync();
         }
 
-        //public async Task<bool> IsAppliedAsync(int jobId)
-        //{
-        //    bool result = false;
-        //    var job = await repository.GetByIdAsync<Job>(jobId);
-
-        //    if (job != null)
-        //    {
-        //        result = job.Applicants != null;
-        //    }
-
-        //    return result;
-        //}
-
         public async Task<bool> IsAppliedByUserWithIdAsync(int jobId, string userId)
         {
             bool result = false;
