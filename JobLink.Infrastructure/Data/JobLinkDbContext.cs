@@ -57,10 +57,23 @@ namespace JobLink.Infrastructure.Data
 
         private Application SalesApplication { get; set; }
 
+        //Property for testing
+        private bool _seedDb;
+
         
-        public JobLinkDbContext(DbContextOptions<JobLinkDbContext> options)
+        public JobLinkDbContext(DbContextOptions<JobLinkDbContext> options, bool seed = true)
             : base(options)
         {
+            if (Database.IsRelational())
+            {
+                Database.Migrate();
+            }
+            else
+            {
+                Database.EnsureCreated();
+            }
+
+            _seedDb = seed;
         }
 
         //DbSets
@@ -94,56 +107,59 @@ namespace JobLink.Infrastructure.Data
             .OnDelete(DeleteBehavior.NoAction);
 
             //Seed data
-            SeedUsers();
-            builder.Entity<AccountHolder>()
-                .HasData(AdministratorUser,
-                         EmployerUser,
-                         ApplicantUser,
-                         NewUser);
+            if (_seedDb)
+            {
+                SeedUsers();
+                builder.Entity<AccountHolder>()
+                    .HasData(AdministratorUser,
+                             EmployerUser,
+                             ApplicantUser,
+                             NewUser);
 
-            builder.Entity<IdentityUserClaim<string>>()
-                .HasData(AdministratorUserClaim,
-                         EmployerUserClaim,
-                         ApplicantUserClaim,
-                         NewUserClaim);
+                builder.Entity<IdentityUserClaim<string>>()
+                    .HasData(AdministratorUserClaim,
+                             EmployerUserClaim,
+                             ApplicantUserClaim,
+                             NewUserClaim);
 
-            SeedRoles();
-            builder.Entity<IdentityRole>()
-                .HasData(AdministratorRole);
+                SeedRoles();
+                builder.Entity<IdentityRole>()
+                    .HasData(AdministratorRole);
 
-            builder.Entity<IdentityUserRole<string>>()
-                .HasData(AdministratorUserRole);
+                builder.Entity<IdentityUserRole<string>>()
+                    .HasData(AdministratorUserRole);
 
-            SeedCompanies();
-            builder.Entity<Company>()
-                .HasData(JobLink,
-                        Sirma,
-                        DraftKings);
+                SeedCompanies();
+                builder.Entity<Company>()
+                    .HasData(JobLink,
+                            Sirma,
+                            DraftKings);
 
-            SeedEmployers();
-            builder.Entity<Employer>()
-                .HasData(AdminEmployer, Employer);
+                SeedEmployers();
+                builder.Entity<Employer>()
+                    .HasData(AdminEmployer, Employer);
 
-            SeedApplicants();
-            builder.Entity<Applicant>()
-                .HasData(Applicant);
+                SeedApplicants();
+                builder.Entity<Applicant>()
+                    .HasData(Applicant);
 
-            SeedJobCategories();
-            builder.Entity<JobCategory>()
-                .HasData(SoftDevJobCategory,
-                         SalesJobCategory,
-                         FinanceJobCategory);
+                SeedJobCategories();
+                builder.Entity<JobCategory>()
+                    .HasData(SoftDevJobCategory,
+                             SalesJobCategory,
+                             FinanceJobCategory);
 
-            SeedJobs();
-            builder.Entity<Job>()
-                .HasData(SoftDevJob,
-                         SalesJob,
-                         FinanceJob);
+                SeedJobs();
+                builder.Entity<Job>()
+                    .HasData(SoftDevJob,
+                             SalesJob,
+                             FinanceJob);
 
-            SeedApplications();
-            builder.Entity<Application>()
-                .HasData(SoftDevApplication,
-                         SalesApplication);
+                SeedApplications();
+                builder.Entity<Application>()
+                    .HasData(SoftDevApplication,
+                             SalesApplication);
+            }
 
             base.OnModelCreating(builder);
         }

@@ -1,12 +1,8 @@
 ﻿using JobLink.Core.Contracts;
-using JobLink.Core.Exceptions;
 using JobLink.Core.Models.Company;
-using JobLink.Core.Models.Job;
 using JobLink.Infrastructure.Data.Common;
 using JobLink.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.ComponentModel.Design;
 
 namespace JobLink.Core.Services
 {
