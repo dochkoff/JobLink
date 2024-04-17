@@ -5,6 +5,7 @@ using JobLink.Core.Models.Job;
 using JobLink.Infrastructure.Data.Common;
 using JobLink.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.Design;
 
 namespace JobLink.Core.Services
@@ -33,9 +34,9 @@ namespace JobLink.Core.Services
                 .ToListAsync();
 
             return new AllCompaniesModel
-                    {
-                        Companies = companiesToShow
-                    };
+            {
+                Companies = companiesToShow
+            };
         }
 
         public async Task<AllCompaniesModel> AllNonApprovedCompaniesAsync()
@@ -85,6 +86,20 @@ namespace JobLink.Core.Services
             if (company != null)
             {
                 company.IsApproved = true;
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task RejectCompanyAsync(string companyId)
+        {
+            var company = await repository.All<Company>()
+                .Where(c => c.Id.ToString().ToLower() == companyId.ToLower())
+                .FirstAsync();
+
+            if (company != null)
+            {
+                company.IsApproved = false;
 
                 await repository.SaveChangesAsync();
             }

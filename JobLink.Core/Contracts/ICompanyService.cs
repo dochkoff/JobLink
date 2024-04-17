@@ -15,5 +15,7 @@ namespace JobLink.Core.Contracts
         Task<AllCompaniesModel> AllNonApprovedCompaniesAsync();
 
         Task ApproveCompanyAsync(string companyId);
+
+        Task RejectCompanyAsync(string companyId);
     }
 }
