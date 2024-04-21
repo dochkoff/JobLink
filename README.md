@@ -36,6 +36,8 @@ To get started with JobLink, follow these steps:
 4. Run the migrations to create the database: `dotnet ef database update`
 5. Launch the application: `dotnet run`
 
+## v
+Joblink project can fully be reviewed and tested in Azure at https://joblinkweb.azurewebsites.net/
 ## Technologies Used
 
 - ASP.NET Core 6.0
