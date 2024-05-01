@@ -17,6 +17,14 @@ namespace JobLink.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> AllCompanies()
+        {
+            var model = await companyService.AllApprovedCompaniesAsync();
+
+            return View(model);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> AwaitingApproval()
         {
             var model = await companyService.AllNonApprovedCompaniesAsync();
