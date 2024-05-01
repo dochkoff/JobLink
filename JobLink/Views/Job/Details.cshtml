@@ -64,14 +64,14 @@
                     {
                         <form class="ml-2" asp-controller="Applicant"
                               asp-action="Apply" asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary" type="submit" value="Apply" />
+                            <input class="btn btn-success" type="submit" value="Apply" />
                         </form>
                     }
                     else if (await jobService.IsAppliedByUserWithIdAsync(Model.Id, User.Id()))
                     {
                         <form class="ml-2" asp-controller="Applicant" asp-action="Cancel"
                               asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary" type="submit" value="Cancel" />
+                            <input class="btn btn-danger" type="submit" value="Cancel" />
                         </form>
                     }
                 }
