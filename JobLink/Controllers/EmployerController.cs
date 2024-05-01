@@ -32,11 +32,11 @@ namespace JobLink.Controllers
                 ModelState.AddModelError("Error", HasApplications);
             }
 
-            var companiestoShow = await companyService.AllApprovedCompaniesAsync();
+            var companiesToShow = await companyService.AllApprovedCompaniesAsync();
 
             var model = new BecomeEmployerFormModel()
             {
-                Companies = companiestoShow.Companies
+                Companies = companiesToShow.Companies
             };
    
             return View(model);

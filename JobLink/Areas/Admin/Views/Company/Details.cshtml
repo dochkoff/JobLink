@@ -18,10 +18,10 @@
         </div>
         <div class="card col-8 border-0">
             <p style="font-size:25px;">@Model.Name</p>
+            <p><b>ID:</b> @Model.Id </p>
             <p><b>Address:</b> @Model.Address</p>
             <p><b>Phone Number:</b> @Model.PhoneNumber</p>
             <p><b>Website:</b> <a href="@Model.Website">@Model.Website</a></p>
-            <p><b>ID:</b> @Model.Id </p>
             <p><b>Approved:</b> @status</p>
             @if (Model.IsApproved == true)
             {
