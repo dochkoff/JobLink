@@ -46,9 +46,19 @@
 <div class="row">
     <div class="col text-center">
         <h4>Your company is not in the list?</h4>
-        <form asp-controller="Company" asp-action="Add" method="get">
-            <input class="btn btn-success" type="submit" value="Add Company" />
-        </form>
+        <div class="row">
+            <div class="col-sm-6 text-end">
+                <form asp-controller="Company" asp-action="Add" method="get">
+                    <input class="btn btn-success" type="submit" value="Add Company" />
+                </form>
+            </div>
+            <div class="col-sm-6 text-start">
+                <form asp-controller="Company" asp-action="StatusCheck" method="get">
+                    <input class="btn btn-warning" type="submit" value="Status Check" />
+                </form>
+            </div>
+        </div>
+
     </div>
 </div>
 
