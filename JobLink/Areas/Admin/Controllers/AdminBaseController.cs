@@ -4,7 +4,7 @@ using static JobLink.Core.Constants.AdministratorConstants;
 
 namespace JobLink.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area(AdminAriaName)]
     [Authorize(Roles = AdminRole)]
     public class AdminBaseController : Controller
     {
