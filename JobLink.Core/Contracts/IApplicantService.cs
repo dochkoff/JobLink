@@ -1,4 +1,5 @@
-﻿using JobLink.Core.Models.Job;
+﻿using JobLink.Core.Models.Applicant;
+using JobLink.Core.Models.Job;
 
 namespace JobLink.Core.Contracts
 {
@@ -15,5 +16,7 @@ namespace JobLink.Core.Contracts
         Task<int?> GetApplicantIdAsync(string userId);
 
         Task<IEnumerable<JobServiceModel>> AllJobApplicationsByUserIdAsync(string userId);
+
+        Task<IEnumerable<ApplicantServiceModel>> AllApplicantsAsync();
     }
 }

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ApplicantServiceModel>
+
+@{
+    ViewBag.Title = "All Applicants";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">No companies found!</h2>
+}
+
+<div class="row">
+    @foreach (var applicant in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body text-center">
+                    <h4>@applicant.Name</h4>
+                    <h6>Phone Number: <b>@applicant.PhoneNumber</b></h6>
+                    <h6>Email: <b>@applicant.Email</b></h6>
+                    <a class="btn btn-info" href="@applicant.ResumeUrl">Resume</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
