@@ -1,9 +1,11 @@
 ﻿using JobLink.Core.Contracts;
 using JobLink.Core.Models.Application;
+using JobLink.Core.Models.Employer;
 using JobLink.Core.Models.Job;
 using JobLink.Infrastructure.Data.Common;
 using JobLink.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 namespace JobLink.Core.Services
 {
@@ -89,6 +91,20 @@ namespace JobLink.Core.Services
                     ApplicantPhoneNumber = a.Applicant.PhoneNumber,
                     ApplicantResumeUrl = a.Applicant.ResumeUrl
                 })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<EmployerServiceModel>> AllEmployersAsync()
+        {
+            return await repository.AllReadOnly<Employer>()
+                .Select(e => new EmployerServiceModel()
+                {
+                    FullName = $"{e.User.FirstName} {e.User.LastName}",
+                    PhoneNumber = e.PhoneNumber,
+                    Email = e.User.Email,
+                    CompanyName = e.Company.Name
+                })
+                .AsNoTracking()
                 .ToListAsync();
         }
     }

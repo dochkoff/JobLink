@@ -1,0 +1,29 @@
+﻿@model IEnumerable<EmployerServiceModel>
+
+@{
+    ViewBag.Title = "All Employers";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">No companies found!</h2>
+}
+
+<div class="row">
+    @foreach (var employer in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body text-center">
+                    <h4>@employer.FullName</h4>
+                    <h6>Phone Number: <b>@employer.PhoneNumber</b></h6>
+                    <h6>Email: <b>@employer.Email</b></h6>
+                    <h6>Company Name: <b>@employer.CompanyName</b></h6>
+                </div>
+            </div>
+        </div>
+    }
+</div>

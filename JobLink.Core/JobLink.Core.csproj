@@ -10,4 +10,8 @@
     <ProjectReference Include="..\JobLink.Infrastructure\JobLink.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Admin\" />
+  </ItemGroup>
+
 </Project>

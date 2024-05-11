@@ -1,8 +1,6 @@
 ﻿using JobLink.Core.Contracts;
 using JobLink.Core.Extensions;
 using JobLink.Core.Models.Company;
-using JobLink.Core.Models.Job;
-using JobLink.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobLink.Areas.Admin.Controllers

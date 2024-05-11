@@ -1,4 +1,5 @@
 ﻿using JobLink.Core.Models.Application;
+using JobLink.Core.Models.Employer;
 using JobLink.Core.Models.Job;
 using JobLink.Infrastructure.Data.Models;
 
@@ -21,5 +22,7 @@ namespace JobLink.Core.Contracts
         Task<IEnumerable<JobServiceModel>> AllJobPostsByEmployerIdAsync(int employerId);
 
         Task<IEnumerable<ApplicationDetailsViewModel>> AllApplicationsByJobIdAsync(int jobId);
+
+        Task<IEnumerable<EmployerServiceModel>> AllEmployersAsync();
     }
 }
