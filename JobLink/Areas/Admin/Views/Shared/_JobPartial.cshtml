@@ -1,0 +1,60 @@
+﻿@model JobServiceModel
+@inject IApplicantService applicantService
+@inject IJobService jobService
+
+<div class="col-md-4">
+    <div class="card mb-3">
+        <img class="card-img-top" 
+        src="@Model.CompanyLogoURL" 
+        alt="Company Logo" 
+        style="width: 100%; height: 200px; object-fit: cover;">
+        <div class="card-body text-center">
+            <h4>@Model.Title</h4>
+            <h6>Location: <b>@Model.Location</b></h6>
+            <h6>
+                Monthly Salary:
+                <b>@String.Format("{0:f2}", Model.Salary) BGN</b>
+            </h6>
+            @if (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id()))
+            {
+                <p><i>The job has @Model.ApplicationsCount applies</i></p>
+            }
+            else if (Model.ApplicationsCount == 0
+                    && await applicantService.ApplicantExistsByIdAsync(User.Id()))
+            {
+                <p><i>Apply First!</i></p>
+            }
+            <br />
+            <a asp-controller="Job" asp-action="Details" asp-route-id="@Model.Id"
+               asp-route-information="@Model.GetJobInformation()" class="btn btn-primary">Details</a>
+            @if (this.User.Identity.IsAuthenticated)
+            {
+                if (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id()) || User.IsAdmin())
+                {
+                    <a asp-controller="Job" asp-action="Edit" asp-route-id="@Model.Id"
+                       asp-route-information="@Model.GetJobInformation()" class="btn btn-warning">Edit</a>
+                    <a asp-controller="Job" asp-action="Delete" asp-route-id="@Model.Id"
+                       asp-route-information="@Model.GetJobInformation()" class="btn btn-danger">Delete</a>
+                }
+
+                <p></p>
+                @if ((await applicantService.ApplicantExistsByIdAsync(User.Id()))
+                    && (await jobService.IsAppliedByUserWithIdAsync(Model.Id, User.Id())) == false
+                    && (await jobService.HasEmployerWithIdAsync(Model.Id, User.Id())) == false)
+                {
+                    <form asp-controller="Applicant" asp-action="Apply"
+                        asp-route-id="@Model.Id" method="post">
+                        <input class="btn btn-success" type="submit" value="Apply" />
+                    </form>
+                }
+                else if (await jobService.IsAppliedByUserWithIdAsync(Model.Id, User.Id()))
+                {
+                    <form asp-controller="Applicant" asp-action="Cancel"
+                          asp-route-id="@Model.Id" method="post">
+                        <input class="btn btn-danger" type="submit" value="Cancel" />
+                    </form>
+                }
+            }
+        </div>
+    </div>
+</div>
